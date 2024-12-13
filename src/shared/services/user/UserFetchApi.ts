@@ -2,18 +2,30 @@ import { CreateUser } from "../../types/userTypes";
 import { UserApi } from "./userApi";
 
 export class UserFetchApi implements UserApi {
-    async getUser(userId: number): Promise<string> {
-        const response = await fetch(`/api/user/${userId}`);
-        return response.json();
-    }
+  domain = import.meta.env.VITE_API_URL;
+  async createUser(user: CreateUser): Promise<void> {
+    await fetch(this.domain + "/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+  }
 
-    async createUser(user: CreateUser): Promise<void> {
-        await fetch("/api/user", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user),
-        });
-    }
+  async authUser(email: string, password: string): Promise<{ token: string }> {
+      const response = await fetch(this.domain + "/api/users/auth", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    return response.json();
+  }
+
+  async getUser(userId: number): Promise<string> {
+    const response = await fetch(`/api/user/${userId}`);
+    return response.json();
+  }
 }

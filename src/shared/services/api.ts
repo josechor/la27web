@@ -1,7 +1,7 @@
 import { storeToRefs } from "pinia";
 import { useUserStore } from "../stores/user/userStore";
 
-const domain = import.meta.env.API_URL;
+const domain = import.meta.env.VITE_API_URL;
 
 export async function apiGet<T>(
   path: string,

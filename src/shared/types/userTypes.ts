@@ -1,9 +1,11 @@
 export interface CreateUser {
-    name: string;
-    email: string;
+  user_name: string;
+  demon_name: string;
+  email: string;
+  password: string;
 }
 
 export interface LoggedUser {
-    id: number;
-    token: string;
+  id: number;
+  token: string;
 }
