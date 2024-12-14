@@ -18,7 +18,7 @@ const router = createRouter({
 
 router.beforeEach((to, _, next) => {
   const userStore = useUserStore();
-  const isAuthenticated = userStore.userId !== null;
+  const isAuthenticated = userStore.sessionToken !== null;
   if (to.meta.notLogged && isAuthenticated) {
     next("/");
   } else if (to.meta.requiresAuth && !isAuthenticated) {

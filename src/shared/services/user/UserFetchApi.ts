@@ -13,7 +13,7 @@ export class UserFetchApi implements UserApi {
     });
   }
 
-  async authUser(email: string, password: string): Promise<{ data: string }> {
+  async authUser(email: string, password: string): Promise<{ token: string }> {
       const response = await fetch(this.domain + "/api/users/auth", {
       method: "POST",
       headers: {

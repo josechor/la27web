@@ -9,7 +9,7 @@ const loading = ref(true);
 
 onMounted(async () => {
   userStore.reconstruct();
-  if (userStore.userId === null) {
+  if (userStore.sessionToken === null) {
     userStore.logout();
     loading.value = false;
     router.push(window.location.pathname);
@@ -29,7 +29,7 @@ onMounted(async () => {
     v-if="!loading"
     class="flex flex-row items-center justify-center h-screen"
   >
-    <Sidebar class="w-[250px] px-4" v-if="userStore.userId"/>
+    <Sidebar class="w-[250px] px-4" v-if="userStore.sessionToken"/>
     <main class="w-[1000px] h-screen">
       <RouterView />
     </main>

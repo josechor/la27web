@@ -5,7 +5,7 @@ import { UserFetchApi } from "../../services/user/UserFetchApi";
 import router from "../../router";
 
 export const useUserStore = defineStore("userStore", () => {
-  const userId: Ref<string | null> = ref(null);
+  const sessionToken: Ref<string | null> = ref(null);
   const loggedUser: Ref<LoggedUser | null> = ref(null);
   const userFetchApi = new UserFetchApi();
 
@@ -22,8 +22,8 @@ export const useUserStore = defineStore("userStore", () => {
   async function authUser(email: string, password: string) {
     try {
       const token = await userFetchApi.authUser(email, password);
-      localStorage.setItem("token", token.data);
-      userId.value = token.data;
+      localStorage.setItem("DemonToken", token.token);
+      sessionToken.value = token.token;
       return true;
     } catch (_) {
       return false;
@@ -33,21 +33,20 @@ export const useUserStore = defineStore("userStore", () => {
   async function getLoggedUser() {}
 
   function reconstruct() {
-    localStorage.getItem("token");
-    console.log(localStorage.getItem("token"));
-    userId.value = localStorage.getItem("token") || null;
-    console.log(userId.value);
+    localStorage.getItem("DemonToken");
+    console.log(localStorage.getItem("DemonToken"));
+    sessionToken.value = localStorage.getItem("DemonToken") || null;
   }
 
   function logout() {
-    localStorage.removeItem("token");
-    userId.value = null;
+    localStorage.removeItem("DemonToken");
+    sessionToken.value = null;
     router.push("/login");
   }
 
   return {
     loggedUser,
-    userId,
+    sessionToken,
     getLoggedUser,
     registerUser,
     authUser,

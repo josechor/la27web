@@ -71,14 +71,14 @@ async function makeRequest(
   payload: null | string = null,
 ) {
   const userStore = useUserStore();
-  const { loggedUser } = storeToRefs(userStore);
+  const { sessionToken } = storeToRefs(userStore);
 
-  if (!loggedUser.value) {
+  if (!sessionToken.value) {
     throw new Error("User must be logged to make requests");
   }
   headers = {
     ...{
-      "X-AUTH-TOKEN": loggedUser.value.token,
+      "Demon-Token": sessionToken.value,
     },
     ...headers,
   };
