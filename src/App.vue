@@ -2,11 +2,12 @@
 import { onMounted, ref } from "vue";
 import { useUserStore } from "./shared/stores/user/userStore";
 import router from "./shared/router";
+import Sidebar from "./shared/components/Sidebar.vue";
 
 const userStore = useUserStore();
 const loading = ref(true);
 
-onMounted(() => {
+onMounted(async () => {
   userStore.reconstruct();
   if (userStore.userId === null) {
     userStore.logout();
@@ -14,7 +15,7 @@ onMounted(() => {
     router.push(window.location.pathname);
     return;
   }
-  userStore.getLoggedUser();
+  await userStore.getLoggedUser();
   router.push(window.location.pathname);
   loading.value = false;
 });
@@ -24,11 +25,15 @@ onMounted(() => {
   <template v-if="loading">
     <h1>Loading...</h1>
   </template>
-  <template v-if="!loading">
-    <main>
+  <div
+    v-if="!loading"
+    class="flex flex-row items-center justify-center h-screen"
+  >
+    <Sidebar class="w-[250px] px-4" v-if="userStore.userId"/>
+    <main class="w-[1000px] h-screen">
       <RouterView />
     </main>
-  </template>
+  </div>
 </template>
 
 <style scoped></style>

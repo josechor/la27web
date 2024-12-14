@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { Ref, ref } from "vue";
 import { CreateUser, LoggedUser } from "../../types/userTypes";
 import { UserFetchApi } from "../../services/user/UserFetchApi";
+import router from "../../router";
 
 export const useUserStore = defineStore("userStore", () => {
   const userId: Ref<string | null> = ref(null);
@@ -11,10 +12,10 @@ export const useUserStore = defineStore("userStore", () => {
   async function registerUser(createUser: CreateUser) {
     try {
       await userFetchApi.createUser(createUser);
-      return true
+      return true;
     } catch (error) {
       console.error(error);
-      return false
+      return false;
     }
   }
 
@@ -35,12 +36,13 @@ export const useUserStore = defineStore("userStore", () => {
     localStorage.getItem("token");
     console.log(localStorage.getItem("token"));
     userId.value = localStorage.getItem("token") || null;
-    console.log(userId.value)
+    console.log(userId.value);
   }
 
   function logout() {
     localStorage.removeItem("token");
     userId.value = null;
+    router.push("/login");
   }
 
   return {
