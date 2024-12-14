@@ -4,7 +4,7 @@ import { UserApi } from "./userApi";
 export class UserFetchApi implements UserApi {
   domain = import.meta.env.VITE_API_URL;
   async createUser(user: CreateUser): Promise<void> {
-    await fetch(this.domain + "/api/user", {
+    await fetch(this.domain + "/api/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -13,7 +13,7 @@ export class UserFetchApi implements UserApi {
     });
   }
 
-  async authUser(email: string, password: string): Promise<{ token: string }> {
+  async authUser(email: string, password: string): Promise<{ data: string }> {
       const response = await fetch(this.domain + "/api/users/auth", {
       method: "POST",
       headers: {

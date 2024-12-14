@@ -4,22 +4,25 @@ import { CreateUser, LoggedUser } from "../../types/userTypes";
 import { UserFetchApi } from "../../services/user/UserFetchApi";
 
 export const useUserStore = defineStore("userStore", () => {
-  const userToken: Ref<string | null> = ref(null);
+  const userId: Ref<string | null> = ref(null);
   const loggedUser: Ref<LoggedUser | null> = ref(null);
   const userFetchApi = new UserFetchApi();
 
   async function registerUser(createUser: CreateUser) {
     try {
       await userFetchApi.createUser(createUser);
+      return true
     } catch (error) {
       console.error(error);
+      return false
     }
   }
 
   async function authUser(email: string, password: string) {
     try {
       const token = await userFetchApi.authUser(email, password);
-      userToken.value = token.token;
+      localStorage.setItem("token", token.data);
+      userId.value = token.data;
       return true;
     } catch (_) {
       return false;
@@ -30,17 +33,19 @@ export const useUserStore = defineStore("userStore", () => {
 
   function reconstruct() {
     localStorage.getItem("token");
-    userToken.value = localStorage.getItem("token") || null;
+    console.log(localStorage.getItem("token"));
+    userId.value = localStorage.getItem("token") || null;
+    console.log(userId.value)
   }
 
   function logout() {
     localStorage.removeItem("token");
-    userToken.value = null;
+    userId.value = null;
   }
 
   return {
     loggedUser,
-    userToken,
+    userId,
     getLoggedUser,
     registerUser,
     authUser,

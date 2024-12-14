@@ -11,9 +11,10 @@ const invalid = ref(false);
 
 async function login() {
   const logged = await userStore.authUser(email.value, password.value);
+  console.log(logged);
   if (logged) {
     invalid.value = false;
-    router.push({ name: "/" });
+    router.push('/');
   } else {
     invalid.value = true;
   }

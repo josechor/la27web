@@ -1,28 +1,30 @@
 import HomeView from "../../dashboard/page/HomeView.vue";
-import { createMemoryHistory, createRouter } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import Loggin from "../../notLogged/pages/Loggin.vue";
 import Register from "../../notLogged/pages/Register.vue";
 import { useUserStore } from "../stores/user/userStore";
 
 const routes = [
   { path: "/", component: HomeView, meta: { requiresAuth: true } }, // Rutas protegidas
-  { path: "/login", component: Loggin },
-  { path: "/register", component: Register },
+  { path: "/login", component: Loggin, meta: { notLogged: true } },
+  { path: "/register", component: Register, meta: { notLogged: true } },
+  { path: "/:pathMatch(.*)*", redirect: "/" },
 ];
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 });
 
-// Añadimos el guard global
 router.beforeEach((to, _, next) => {
-  const userStore = useUserStore(); 
-  const isAuthenticated = !!userStore.loggedUser?.token; 
-  if (to.meta.requiresAuth && !isAuthenticated) {
+  const userStore = useUserStore();
+  const isAuthenticated = userStore.userId !== null;
+  if (to.meta.notLogged && isAuthenticated) {
+    next("/");
+  } else if (to.meta.requiresAuth && !isAuthenticated) {
     next("/login");
   } else {
-    next(); 
+    next();
   }
 });
 
