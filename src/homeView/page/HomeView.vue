@@ -17,7 +17,7 @@ function createPost() {}
 <template>
   <div class="flex gap-6">
     <section
-      class="border border-y-transparent border-x-[#333] w-[70%] min-h-screen"
+      class="border border-y-transparent border-x-[#333] w-[60%] min-h-screen"
     >
       <section
         class="flex gap-4 justify-around border border-transparent border-b-[#333] w-full px-3 py-1"
@@ -45,10 +45,31 @@ function createPost() {}
         </div>
       </section>
       <section>
-        <div v-for="tuip in tuips">{{ tuip.tuipContent }}</div>
+        <div
+          v-for="tuip in tuips"
+          class="flex gap-4 justify-around border border-transparent border-b-[#333] w-full px-3 py-2"
+        >
+          <img
+            src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+            alt="user"
+            class="h-[40px] w-[40px] rounded-full"
+          />
+          <div class="w-full  flex-col">
+            <div class="flex gap-2 item-center">
+              <span class="text-sm font-bold">{{ tuip.demonName }}</span>
+              <span class="text-sm font-light">@{{ tuip.userName }}</span>
+            </div>
+            <span>{{ tuip.tuipContent }}</span>
+            <div class="flex w-full justify-between">
+              <span>L</span>
+              <span>M</span>
+              <span>S</span>
+            </div>
+          </div>
+        </div>
       </section>
     </section>
-    <section class="w-[30%] min-h-screen flex flex-col gap-8">
+    <section class="w-[40%] min-h-screen flex flex-col gap-8">
       <div v-for="_ in 8" class="h-[200px] w-full bg-[#333]">hola</div>
     </section>
   </div>

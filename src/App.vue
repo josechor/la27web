@@ -30,7 +30,7 @@ onMounted(async () => {
     class="flex flex-row items-center justify-center h-screen"
   >
     <Sidebar class="w-[250px] px-4" v-if="userStore.sessionToken"/>
-    <main class="w-[1000px] h-screen">
+    <main class="w-[1050px] h-screen">
       <RouterView />
     </main>
   </div>
