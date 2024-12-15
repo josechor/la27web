@@ -8,3 +8,8 @@ export interface Tuip {
     demonName: string;
     magrada: boolean;
 }
+
+export interface TuipCreate {
+    content: string;
+    multimedia: null | string;
+}

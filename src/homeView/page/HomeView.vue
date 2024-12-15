@@ -2,6 +2,7 @@
 import { onMounted, ref } from "vue";
 import { useTuipsStore } from "../../shared/stores/tuips/tuipsStore";
 import { storeToRefs } from "pinia";
+import { TuipCreate } from "../../shared/types/tuipsTypes";
 
 const tuipsStore = useTuipsStore();
 const { tuips } = storeToRefs(tuipsStore);
@@ -12,7 +13,15 @@ onMounted(async () => {
   await tuipsStore.getTuips();
 });
 
-function createPost() {}
+async function createPost() {
+  const tuip: TuipCreate = {
+    content: post.value,
+    multimedia: null,
+  };
+  await tuipsStore.createTuip(tuip);
+  post.value = "";
+  await tuipsStore.getTuips();
+}
 </script>
 <template>
   <div class="flex gap-6">
@@ -54,7 +63,7 @@ function createPost() {}
             alt="user"
             class="h-[40px] w-[40px] rounded-full"
           />
-          <div class="w-full  flex-col">
+          <div class="w-full flex-col">
             <div class="flex gap-2 item-center">
               <span class="text-sm font-bold">{{ tuip.demonName }}</span>
               <span class="text-sm font-light">@{{ tuip.userName }}</span>

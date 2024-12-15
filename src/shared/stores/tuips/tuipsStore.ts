@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { Ref, ref } from "vue";
 import { TuipsFetchApi } from "../../services/tuips/TuipsFetchApi";
-import { Tuip } from "../../types/tuipsTypes";
+import { Tuip, TuipCreate } from "../../types/tuipsTypes";
 
 export const useTuipsStore = defineStore("tuipsStore", () => {
   const tuipsFetchApi = new TuipsFetchApi();
@@ -14,7 +14,11 @@ export const useTuipsStore = defineStore("tuipsStore", () => {
     tuips.value = await tuipsFetchApi.getTuips(page.value, limit);
   }
 
+  async function createTuip(tuip: TuipCreate) {
+    await tuipsFetchApi.createTuip(tuip);
+  }
+
   return {
-    page, limit, tuips, getTuips
+    page, limit, tuips, getTuips, createTuip
   }
 });
