@@ -41,7 +41,6 @@ export const useUserStore = defineStore("userStore", () => {
 
   function reconstruct() {
     localStorage.getItem("DemonToken");
-    console.log(localStorage.getItem("DemonToken"));
     sessionToken.value = localStorage.getItem("DemonToken") || null;
   }
 

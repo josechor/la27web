@@ -1,4 +1,4 @@
-import { CreateUser } from "../../types/userTypes";
+import { CreateUser, User } from "../../types/userTypes";
 import { apiGet } from "../api";
 import { UserApi } from "./userApi";
 
@@ -30,8 +30,8 @@ export class UserFetchApi implements UserApi {
     return response.json();
   }
 
-  async getUserData(): Promise<any> {
-    const response = await apiGet<any>("/api/users/userData");
+  async getUserData(): Promise<User> {
+    const response = await apiGet<User>("/api/users/userData");
     return response;
   }
 }

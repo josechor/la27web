@@ -1,4 +1,5 @@
+import { Tuip } from "../../types/tuipsTypes";
 
-export interface UserApi {
-  getTuips(): Promise<string>;
+export interface TuipsApi {
+  getTuips(page: number, limit: number): Promise<Tuip[]>;
 }

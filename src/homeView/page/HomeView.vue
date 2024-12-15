@@ -1,11 +1,18 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from "vue";
+import { useTuipsStore } from "../../shared/stores/tuips/tuipsStore";
+import { storeToRefs } from "pinia";
+
+const tuipsStore = useTuipsStore();
+const { tuips } = storeToRefs(tuipsStore);
 
 const post = ref("");
 
-function createPost() {
+onMounted(async () => {
+  await tuipsStore.getTuips();
+});
 
-}
+function createPost() {}
 </script>
 <template>
   <div class="flex gap-6">
@@ -37,9 +44,12 @@ function createPost() {
           </div>
         </div>
       </section>
+      <section>
+        <div v-for="tuip in tuips">{{ tuip.tuipContent }}</div>
+      </section>
     </section>
-    <section class="w-[30%] min-h-screen">
-      <div v-for="item in 8" class="h-[200px] w-full bg-[#333]">hola</div>
+    <section class="w-[30%] min-h-screen flex flex-col gap-8">
+      <div v-for="_ in 8" class="h-[200px] w-full bg-[#333]">hola</div>
     </section>
   </div>
 </template>
