@@ -33,9 +33,18 @@ export const useUserStore = defineStore("userStore", () => {
     }
   }
 
+  async function getUserData(username: string) {
+    try {
+      return await userFetchApi.getUserData(username);
+    } catch (error) {
+      console.error(error);
+    }
+
+  }
+
   async function getLoggedUser() {
     try {
-      const user = await userFetchApi.getUserData();
+      const user = await userFetchApi.getSelfUserData();
       loggedUser.value = user;
     } catch (error) {
       console.error(error);
@@ -61,5 +70,6 @@ export const useUserStore = defineStore("userStore", () => {
     authUser,
     reconstruct,
     logout,
+    getUserData,
   };
 });

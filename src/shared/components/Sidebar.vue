@@ -2,6 +2,7 @@
 import { storeToRefs } from "pinia";
 import { useUserStore } from "../stores/user/userStore";
 import Icon from "../atoms/Icon.vue";
+import router from "../router";
 
 interface Sidebar {
   icon: string;
@@ -23,10 +24,20 @@ const sidebar: Sidebar[] = [
     name: "Buscar",
     router: "/search",
   },
+  {
+    icon: "userIcon",
+    name: "Perfil",
+    router: `/profile/${loggedUser.value?.demonName}`,
+  },
 ];
 
 function logout() {
   userStore.logout();
+}
+
+function redirect(route: string) {
+  console.log(route)
+  router.push(route);
 }
 </script>
 <template>
@@ -39,11 +50,11 @@ function logout() {
       </div>
       <div
         v-for="item in sidebar"
-        @click="$router.push(item.router)"
+        @click="redirect(item.router)"
         :key="item.name"
         class="h-[55px] text-xl font-bold flex flex-row gap-2 items-center cursor-pointer"
       >
-        <Icon :name="item.icon" class="" custom-class="w-[24px] h-[24px] fill-black stroke-black"/>
+        <Icon :name="item.icon" class="" custom-class="w-[24px] h-[24px]" />
         <span>{{ item.name }}</span>
       </div>
     </div>

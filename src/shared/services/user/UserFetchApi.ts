@@ -15,7 +15,7 @@ export class UserFetchApi implements UserApi {
   }
 
   async authUser(email: string, password: string): Promise<{ token: string }> {
-      const response = await fetch(this.domain + "/api/users/auth", {
+    const response = await fetch(this.domain + "/api/users/auth", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,8 +30,12 @@ export class UserFetchApi implements UserApi {
     return response.json();
   }
 
-  async getUserData(): Promise<User> {
+  async getSelfUserData(): Promise<User> {
     const response = await apiGet<User>("/api/users/userData");
     return response;
+  }
+
+  async getUserData(username: string): Promise<User> {
+    return await apiGet<User>(`/api/users/${username}`);
   }
 }
