@@ -22,6 +22,21 @@ async function createPost() {
   post.value = "";
   await tuipsStore.getTuips();
 }
+
+function getDate(date: string) {
+  const actualDate = new Date().getTime();
+  const d = new Date(date).getTime();
+
+  const diff = actualDate - d;
+  const seconds = diff / 1000;
+  if (seconds < 60) return `Menos de un minuto`;
+  if (seconds < 3600) return `${Math.floor(seconds / 60)} minutos`;
+  if (seconds < 86400) return `${Math.floor(seconds / 3600)} horas`;
+  if (seconds < 604800) return `${Math.floor(seconds / 86400)} días`;
+  if (seconds < 2592000) return `${Math.floor(seconds / 604800)} semanas`;
+  if (seconds < 31536000) return `${Math.floor(seconds / 2592000)} meses`;
+  return `${Math.floor(seconds / 31536000)} años`;
+}
 </script>
 <template>
   <div class="flex gap-6">
@@ -64,9 +79,14 @@ async function createPost() {
             class="h-[40px] w-[40px] rounded-full"
           />
           <div class="w-full flex-col">
-            <div class="flex gap-2 item-center">
-              <span class="text-sm font-bold">{{ tuip.demonName }}</span>
-              <span class="text-sm font-light">@{{ tuip.userName }}</span>
+            <div class="flex gap-2 item-center justify-between">
+              <div class="flex gap-2 items-center">
+                <span class="text-sm font-bold">{{ tuip.demonName }}</span>
+                <span class="text-sm font-light">@{{ tuip.userName }}</span>
+              </div>
+              <span class="text-sm font-light">{{
+                getDate(tuip.tuipCreatedAt)
+              }}</span>
             </div>
             <span>{{ tuip.tuipContent }}</span>
             <div class="flex w-2/3 m-auto justify-between">
