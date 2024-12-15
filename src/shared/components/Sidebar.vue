@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { storeToRefs } from "pinia";
 import { useUserStore } from "../stores/user/userStore";
+import Icon from "../atoms/Icon.vue";
 
 interface Sidebar {
   icon: string;
@@ -40,9 +41,9 @@ function logout() {
         v-for="item in sidebar"
         @click="$router.push(item.router)"
         :key="item.name"
-        class="h-[55px] text-xl font-bold"
+        class="h-[55px] text-xl font-bold flex flex-row gap-2 items-center cursor-pointer"
       >
-        <span>{{ item.icon }}</span>
+        <Icon :name="item.icon" class="" custom-class="w-[24px] h-[24px] fill-black stroke-black"/>
         <span>{{ item.name }}</span>
       </div>
     </div>
@@ -56,7 +57,8 @@ function logout() {
         alt="user"
       />
       <div class="flex flex-col gap-0">
-        <span class="font-bold">{{  loggedUser?.demonName }}</span><span class="text-xs">@{{ loggedUser?.demonName }}</span>
+        <span class="font-bold">{{ loggedUser?.demonName }}</span
+        ><span class="text-xs">@{{ loggedUser?.demonName }}</span>
       </div>
       <div class="w-full text-end">...</div>
     </div>
