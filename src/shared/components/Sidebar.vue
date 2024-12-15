@@ -36,13 +36,13 @@ function logout() {
 }
 
 function redirect(route: string) {
-  console.log(route)
+  console.log(route);
   router.push(route);
 }
 </script>
 <template>
   <nav
-    class="h-screen text-left flex flex-col py-4 justify-between sticky top-0 left-0"
+    class="h-screen text-left flex flex-col gap-4 py-4 justify-between sticky top-0 left-0"
   >
     <div>
       <div class="h-[100px]">
@@ -58,20 +58,22 @@ function redirect(route: string) {
         <span>{{ item.name }}</span>
       </div>
     </div>
-    <div
-      class="flex flex-row items-center gap-2 p-2 rounded-3xl hover:bg-[#333] cursor-pointer"
-      @click="logout"
-    >
-      <img
-        class="h-[30px] w-[30px] rounded-full"
-        src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
-        alt="user"
-      />
-      <div class="flex flex-col gap-0">
-        <span class="font-bold">{{ loggedUser?.demonName }}</span
-        ><span class="text-xs">@{{ loggedUser?.demonName }}</span>
+    <div>
+      <div
+        class="flex flex-row items-center gap-2 rounded-3xl p-2 hover:bg-[#333] cursor-pointer"
+        @click="logout"
+      >
+        <img
+          class="h-[30px] w-[30px] rounded-full"
+          src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+          alt="user"
+        />
+        <div class="flex flex-col gap-0">
+          <span class="font-bold">{{ loggedUser?.demonName }}</span
+          ><span class="text-xs">@{{ loggedUser?.demonName }}</span>
+        </div>
+        <div class="w-full text-end">...</div>
       </div>
-      <div class="w-full text-end">...</div>
     </div>
   </nav>
 </template>

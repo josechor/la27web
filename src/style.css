@@ -2,15 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
   margin: 0;
   display: flex;
   place-items: center;
   min-height: 100vh;
 }
+
 #app {
   margin: 0 auto;
   position: relative;
+  width: 100%;
 }
 
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
