@@ -6,4 +6,5 @@ export interface Tuip {
     demonId: string;
     userName: string;
     demonName: string;
+    magrada: boolean;
 }

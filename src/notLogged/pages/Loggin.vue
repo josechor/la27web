@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useUserStore } from "../../shared/stores/user/userStore";
-import router from "../../shared/router";
 
 const userStore = useUserStore();
 
@@ -14,7 +13,7 @@ async function login() {
   console.log(logged);
   if (logged) {
     invalid.value = false;
-    router.push('/');
+    window.location.reload();
   } else {
     invalid.value = true;
   }

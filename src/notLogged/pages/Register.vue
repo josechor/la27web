@@ -15,8 +15,8 @@ async function register() {
   const createUser: CreateUser = {
     email: email.value,
     password: password.value,
-    user_name: name.value,
-    demon_name: demonName.value,
+    userName: name.value,
+    demonName: demonName.value,
   };
   const register = await userStore.registerUser(createUser);
 

@@ -17,7 +17,7 @@ function createPost() {}
 <template>
   <div class="flex gap-6">
     <section
-      class="border border-y-transparent border-x-[#333] w-[60%] min-h-screen"
+      class="border border-y-transparent border-x-[#333] w-[65%] min-h-screen"
     >
       <section
         class="flex gap-4 justify-around border border-transparent border-b-[#333] w-full px-3 py-1"
@@ -60,8 +60,8 @@ function createPost() {}
               <span class="text-sm font-light">@{{ tuip.userName }}</span>
             </div>
             <span>{{ tuip.tuipContent }}</span>
-            <div class="flex w-full justify-between">
-              <span>L</span>
+            <div class="flex w-2/3 m-auto justify-between">
+              <span>{{ tuip.magrada }}</span>
               <span>M</span>
               <span>S</span>
             </div>
@@ -69,7 +69,7 @@ function createPost() {}
         </div>
       </section>
     </section>
-    <section class="w-[40%] min-h-screen flex flex-col gap-8">
+    <section class="w-[35%] min-h-screen flex flex-col gap-8">
       <div v-for="_ in 8" class="h-[200px] w-full bg-[#333]">hola</div>
     </section>
   </div>

@@ -22,10 +22,13 @@ export const useUserStore = defineStore("userStore", () => {
   async function authUser(email: string, password: string) {
     try {
       const token = await userFetchApi.authUser(email, password);
+      if(!token.token) {
+        return false;
+      }
       localStorage.setItem("DemonToken", token.token);
       sessionToken.value = token.token;
       return true;
-    } catch (_) {
+    } catch (error) {
       return false;
     }
   }

@@ -1,6 +1,6 @@
 export interface CreateUser {
-  user_name: string;
-  demon_name: string;
+  userName: string;
+  demonName: string;
   email: string;
   password: string;
 }

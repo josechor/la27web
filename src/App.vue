@@ -3,9 +3,14 @@ import { onMounted, ref } from "vue";
 import { useUserStore } from "./shared/stores/user/userStore";
 import router from "./shared/router";
 import Sidebar from "./shared/components/Sidebar.vue";
+import { computed } from "@vue/reactivity";
 
 const userStore = useUserStore();
 const loading = ref(true);
+
+const pathIsLogin = computed(() => {
+  return router.currentRoute.value.path === "/login" || router.currentRoute.value.path === "/register";
+})
 
 onMounted(async () => {
   userStore.reconstruct();
@@ -30,7 +35,7 @@ onMounted(async () => {
     class="flex flex-row items-center justify-center h-screen"
   >
     <Sidebar class="w-[250px] px-4" v-if="userStore.sessionToken"/>
-    <main class="w-[1050px] h-screen">
+    <main :class="[!pathIsLogin ? 'w-[1050px] h-screen' : '']">
       <RouterView />
     </main>
   </div>

@@ -1,5 +1,6 @@
 import { storeToRefs } from "pinia";
 import { useUserStore } from "../stores/user/userStore";
+import router from "../router";
 
 const domain = import.meta.env.VITE_API_URL;
 
@@ -55,6 +56,12 @@ function throwErrorIfNeeded(response: Response) {
     return;
   }
   if (!response.ok) {
+    if (response.status === 498) {
+      const userStore = useUserStore();
+      userStore.logout();
+      router.push('/login');
+      throw response
+    }
     throw response;
   } else {
     throw new Error("Unexpected error");
