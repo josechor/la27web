@@ -1,12 +1,12 @@
 import { defineStore } from "pinia";
 import { Ref, ref } from "vue";
-import { CreateUser, LoggedUser } from "../../types/userTypes";
+import { CreateUser, User } from "../../types/userTypes";
 import { UserFetchApi } from "../../services/user/UserFetchApi";
 import router from "../../router";
 
 export const useUserStore = defineStore("userStore", () => {
   const sessionToken: Ref<string | null> = ref(null);
-  const loggedUser: Ref<LoggedUser | null> = ref(null);
+  const loggedUser: Ref<User | null> = ref(null);
   const userFetchApi = new UserFetchApi();
 
   async function registerUser(createUser: CreateUser) {
@@ -30,7 +30,14 @@ export const useUserStore = defineStore("userStore", () => {
     }
   }
 
-  async function getLoggedUser() {}
+  async function getLoggedUser() {
+    try {
+      const user = await userFetchApi.getUserData();
+      loggedUser.value = user;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   function reconstruct() {
     localStorage.getItem("DemonToken");

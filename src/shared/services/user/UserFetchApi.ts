@@ -1,4 +1,5 @@
 import { CreateUser } from "../../types/userTypes";
+import { apiGet } from "../api";
 import { UserApi } from "./userApi";
 
 export class UserFetchApi implements UserApi {
@@ -27,5 +28,10 @@ export class UserFetchApi implements UserApi {
   async getUser(userId: number): Promise<string> {
     const response = await fetch(`/api/user/${userId}`);
     return response.json();
+  }
+
+  async getUserData(): Promise<any> {
+    const response = await apiGet<any>("/api/users/userData");
+    return response;
   }
 }
