@@ -1,8 +1,16 @@
 <script lang="ts" setup>
-import { PropType, ref, watch } from "vue";
+import { onMounted, PropType, Ref, ref, watch } from "vue";
 import { TuipInterface } from "../types/tuipsTypes";
 import router from "../router";
 import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";
+import Button from "../atoms/buttons/Button.vue";
+import { ButtonSize } from "../types/shared";
+import { useTuipsStore } from "../stores/tuips/tuipsStore";
+
+const tuipsStore = useTuipsStore();
+const { openPostModalWithQuoting } = tuipsStore;
+
+const tuipsFetchApi = new TuipsFetchApi();
 
 const props = defineProps({
   tuip: {
@@ -12,10 +20,21 @@ const props = defineProps({
 });
 
 const tuipRef = ref(props.tuip);
+
+const quoting: Ref<TuipInterface | null> = ref(null);
+onMounted(async () => {
+  if (tuipRef.value.quoting) {
+    quoting.value = await tuipsFetchApi.getTuipById(tuipRef.value.quoting);
+  }
+});
+
 watch(
   () => props.tuip,
-  (newVal) => {
+  async (newVal) => {
     tuipRef.value = newVal;
+    if (tuipRef.value.quoting) {
+      quoting.value = await tuipsFetchApi.getTuipById(tuipRef.value.quoting);
+    }
   }
 );
 
@@ -51,6 +70,10 @@ async function handleClickLike() {
   }
   loadingLike = false;
 }
+
+function handleClickCitar() {
+  openPostModalWithQuoting(tuipRef.value);
+}
 </script>
 <template>
   <div
@@ -63,7 +86,8 @@ async function handleClickLike() {
       class="h-[40px] w-[40px] rounded-full cursor-pointer"
     />
     <div class="w-full flex flex-col gap-2">
-      <div class="flex gap-2 item-center justify-start">
+      <div class="flex gap-2 item-center justify-between">
+        <div class="flex gap-2 items-center">
           <span
             @click="router.push('/profile/' + tuip.userName)"
             class="text-sm font-bold cursor-pointer hover:underline"
@@ -74,13 +98,49 @@ async function handleClickLike() {
             class="text-sm font-light cursor-pointer hover:underline"
             >@{{ tuip.userName }}</span
           >
-        <span class="text-sm font-light"> ¤ {{
-          getDate(tuip.tuipCreatedAt)
-        }}</span>
+          <span class="text-sm font-light">
+            ¤ {{ getDate(tuip.tuipCreatedAt) }}</span
+          >
+        </div>
+        <Button
+          @click="handleClickCitar"
+          text="citar"
+          :size="ButtonSize.extraSmall"
+        />
       </div>
       <span>{{ tuip.tuipContent }}</span>
+      <div
+        v-if="quoting"
+        class="px-2 py-3 border rounded-md border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
+      >
+        <header class="flex flex-row gap-1">
+          <img
+            src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+            alt="user"
+            class="h-[20px] w-[20px] rounded-full"
+          />
+          <span class="font-bold text-sm">{{ quoting.demonName }}</span>
+          <span class="font-light text-sm"
+            >@{{ quoting.userName }} ¤
+            {{ getDate(quoting.tuipCreatedAt) }}</span
+          >
+        </header>
+        <section>
+          <span>{{ quoting.tuipContent }}</span>
+        </section>
+      </div>
       <div class="flex w-2/3 m-auto justify-between text-xs">
-        <span @click="handleClickLike">{{ tuip.magradaCount }}</span>
+        <div
+          class="flex flex-row gap-[2px] cursor-pointer"
+          :class="{ 'grayscale-[100%]': !tuipRef.youLiked }"
+          @click="handleClickLike"
+        >
+          <img
+            src="../../shared/utils/images/antorcha.png"
+            class="w-[16px] h-[16px]"
+          />
+          {{ tuip.magradaCount }}
+        </div>
         <span>M</span>
         <span>S</span>
       </div>

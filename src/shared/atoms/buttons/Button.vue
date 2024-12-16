@@ -22,6 +22,7 @@ defineProps({
     class="bg-dark-background-color-primary text-dark-text-color-primary dark:bg-light-background-colors-primary dark:text-dark-background-color-primary rounded-3xl cursor-pointer"
     :class="[
       {
+        'px-2 py-1 text-xs': size === ButtonSize.extraSmall,
         'px-3 py-1.5 text-xs': size === ButtonSize.small,
         'px-4 py-2 text-sm': size === ButtonSize.medium,
         'px-4 py-2 text-base': size === ButtonSize.large,

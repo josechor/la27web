@@ -8,11 +8,17 @@ export interface TuipInterface {
     demonName: string;
     magradaCount: number;
     youLiked: boolean;
+    quoting: null | number;
+    secta: null | number;
+    parent: null | number;
 }
 
 export interface TuipCreate {
     content: string;
     multimedia: null | string;
+    quoting: null | number;
+    secta: null | number;
+    parent: null | number
 }
 
 export interface TuipFilters {

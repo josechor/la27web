@@ -51,10 +51,13 @@ const onScroll = () => {
 };
 
 async function createPost() {
-  if(post.value.length === 0) return;
+  if (post.value.length === 0) return;
   const tuip: TuipCreate = {
     content: post.value,
     multimedia: null,
+    quoting: null,
+    secta: null,
+    parent: null,
   };
   await tuipsStore.createTuip(tuip);
   post.value = "";
