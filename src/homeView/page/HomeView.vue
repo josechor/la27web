@@ -99,7 +99,7 @@ function getDate(date: string) {
       </section>
     </section>
     <section class="w-[35%] min-h-screen flex flex-col gap-8">
-      <div v-for="_ in 8" class="h-[200px] w-full bg-[#333]">hola</div>
+      <div v-for="_ in 0" class="h-[200px] w-full bg-[#333]">hola</div>
     </section>
   </div>
 </template>

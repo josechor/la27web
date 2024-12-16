@@ -32,10 +32,10 @@ onMounted(async () => {
   </template>
   <div
     v-if="!loading"
-    class="flex flex-row items-center justify-center h-screen w-full bg-light-background-colors-primary dark:bg-dark-background-color-primary"
+    class="flex flex-row justify-center w-full bg-light-background-colors-primary dark:bg-dark-background-color-primary relative"
   >
     <Sidebar class="w-[250px] px-4" v-if="userStore.sessionToken"/>
-    <main :class="[!pathIsLogin ? 'w-[1050px] h-screen' : '']">
+    <main :class="[!pathIsLogin ? 'w-[1050px] min-h-screen' : '']">
       <RouterView />
     </main>
   </div>
