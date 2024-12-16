@@ -51,6 +51,7 @@ const onScroll = () => {
 };
 
 async function createPost() {
+  if(post.value.length === 0) return;
   const tuip: TuipCreate = {
     content: post.value,
     multimedia: null,
@@ -84,6 +85,7 @@ function validateInput() {
             v-model="post"
             placeholder="Que te cuentas?"
             @input="validateInput"
+            @keydown.enter.prevent="createPost"
           />
           <hr
             class="w-full border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
