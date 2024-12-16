@@ -63,8 +63,7 @@ async function handleClickLike() {
       class="h-[40px] w-[40px] rounded-full cursor-pointer"
     />
     <div class="w-full flex flex-col gap-2">
-      <div class="flex gap-2 item-center justify-between">
-        <div class="flex gap-2 items-center">
+      <div class="flex gap-2 item-center justify-start">
           <span
             @click="router.push('/profile/' + tuip.userName)"
             class="text-sm font-bold cursor-pointer hover:underline"
@@ -75,8 +74,7 @@ async function handleClickLike() {
             class="text-sm font-light cursor-pointer hover:underline"
             >@{{ tuip.userName }}</span
           >
-        </div>
-        <span class="text-sm font-light">{{
+        <span class="text-sm font-light"> ¤ {{
           getDate(tuip.tuipCreatedAt)
         }}</span>
       </div>

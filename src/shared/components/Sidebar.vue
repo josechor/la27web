@@ -3,7 +3,8 @@ import { storeToRefs } from "pinia";
 import { useUserStore } from "../stores/user/userStore";
 import Icon from "../atoms/Icon.vue";
 import router from "../router";
-import { computed } from "vue";
+import Button from "../atoms/buttons/Button.vue";
+import { useTuipsStore } from "../stores/tuips/tuipsStore";
 
 interface Sidebar {
   icon: string;
@@ -13,6 +14,9 @@ interface Sidebar {
 
 const userStore = useUserStore();
 const { loggedUser } = storeToRefs(userStore);
+
+const tuipsStore = useTuipsStore();
+const { modalPost } = storeToRefs(tuipsStore);
 
 const sidebar: Sidebar[] = [
   {
@@ -39,12 +43,6 @@ function logout() {
 function redirect(route: string) {
   router.push(route);
 }
-
-function handleDarkMode() {
-  document.body.classList.toggle("dark");
-}
-
-const darkMode = computed(() => document.body.classList.contains("dark"));
 </script>
 <template>
   <nav
@@ -64,7 +62,8 @@ const darkMode = computed(() => document.body.classList.contains("dark"));
         <span>{{ item.name }}</span>
       </div>
     </div>
-    <div @click="handleDarkMode" v-if="darkMode" class="cursor-pointer">Modo gay</div>
+
+    <Button @click="modalPost = true" text="Publicar" />
 
     <div>
       <div

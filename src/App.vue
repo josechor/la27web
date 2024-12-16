@@ -4,6 +4,12 @@ import { useUserStore } from "./shared/stores/user/userStore";
 import router from "./shared/router";
 import Sidebar from "./shared/components/Sidebar.vue";
 import { computed } from "@vue/reactivity";
+import Post from "./shared/components/Post.vue";
+import { useTuipsStore } from "./shared/stores/tuips/tuipsStore";
+import { storeToRefs } from "pinia";
+
+const tuipsStore = useTuipsStore();
+const { modalPost } = storeToRefs(tuipsStore);
 
 const userStore = useUserStore();
 const loading = ref(true);
@@ -39,6 +45,7 @@ onMounted(async () => {
       :class="[!pathIsLogin ? 'max-w-[1050px] w-[1050px] min-h-screen' : '']"
     >
       <RouterView />
+      <Post v-if="userStore.loggedUser && modalPost" v-model="modalPost" />
     </main>
   </div>
 </template>
