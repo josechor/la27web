@@ -7,6 +7,14 @@ body {
   display: flex;
   place-items: center;
   min-height: 100vh;
+  background-color: #f5f5f5;
+  color: #333333;
+}
+
+/* Modo oscuro */
+body.dark {
+  background-color: #1a1a1a;
+  color: #f5f5f5;
 }
 
 #app {

@@ -9,11 +9,13 @@ export default {
           primary: "#f5f5f5",
           secondary: "#f0f0f0",
           tertiary: "#e0e0e0",
+          quaternary: "#d0d0d0",
         },
         "dark-background-color": {
           primary: "#1a1a1a",
           secondary: "#333333",
           tertiary: "#4d4d4d",
+          quaternary: "#666666",
         },
         "light-text-color": {
           primary: "#333333",

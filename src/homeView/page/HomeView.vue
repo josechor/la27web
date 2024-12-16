@@ -41,10 +41,10 @@ function getDate(date: string) {
 <template>
   <div class="flex gap-6">
     <section
-      class="border border-y-transparent border-x-[#333] w-[65%] min-h-screen"
+      class="border border-y-transparent border-x-light-background-colors-quaternary dark:border-x-dark-background-color-quaternary w-[65%] min-h-screen"
     >
       <section
-        class="flex gap-4 justify-around border border-transparent border-b-[#333] w-full px-3 py-1"
+        class="flex gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-1"
       >
         <img
           src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
@@ -53,7 +53,7 @@ function getDate(date: string) {
         />
         <div class="w-full flex gap-2 flex-col">
           <textarea v-model="post" placeholder="Que te cuentas?" />
-          <hr class="w-full border-[#333]" />
+          <hr class="w-full border-light-background-colors-quaternary dark:border-dark-background-color-quaternary" />
           <div class="flex justify-between gap-4">
             <div></div>
             <div class="flex gap-2 items-center">
@@ -71,7 +71,7 @@ function getDate(date: string) {
       <section>
         <div
           v-for="tuip in tuips"
-          class="flex gap-4 justify-around border border-transparent border-b-[#333] w-full px-3 py-2"
+          class="flex gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-2"
         >
           <img
             src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
