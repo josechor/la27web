@@ -1,10 +1,17 @@
-import { Tuip, TuipCreate } from "../../types/tuipsTypes";
+import { Tuip, TuipCreate, TuipFilters } from "../../types/tuipsTypes";
 import { apiDelete, apiGet, apiPost } from "../api";
 import { TuipsApi } from "./tuipsApi";
 
 export class TuipsFetchApi implements TuipsApi {
-  async getTuips(page: number, limit: number): Promise<Tuip[]> {
-    return await apiGet<Tuip[]>(`/api/tuips?page=${page}&limit=${limit}`);
+  async getTuips(page: number, limit: number, filters?:  TuipFilters): Promise<Tuip[]> {
+    let query = ""
+    if(filters && filters.authorId) {
+      	query += `&authorId=${filters.authorId}`
+    }
+    if(filters && filters.likedById) {
+      	query += `&likedById=${filters.likedById}`
+    }
+    return await apiGet<Tuip[]>(`/api/tuips?page=${page}&limit=${limit}${query}`);
   }
   async createTuip(tuip: TuipCreate): Promise<void> {
     await apiPost("/api/tuips", tuip);

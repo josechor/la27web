@@ -43,11 +43,11 @@ async function handleClickLike() {
   if (tuipRef.value.youLike) {
     await fetchTuipApi.removeLike(tuipRef.value.tuipId);
     tuipRef.value.youLike = false;
-    tuipRef.value.magrada--;
+    tuipRef.value.magradaCount--;
   } else {
     await fetchTuipApi.setLike(tuipRef.value.tuipId);
     tuipRef.value.youLike = true;
-    tuipRef.value.magrada++;
+    tuipRef.value.magradaCount++;
   }
   loadingLike = false;
 }
@@ -82,7 +82,7 @@ async function handleClickLike() {
       </div>
       <span>{{ tuip.tuipContent }}</span>
       <div class="flex w-2/3 m-auto justify-between text-xs">
-        <span @click="handleClickLike">{{ tuip.magrada }}</span>
+        <span @click="handleClickLike">{{ tuip.magradaCount }}</span>
         <span>M</span>
         <span>S</span>
       </div>

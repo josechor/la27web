@@ -6,11 +6,16 @@ export interface Tuip {
     demonId: string;
     userName: string;
     demonName: string;
-    magrada: number;
+    magradaCount: number;
     youLike: boolean;
 }
 
 export interface TuipCreate {
     content: string;
     multimedia: null | string;
+}
+
+export interface TuipFilters {
+    authorId?: string;
+    likedById?: string;
 }

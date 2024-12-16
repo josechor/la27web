@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, Ref } from "vue";
+import { onMounted, ref, Ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useUserStore } from "../../shared/stores/user/userStore";
 import { User } from "../../shared/types/userTypes";
@@ -15,27 +15,31 @@ const tuipsFetchApi = new TuipsFetchApi();
 const userStore = useUserStore();
 
 const route = useRoute();
-const username = route.params.username;
+let username = route.params.username;
 
 const user: Ref<User | null> = ref(null);
 
 const tuips: Ref<TuipInterface[]> = ref([]);
 const page = ref(1);
 const limit = 20;
-onMounted(async () => {
+
+onMounted(() => {
+  startProfile();
+});
+
+watch(() => route.params.username, () => {
+  username = route.params.username;
+  startProfile();
+});
+
+async function startProfile() {
   if (!username || typeof username !== "string") {
     console.error("El parámetro userId no es válido");
     return;
   }
-
-  Promise.all([
-    userStore.getUserData(username),
-    tuipsFetchApi.getTuips(page.value, limit),
-  ]).then(([userData, tuipsData]) => {
-    user.value = userData || null;
-    tuips.value = tuipsData;
-  });
-});
+    user.value = await userStore.getUserData(username) || null;
+    tuips.value = await tuipsFetchApi.getTuips(page.value, limit, { authorId: user.value?.userId });
+}
 
 function handleClickFollow() {
   console.log("Follow");
@@ -72,6 +76,8 @@ const getUserCreatedAt = computed(() => {
     months[date.getMonth()]
   } de ${date.getFullYear()}`;
 });
+
+
 </script>
 <template>
   <div class="flex gap-6" v-if="user">
