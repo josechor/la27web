@@ -1,14 +1,23 @@
 <script lang="ts" setup>
-import { PropType } from "vue";
+import { PropType, ref, watch } from "vue";
 import { Tuip } from "../types/tuipsTypes";
 import router from "../router";
+import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";
 
-defineProps({
+const props = defineProps({
   tuip: {
     type: Object as PropType<Tuip>,
     required: true,
   },
 });
+
+const tuipRef = ref(props.tuip);
+watch(
+  () => props.tuip,
+  (newVal) => {
+    tuipRef.value = newVal;
+  }
+);
 
 function getDate(date: string) {
   const actualDate = new Date().getTime();
@@ -24,6 +33,24 @@ function getDate(date: string) {
   if (seconds < 31536000) return `${Math.floor(seconds / 2592000)} meses`;
   return `${Math.floor(seconds / 31536000)} años`;
 }
+
+let loadingLike = false;
+
+async function handleClickLike() {
+  if (loadingLike) return;
+  loadingLike = true;
+  const fetchTuipApi = new TuipsFetchApi();
+  if (tuipRef.value.youLike) {
+    await fetchTuipApi.removeLike(tuipRef.value.tuipId);
+    tuipRef.value.youLike = false;
+    tuipRef.value.magrada--;
+  } else {
+    await fetchTuipApi.setLike(tuipRef.value.tuipId);
+    tuipRef.value.youLike = true;
+    tuipRef.value.magrada++;
+  }
+  loadingLike = false;
+}
 </script>
 <template>
   <div
@@ -35,7 +62,7 @@ function getDate(date: string) {
       alt="user"
       class="h-[40px] w-[40px] rounded-full cursor-pointer"
     />
-    <div class="w-full flex-col">
+    <div class="w-full flex flex-col gap-2">
       <div class="flex gap-2 item-center justify-between">
         <div class="flex gap-2 items-center">
           <span
@@ -54,8 +81,8 @@ function getDate(date: string) {
         }}</span>
       </div>
       <span>{{ tuip.tuipContent }}</span>
-      <div class="flex w-2/3 m-auto justify-between">
-        <span>{{ tuip.magrada }}</span>
+      <div class="flex w-2/3 m-auto justify-between text-xs">
+        <span @click="handleClickLike">{{ tuip.magrada }}</span>
         <span>M</span>
         <span>S</span>
       </div>
