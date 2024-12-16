@@ -1,4 +1,4 @@
-export interface Tuip {
+export interface TuipInterface {
     tuipId: number;
     tuipContent: string;
     tuipMultimedia: null | string;

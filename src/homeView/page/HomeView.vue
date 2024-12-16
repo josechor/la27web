@@ -1,20 +1,54 @@
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, Ref, ref } from "vue";
 import { useTuipsStore } from "../../shared/stores/tuips/tuipsStore";
-import { storeToRefs } from "pinia";
-import { TuipCreate } from "../../shared/types/tuipsTypes";
+import { TuipInterface, TuipCreate } from "../../shared/types/tuipsTypes";
 import Tuip from "../../shared/components/Tuip.vue";
 import Button from "../../shared/atoms/buttons/Button.vue";
 import { ButtonSize } from "../../shared/types/shared";
+import { TuipsFetchApi } from "../../shared/services/tuips/tuipsFetchApi";
+import { useUserStore } from "../../shared/stores/user/userStore";
 
+const tuipsFetchApi = new TuipsFetchApi();
 const tuipsStore = useTuipsStore();
-const { tuips } = storeToRefs(tuipsStore);
+
+const userStore = useUserStore();
 
 const post = ref("");
+let page = 1;
+const limit = 20;
+const tuips: Ref<TuipInterface[]> = ref([]);
+const loadingNewTuips = ref(false);
 
 onMounted(async () => {
-  await tuipsStore.getTuips();
+  tuips.value = await tuipsFetchApi.getTuips(page, limit);
+  window.addEventListener("scroll", onScroll);
 });
+
+onUnmounted(() => {
+  page = 0;
+  tuips.value = [];
+  window.removeEventListener("scroll", onScroll);
+});
+
+async function loadMoreTweets() {
+  loadingNewTuips.value = true;
+  page++;
+  const tuipsResponse = await tuipsFetchApi.getTuips(page, limit);
+  if (tuipsResponse.length === 0) {
+    window.removeEventListener("scroll", onScroll);
+    return;
+  }
+  tuips.value.push(...tuipsResponse);
+}
+
+const onScroll = () => {
+  const bottomReached =
+    window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+
+  if (bottomReached) {
+    loadMoreTweets();
+  }
+};
 
 async function createPost() {
   const tuip: TuipCreate = {
@@ -23,7 +57,9 @@ async function createPost() {
   };
   await tuipsStore.createTuip(tuip);
   post.value = "";
-  await tuipsStore.getTuips();
+  const userId = userStore.loggedUser?.userId;
+  const tuipResponse = await tuipsFetchApi.getTuips(1, 1, { authorId: userId });
+  tuips.value.unshift(...tuipResponse);
 }
 
 function validateInput() {

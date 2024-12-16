@@ -8,7 +8,7 @@ import { ButtonSize } from "../../shared/types/shared";
 import { computed } from "@vue/reactivity";
 import { TuipsFetchApi } from "../../shared/services/tuips/tuipsFetchApi";
 import Tuip from "../../shared/components/Tuip.vue";
-import { Tuip as TuipInterface } from "../../shared/types/tuipsTypes";
+import { TuipInterface } from "../../shared/types/tuipsTypes";
 import router from "../../shared/router";
 
 const tuipsFetchApi = new TuipsFetchApi();

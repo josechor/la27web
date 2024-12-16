@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { PropType, ref, watch } from "vue";
-import { Tuip } from "../types/tuipsTypes";
+import { TuipInterface } from "../types/tuipsTypes";
 import router from "../router";
 import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";
 
 const props = defineProps({
   tuip: {
-    type: Object as PropType<Tuip>,
+    type: Object as PropType<TuipInterface>,
     required: true,
   },
 });
