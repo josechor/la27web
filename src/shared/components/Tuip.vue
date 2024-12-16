@@ -40,13 +40,13 @@ async function handleClickLike() {
   if (loadingLike) return;
   loadingLike = true;
   const fetchTuipApi = new TuipsFetchApi();
-  if (tuipRef.value.youLike) {
+  if (tuipRef.value.youLiked) {
     await fetchTuipApi.removeLike(tuipRef.value.tuipId);
-    tuipRef.value.youLike = false;
+    tuipRef.value.youLiked = false;
     tuipRef.value.magradaCount--;
   } else {
     await fetchTuipApi.setLike(tuipRef.value.tuipId);
-    tuipRef.value.youLike = true;
+    tuipRef.value.youLiked = true;
     tuipRef.value.magradaCount++;
   }
   loadingLike = false;

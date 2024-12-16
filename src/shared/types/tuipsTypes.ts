@@ -7,7 +7,7 @@ export interface Tuip {
     userName: string;
     demonName: string;
     magradaCount: number;
-    youLike: boolean;
+    youLiked: boolean;
 }
 
 export interface TuipCreate {
