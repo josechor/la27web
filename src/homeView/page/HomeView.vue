@@ -37,6 +37,10 @@ function getDate(date: string) {
   if (seconds < 31536000) return `${Math.floor(seconds / 2592000)} meses`;
   return `${Math.floor(seconds / 31536000)} años`;
 }
+
+function validateInput() {
+  if (post.value.length > 255) post.value = post.value.slice(0, 255);
+}
 </script>
 <template>
   <div class="flex gap-6">
@@ -52,7 +56,7 @@ function getDate(date: string) {
           class="h-[40px] w-[40px] rounded-full"
         />
         <div class="w-full flex gap-2 flex-col">
-          <textarea v-model="post" placeholder="Que te cuentas?" />
+          <textarea v-model="post" placeholder="Que te cuentas?" @input="validateInput" />
           <hr class="w-full border-light-background-colors-quaternary dark:border-dark-background-color-quaternary" />
           <div class="flex justify-between gap-4">
             <div></div>
@@ -99,7 +103,7 @@ function getDate(date: string) {
       </section>
     </section>
     <section class="w-[35%] min-h-screen flex flex-col gap-8">
-      <div v-for="_ in 0" class="h-[200px] w-full bg-[#333]">hola</div>
+      <div v-for="_ in 1" class="h-[200px] w-full bg-[#333]">hola</div>
     </section>
   </div>
 </template>

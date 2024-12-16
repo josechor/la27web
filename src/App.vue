@@ -9,8 +9,11 @@ const userStore = useUserStore();
 const loading = ref(true);
 
 const pathIsLogin = computed(() => {
-  return router.currentRoute.value.path === "/login" || router.currentRoute.value.path === "/register";
-})
+  return (
+    router.currentRoute.value.path === "/login" ||
+    router.currentRoute.value.path === "/register"
+  );
+});
 
 onMounted(async () => {
   userStore.reconstruct();
@@ -30,12 +33,11 @@ onMounted(async () => {
   <template v-if="loading">
     <h1>Loading...</h1>
   </template>
-  <div
-    v-if="!loading"
-    class="flex flex-row justify-center w-full bg-light-background-colors-primary dark:bg-dark-background-color-primary relative"
-  >
-    <Sidebar class="w-[250px] px-4" v-if="userStore.sessionToken"/>
-    <main :class="[!pathIsLogin ? 'w-[1050px] min-h-screen' : '']">
+  <div v-if="!loading" class="flex flex-row justify-center w-full relative">
+    <Sidebar class="w-[250px] px-4" v-if="userStore.sessionToken" />
+    <main
+      :class="[!pathIsLogin ? 'max-w-[1050px] w-[1050px] min-h-screen' : '']"
+    >
       <RouterView />
     </main>
   </div>
