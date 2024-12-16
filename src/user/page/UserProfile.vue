@@ -89,8 +89,8 @@ const getUserCreatedAt = computed(() => {
       >
         <div class="flex flex-row gap-10 items-center p-6 py-4">
           <span @click="router.go(-1)"><--</span>
-          <div class="flex flex-col gap-0 items-center text-left">
-            <span class="font-bold text-lg">{{ user.userName }}</span>
+          <div class="flex flex-col gap-0 items-start text-left">
+            <span class="font-bold text-lg">{{ user.demonName }}</span>
             <span class="text-xs">{{ user.tuipsCount }} tuips</span>
           </div>
         </div>

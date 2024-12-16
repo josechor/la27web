@@ -3,6 +3,7 @@ import { storeToRefs } from "pinia";
 import { useUserStore } from "../stores/user/userStore";
 import Icon from "../atoms/Icon.vue";
 import router from "../router";
+import { computed } from "vue";
 
 interface Sidebar {
   icon: string;
@@ -27,7 +28,7 @@ const sidebar: Sidebar[] = [
   {
     icon: "userIcon",
     name: "Perfil",
-    router: `/profile/${loggedUser.value?.demonName}`,
+    router: `/profile/${loggedUser.value?.userName}`,
   },
 ];
 
@@ -42,6 +43,8 @@ function redirect(route: string) {
 function handleDarkMode() {
   document.body.classList.toggle("dark");
 }
+
+const darkMode = computed(() => document.body.classList.contains("dark"));
 </script>
 <template>
   <nav
@@ -61,7 +64,8 @@ function handleDarkMode() {
         <span>{{ item.name }}</span>
       </div>
     </div>
-    <div @click="handleDarkMode">Modo oscuro</div>
+    <div @click="handleDarkMode" v-if="darkMode" class="cursor-pointer">Modo gay</div>
+
     <div>
       <div
         class="flex flex-row items-center gap-2 rounded-3xl p-2 hover:bg-[#333] cursor-pointer"
@@ -74,7 +78,7 @@ function handleDarkMode() {
         />
         <div class="flex flex-col gap-0">
           <span class="font-bold">{{ loggedUser?.demonName }}</span
-          ><span class="text-xs">@{{ loggedUser?.demonName }}</span>
+          ><span class="text-xs">@{{ loggedUser?.userName }}</span>
         </div>
         <div class="w-full text-end">...</div>
       </div>
