@@ -9,6 +9,7 @@ import { computed } from "@vue/reactivity";
 import { TuipsFetchApi } from "../../shared/services/tuips/tuipsFetchApi";
 import Tuip from "../../shared/components/Tuip.vue";
 import { Tuip as TuipInterface } from "../../shared/types/tuipsTypes";
+import router from "../../shared/router";
 
 const tuipsFetchApi = new TuipsFetchApi();
 const userStore = useUserStore();
@@ -80,6 +81,13 @@ const getUserCreatedAt = computed(() => {
       <header
         class="border border-x-0 border-t-0 border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary pb-6"
       >
+        <div class="flex flex-row gap-10 items-center p-6 py-4">
+          <span @click="router.go(-1)"><--</span>
+          <div class="flex flex-col gap-0 items-center text-left">
+            <span class="font-bold text-lg">{{ user.userName }}</span>
+            <span class="text-xs">{{ user.tuipsCount }} tuips</span>
+          </div>
+        </div>
         <div class="relative">
           <img
             class="w-full h-[200px] object-cover"
