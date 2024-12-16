@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { Ref, ref } from "vue";
-import { TuipsFetchApi } from "../../services/tuips/TuipsFetchApi";
 import { Tuip, TuipCreate } from "../../types/tuipsTypes";
+import { TuipsFetchApi } from "../../services/tuips/tuipsFetchApi";
 
 export const useTuipsStore = defineStore("tuipsStore", () => {
   const tuipsFetchApi = new TuipsFetchApi();

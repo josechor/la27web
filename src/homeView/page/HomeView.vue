@@ -3,6 +3,7 @@ import { onMounted, ref } from "vue";
 import { useTuipsStore } from "../../shared/stores/tuips/tuipsStore";
 import { storeToRefs } from "pinia";
 import { TuipCreate } from "../../shared/types/tuipsTypes";
+import Tuip from "../../shared/components/Tuip.vue";
 
 const tuipsStore = useTuipsStore();
 const { tuips } = storeToRefs(tuipsStore);
@@ -23,21 +24,6 @@ async function createPost() {
   await tuipsStore.getTuips();
 }
 
-function getDate(date: string) {
-  const actualDate = new Date().getTime();
-  const d = new Date(date).getTime();
-
-  const diff = actualDate - d;
-  const seconds = diff / 1000;
-  if (seconds < 60) return `Menos de un minuto`;
-  if (seconds < 3600) return `${Math.floor(seconds / 60)} minutos`;
-  if (seconds < 86400) return `${Math.floor(seconds / 3600)} horas`;
-  if (seconds < 604800) return `${Math.floor(seconds / 86400)} días`;
-  if (seconds < 2592000) return `${Math.floor(seconds / 604800)} semanas`;
-  if (seconds < 31536000) return `${Math.floor(seconds / 2592000)} meses`;
-  return `${Math.floor(seconds / 31536000)} años`;
-}
-
 function validateInput() {
   if (post.value.length > 255) post.value = post.value.slice(0, 255);
 }
@@ -56,8 +42,14 @@ function validateInput() {
           class="h-[40px] w-[40px] rounded-full"
         />
         <div class="w-full flex gap-2 flex-col">
-          <textarea v-model="post" placeholder="Que te cuentas?" @input="validateInput" />
-          <hr class="w-full border-light-background-colors-quaternary dark:border-dark-background-color-quaternary" />
+          <textarea
+            v-model="post"
+            placeholder="Que te cuentas?"
+            @input="validateInput"
+          />
+          <hr
+            class="w-full border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
+          />
           <div class="flex justify-between gap-4">
             <div></div>
             <div class="flex gap-2 items-center">
@@ -73,33 +65,7 @@ function validateInput() {
         </div>
       </section>
       <section>
-        <div
-          v-for="tuip in tuips"
-          class="flex gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-2"
-        >
-          <img
-            src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
-            alt="user"
-            class="h-[40px] w-[40px] rounded-full"
-          />
-          <div class="w-full flex-col">
-            <div class="flex gap-2 item-center justify-between">
-              <div class="flex gap-2 items-center">
-                <span class="text-sm font-bold">{{ tuip.demonName }}</span>
-                <span class="text-sm font-light">@{{ tuip.userName }}</span>
-              </div>
-              <span class="text-sm font-light">{{
-                getDate(tuip.tuipCreatedAt)
-              }}</span>
-            </div>
-            <span>{{ tuip.tuipContent }}</span>
-            <div class="flex w-2/3 m-auto justify-between">
-              <span>{{ tuip.magrada }}</span>
-              <span>M</span>
-              <span>S</span>
-            </div>
-          </div>
-        </div>
+        <Tuip v-for="tuip in tuips" :key="tuip.tuipId" :tuip="tuip" />
       </section>
     </section>
     <section class="w-[35%] min-h-screen flex flex-col gap-8">

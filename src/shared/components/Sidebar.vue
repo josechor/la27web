@@ -36,7 +36,6 @@ function logout() {
 }
 
 function redirect(route: string) {
-  console.log(route);
   router.push(route);
 }
 </script>
