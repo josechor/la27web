@@ -7,9 +7,11 @@ import Button from "../../shared/atoms/buttons/Button.vue";
 import { ButtonSize } from "../../shared/types/shared";
 import { computed } from "@vue/reactivity";
 import { TuipsFetchApi } from "../../shared/services/tuips/tuipsFetchApi";
-import Tuip from "../../shared/components/Tuip.vue";
 import { TuipInterface } from "../../shared/types/tuipsTypes";
 import router from "../../shared/router";
+import UserTuips from "../components/UserTuips.vue";
+import BestTuips from "../components/BestTuips.vue";
+import LikedTuips from "../components/LikedTuips.vue";
 
 const tuipsFetchApi = new TuipsFetchApi();
 const userStore = useUserStore();
@@ -22,6 +24,8 @@ const user: Ref<User | null> = ref(null);
 const tuips: Ref<TuipInterface[]> = ref([]);
 const page = ref(1);
 const limit = 20;
+
+const currentTab = ref("tuips");
 
 onMounted(() => {
   startProfile();
@@ -136,11 +140,19 @@ const getUserCreatedAt = computed(() => {
             </div>
           </div>
         </div>
+        <div class="flex flex-row justify-around gap-2">
+          <span class="cursor-pointer" @click="currentTab='tuips'">Tuips</span>
+          <span class="cursor-pointer" @click="currentTab='likes'">Me gusta</span>
+          <span class="cursor-pointer" @click="currentTab='bestTuips'">Destacados</span>
+        </div>
       </header>
       <section class="p-6">
-        <Tuip v-for="tuip in tuips" :key="tuip.tuipId" :tuip="tuip" />
+        <UserTuips :user-id="user.userId" v-if="currentTab === 'tuips'"/>
+        <LikedTuips :user-id="user.userId" v-if="currentTab === 'likes'"/>
+        <BestTuips :user-id="user.userId" v-if="currentTab === 'bestTuips'"/>
       </section>
     </section>
-    <section class="w-[35%]"></section>
+    <section class="w-[35%]">
+    </section>
   </div>
 </template>
