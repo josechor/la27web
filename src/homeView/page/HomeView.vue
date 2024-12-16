@@ -4,6 +4,8 @@ import { useTuipsStore } from "../../shared/stores/tuips/tuipsStore";
 import { storeToRefs } from "pinia";
 import { TuipCreate } from "../../shared/types/tuipsTypes";
 import Tuip from "../../shared/components/Tuip.vue";
+import Button from "../../shared/atoms/buttons/Button.vue";
+import { ButtonSize } from "../../shared/types/shared";
 
 const tuipsStore = useTuipsStore();
 const { tuips } = storeToRefs(tuipsStore);
@@ -54,12 +56,12 @@ function validateInput() {
             <div></div>
             <div class="flex gap-2 items-center">
               <span class="text-xs">{{ post.length }}/255</span>
-              <div
+              <Button
                 @click="createPost"
-                class="bg-[#333] w-fit px-6 py-2 rounded-3xl cursor-pointer text-white"
-              >
-                Postear
-              </div>
+                :disabled="post.length === 0"
+                :size="ButtonSize.small"
+                text="Publicar"
+              />
             </div>
           </div>
         </div>
