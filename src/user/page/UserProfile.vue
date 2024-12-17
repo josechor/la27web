@@ -203,7 +203,7 @@ const getUserCreatedAt = computed(() => {
           </div>
         </div>
       </header>
-      <section class="p-6">
+      <section class="py-1">
         <UserTuips :user-id="user.userId" v-if="currentTab === 'tuips'" />
         <LikedTuips :user-id="user.userId" v-if="currentTab === 'likes'" />
         <BestTuips :user-id="user.userId" v-if="currentTab === 'bestTuips'" />
