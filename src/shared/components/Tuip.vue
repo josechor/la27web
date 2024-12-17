@@ -55,7 +55,7 @@ function getDate(date: string) {
 
 let loadingLike = false;
 
-async function handleClickLike() {
+async function handleClickLike(e: Event) {
   if (loadingLike) return;
   loadingLike = true;
   const fetchTuipApi = new TuipsFetchApi();
@@ -64,11 +64,62 @@ async function handleClickLike() {
     tuipRef.value.youLiked = false;
     tuipRef.value.magradaCount--;
   } else {
+    efect(e);
     await fetchTuipApi.setLike(tuipRef.value.tuipId);
     tuipRef.value.youLiked = true;
     tuipRef.value.magradaCount++;
   }
   loadingLike = false;
+}
+
+function efect(e: any) {
+  let winPos: any;
+  let flag = false;
+  let div = document.createElement("div");
+  document.querySelector("body")?.appendChild(div);
+  div.style.left = e.pageX + "px";
+  div.style.top = e.pageY + "px";
+  div.style.position = "absolute";
+  const maxElems = 10;
+  for (let i = 0; i < maxElems; i++) {
+    let span = document.createElement("span");
+    span.className = "effect";
+
+    let newSpan = div.appendChild(span);
+    let deg = i * (360 / maxElems) + Math.floor(Math.random() * 15);
+    let height = 10 + Math.floor(Math.random() * 5);
+    let width = 2 + Math.floor(Math.random() * 1);
+    newSpan.style.height = height + "px";
+    newSpan.style.width = width + "px";
+    newSpan.style.transform = "rotate(" + deg + "deg)";
+  }
+
+  window.requestAnimationFrame(function () {
+    Array.from(div.querySelectorAll("span")).forEach((el) => {
+      let trasY = -50 - Math.floor(Math.random() * 10);
+      el.style.transform += "scaleY(0.5) translateY(" + trasY + "px)";
+      el.style.opacity = "0";
+    });
+    window.setTimeout(function () {
+      document.body.removeChild(div);
+    }, 9000);
+  });
+  if (!flag) {
+    flag = true;
+    winPos = [document.body.scrollLeft, document.body.scrollTop];
+    let maxShakeOffset = 1;
+    let shake = window.setInterval(function () {
+      let shakeOffset = Math.floor(Math.random() * 10 * maxShakeOffset);
+      window.scrollTo(
+        winPos[0] - maxShakeOffset / 2 + shakeOffset,
+        winPos[1] - maxShakeOffset / 2 + shakeOffset
+      );
+    }, 10);
+    window.setTimeout(function () {
+      window.clearInterval(shake);
+      flag = false;
+    }, 200);
+  }
 }
 
 function handleClickCitar() {
@@ -147,3 +198,20 @@ function handleClickCitar() {
     </div>
   </div>
 </template>
+
+<style>
+span.effect {
+  display: block;
+  width: 2px;
+  height: 10px;
+  border-radius: 4px;
+  background: rgba(150, 47, 6, 0.5);
+  box-shadow: 0 0 4px rgba(238, 76, 11, 0.5);
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  transform-origin: center bottom;
+  transition: transform 0.2s, opacity 0.45s;
+  transition-timing-function: ease-out;
+}
+</style>
