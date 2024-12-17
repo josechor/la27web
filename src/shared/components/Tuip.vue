@@ -106,7 +106,8 @@ function efect(e: any) {
   for (let i = 0; i < maxElems; i++) {
     let span = document.createElement("span");
     span.className = "effect";
-
+    span.style.opacity = "1";
+    span.style.transition = "transform 0.45s, opacity 0.45s";
     let newSpan = div.appendChild(span);
     let deg = i * (360 / maxElems) + Math.floor(Math.random() * 15);
     let height = 10 + Math.floor(Math.random() * 5);
@@ -116,16 +117,16 @@ function efect(e: any) {
     newSpan.style.transform = "rotate(" + deg + "deg)";
   }
 
-  window.requestAnimationFrame(function () {
+  setTimeout(() => {
     Array.from(div.querySelectorAll("span")).forEach((el) => {
       let trasY = -50 - Math.floor(Math.random() * 10);
       el.style.transform += "scaleY(0.5) translateY(" + trasY + "px)";
       el.style.opacity = "0";
     });
-    window.setTimeout(function () {
+    setTimeout(() => {
       document.body.removeChild(div);
     }, 400);
-  });
+  }, 20);
 }
 
 function handleClickCitar(tuip: TuipInterface) {
@@ -271,7 +272,7 @@ function handleClickResponse(tuip: TuipInterface) {
           </div>
           <div
             @click.stop="handleClickLike"
-            :class="{ 'grayscale-[100%]': !tuipRef.youLiked }"
+            :class="[tuipRef.youLiked ? 'grayscale-0 hover:grayscale-[40%]' : 'grayscale-[100%] hover:grayscale-[60%]']"
             class="flex flex-row gap-[2px] cursor-pointer"
           >
             <img
@@ -311,5 +312,9 @@ span.effect {
   transform-origin: center bottom;
   transition: transform 0.2s, opacity 0.45s;
   transition-timing-function: ease-out;
+}
+
+.likeButton:hover {
+  transition: filter 0.2s;
 }
 </style>
