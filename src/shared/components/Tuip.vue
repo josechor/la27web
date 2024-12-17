@@ -7,7 +7,7 @@ import { useTuipsStore } from "../stores/tuips/tuipsStore";
 import Icon from "../atoms/Icon.vue";
 
 const tuipsStore = useTuipsStore();
-const { openPostModalWithQuoting } = tuipsStore;
+const { openPostModalWithQuoting, openPostModalWithResponse } = tuipsStore;
 
 const tuipsFetchApi = new TuipsFetchApi();
 
@@ -106,6 +106,10 @@ function efect(e: any) {
 function handleClickCitar() {
   openPostModalWithQuoting(tuipRef.value);
 }
+
+function handleClickResponse() {
+  openPostModalWithResponse(tuipRef.value);
+}
 </script>
 <template>
   <div
@@ -160,7 +164,7 @@ function handleClickCitar() {
       </div>
       <div class="flex w-2/3 m-auto justify-between text-xs mt-3">
         <div
-          @click="handleClickCitar"
+          @click="handleClickResponse"
           class="flex flex-row gap-0.5 cursor-pointer"
         >
           <Icon

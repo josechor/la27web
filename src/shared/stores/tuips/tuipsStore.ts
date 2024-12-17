@@ -7,10 +7,18 @@ export const useTuipsStore = defineStore("tuipsStore", () => {
   const tuipsFetchApi = new TuipsFetchApi();
   const modalPost = ref(false);
   const quotingPost: Ref<TuipInterface | null> = ref(null);
+  const responsePost: Ref<TuipInterface | null> = ref(null);
 
   function openPostModalWithQuoting(tuip: TuipInterface) {
+    responsePost.value = null;
     quotingPost.value = tuip;
     modalPost.value = true;
+  }
+
+  function openPostModalWithResponse(tuip: TuipInterface) {
+    quotingPost.value = null;
+    responsePost.value = tuip;
+    modalPost.value = true
   }
 
   async function createTuip(tuip: TuipCreate) {
@@ -21,6 +29,8 @@ export const useTuipsStore = defineStore("tuipsStore", () => {
     modalPost,
     createTuip,
     openPostModalWithQuoting,
-    quotingPost
+    openPostModalWithResponse,
+    quotingPost,
+    responsePost
   }
 });

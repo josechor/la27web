@@ -19,7 +19,7 @@ defineProps({
 const tuipsFetchApi = new TuipsFetchApi();
 
 const tuipsStore = useTuipsStore();
-const { quotingPost } = storeToRefs(tuipsStore);
+const { quotingPost, responsePost } = storeToRefs(tuipsStore);
 
 onMounted(() => {
   window.addEventListener("keydown", (e) => {
@@ -35,8 +35,8 @@ async function createPost() {
     content: post.value,
     multimedia: null,
     quoting: quotingPost.value?.tuipId || null,
+    parent: responsePost.value?.tuipId || null,
     secta: null,
-    parent: null,
   };
   await tuipsFetchApi.createTuip(tuip);
   post.value = "";
@@ -79,6 +79,38 @@ function getDate(date: string) {
   <div
     class="fixed top-[20%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] z-50 bg-light-background-colors-primary p-4 rounded-md"
   >
+    <section v-if="responsePost" class="flex gap-4 w-full mb-1 relative">
+      <img
+        src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+        alt="user"
+        class="h-[40px] w-[40px] rounded-full z-10"
+      />
+      <div
+        class="absolute w-[2px] top-0 left-[20px] h-full z-0 bg-light-background-colors-tertiary dark:bg-dark-background-color-tertiary"
+      ></div>
+      <div class="flex flex-col gap-0.5">
+        <header class="flex flex-row gap-1 items-center">
+          <span class="font-bold text-sm">{{ responsePost.demonName }}</span>
+          <span class="font-light text-sm"
+            >@{{ responsePost.userName }} ¤
+            {{ getDate(responsePost.tuipCreatedAt) }}</span
+          >
+        </header>
+        <section>
+          <span>{{ responsePost.tuipContent }}</span>
+        </section>
+        <section class="my-2">
+          <span
+            class="text-light-text-color-tertiary dark:text-dark-text-color-tertiary"
+            >Respondiendo a
+            <strong
+              class="text-light-text-color-primary dark:text-dark-text-color-primary"
+              >@{{ responsePost.userName }}</strong
+            ></span
+          >
+        </section>
+      </div>
+    </section>
     <section class="flex gap-4 justify-around w-full">
       <img
         src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
