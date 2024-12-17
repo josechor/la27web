@@ -79,7 +79,7 @@ async function handleClickLike(e: Event) {
 }
 
 async function handleClickLikeParent(e: Event) {
-  if(!parent.value) return;
+  if (!parent.value) return;
   if (loadingLike) return;
   loadingLike = true;
   const fetchTuipApi = new TuipsFetchApi();
@@ -137,16 +137,17 @@ function handleClickResponse(tuip: TuipInterface) {
 }
 </script>
 <template>
-  <div class="w-full">
+  <div class="w-full cursor-pointer">
     <div
       v-if="parent !== null"
+      @click="console.log('padre')"
       class="flex gap-4 justify-around w-full px-3 py-2 relative pb-5"
     >
       <div
         class="w-[2px] bg-light-background-colors-tertiary dark:bg-dark-background-color-tertiary absolute top-[8px] left-[37px] h-full z-0"
       ></div>
       <img
-        @click="router.push('/profile/' + parent.userName)"
+        @click.stop="router.push('/profile/' + parent.userName)"
         src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
         alt="user"
         class="h-[50px] w-[50px] rounded-full cursor-pointer z-10"
@@ -156,12 +157,12 @@ function handleClickResponse(tuip: TuipInterface) {
           <div class="flex gap-2 items-center">
             <div class="flex flex-col gap-0.5">
               <span
-                @click="router.push('/profile/' + parent.userName)"
+                @click.stop="router.push('/profile/' + parent.userName)"
                 class="text-xs font-bold cursor-pointer hover:underline"
                 >{{ parent.demonName }}</span
               >
               <span
-                @click="router.push('/profile/' + parent.userName)"
+                @click.stop="router.push('/profile/' + parent.userName)"
                 class="text-xs font-light cursor-pointer hover:underline"
                 >@{{ parent.userName }}</span
               >
@@ -174,7 +175,7 @@ function handleClickResponse(tuip: TuipInterface) {
         <span>{{ parent.tuipContent }}</span>
         <div class="flex w-full m-auto justify-between text-xs mt-3">
           <div
-            @click="handleClickResponse(parent)"
+            @click.stop="handleClickResponse(parent)"
             class="flex flex-row gap-0.5 cursor-pointer"
           >
             <Icon
@@ -183,7 +184,7 @@ function handleClickResponse(tuip: TuipInterface) {
             />
           </div>
           <div
-            @click="handleClickLikeParent"
+            @click.stop="handleClickLikeParent"
             :class="{ 'grayscale-[100%]': !parent.youLiked }"
             class="flex flex-row gap-[2px] cursor-pointer"
           >
@@ -194,7 +195,7 @@ function handleClickResponse(tuip: TuipInterface) {
             {{ parent.magradaCount }}
           </div>
           <Icon
-            @click="handleClickCitar(parent)"
+            @click.stop="handleClickCitar(parent)"
             name="quotingIcon"
             custom-class="w-[17px] h-[17px] cursor-pointer"
           />
@@ -208,10 +209,11 @@ function handleClickResponse(tuip: TuipInterface) {
       </div>
     </div>
     <div
+      @click="console.log('hijo')"
       class="flex gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-2"
     >
       <img
-        @click="router.push('/profile/' + tuip.userName)"
+        @click.stop="router.push('/profile/' + tuip.userName)"
         src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
         alt="user"
         class="h-[50px] w-[50px] rounded-full cursor-pointer"
@@ -221,12 +223,12 @@ function handleClickResponse(tuip: TuipInterface) {
           <div class="flex gap-2 items-center">
             <div class="flex flex-col gap-0.5">
               <span
-                @click="router.push('/profile/' + tuip.userName)"
+                @click.stop="router.push('/profile/' + tuip.userName)"
                 class="text-xs font-bold cursor-pointer hover:underline"
                 >{{ tuip.demonName }}</span
               >
               <span
-                @click="router.push('/profile/' + tuip.userName)"
+                @click.stop="router.push('/profile/' + tuip.userName)"
                 class="text-xs font-light cursor-pointer hover:underline"
                 >@{{ tuip.userName }}</span
               >
@@ -259,7 +261,7 @@ function handleClickResponse(tuip: TuipInterface) {
         </div>
         <div class="flex w-full m-auto justify-between text-xs mt-3">
           <div
-            @click="handleClickResponse(tuip)"
+            @click.stop="handleClickResponse(tuip)"
             class="flex flex-row gap-0.5 cursor-pointer"
           >
             <Icon
@@ -268,7 +270,7 @@ function handleClickResponse(tuip: TuipInterface) {
             />
           </div>
           <div
-            @click="handleClickLike"
+            @click.stop="handleClickLike"
             :class="{ 'grayscale-[100%]': !tuipRef.youLiked }"
             class="flex flex-row gap-[2px] cursor-pointer"
           >
@@ -279,7 +281,7 @@ function handleClickResponse(tuip: TuipInterface) {
             {{ tuip.magradaCount }}
           </div>
           <Icon
-            @click="handleClickCitar(tuip)"
+            @click.stop="handleClickCitar(tuip)"
             name="quotingIcon"
             custom-class="w-[17px] h-[17px] cursor-pointer"
           />
