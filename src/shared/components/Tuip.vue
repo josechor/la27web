@@ -101,7 +101,6 @@ function efect(e: any) {
       document.body.removeChild(div);
     }, 400);
   });
-
 }
 
 function handleClickCitar() {
@@ -161,9 +160,18 @@ function handleClickCitar() {
       </div>
       <div class="flex w-2/3 m-auto justify-between text-xs mt-3">
         <div
-          class="flex flex-row gap-[2px] cursor-pointer"
-          :class="{ 'grayscale-[100%]': !tuipRef.youLiked }"
+          @click="handleClickCitar"
+          class="flex flex-row gap-0.5 cursor-pointer"
+        >
+          <Icon
+            name="responseIcon"
+            custom-class="w-[17px] h-[17px] cursor-pointer"
+          />
+        </div>
+        <div
           @click="handleClickLike"
+          :class="{ 'grayscale-[100%]': !tuipRef.youLiked }"
+          class="flex flex-row gap-[2px] cursor-pointer"
         >
           <img
             src="../../shared/utils/images/antorcha.png"
@@ -176,7 +184,12 @@ function handleClickCitar() {
           name="quotingIcon"
           custom-class="w-[17px] h-[17px] cursor-pointer"
         />
-        <span>S</span>
+        <div>
+          <Icon
+            name="shareIcon"
+            custom-class="w-[17px] h-[17px] cursor-pointer"
+          />
+        </div>
       </div>
     </div>
   </div>
