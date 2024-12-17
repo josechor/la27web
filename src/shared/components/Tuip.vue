@@ -21,9 +21,13 @@ const props = defineProps({
 const tuipRef = ref(props.tuip);
 
 const quoting: Ref<TuipInterface | null> = ref(null);
+const parent: Ref<TuipInterface | null> = ref(null);
 onMounted(async () => {
   if (tuipRef.value.quoting) {
     quoting.value = await tuipsFetchApi.getTuipById(tuipRef.value.quoting);
+  }
+  if (tuipRef.value.parent) {
+    parent.value = await tuipsFetchApi.getTuipById(tuipRef.value.parent);
   }
 });
 
@@ -33,6 +37,9 @@ watch(
     tuipRef.value = newVal;
     if (tuipRef.value.quoting) {
       quoting.value = await tuipsFetchApi.getTuipById(tuipRef.value.quoting);
+    }
+    if (tuipRef.value.parent) {
+      parent.value = await tuipsFetchApi.getTuipById(tuipRef.value.parent);
     }
   }
 );
@@ -71,6 +78,24 @@ async function handleClickLike(e: Event) {
   loadingLike = false;
 }
 
+async function handleClickLikeParent(e: Event) {
+  if(!parent.value) return;
+  if (loadingLike) return;
+  loadingLike = true;
+  const fetchTuipApi = new TuipsFetchApi();
+  if (parent.value.youLiked) {
+    await fetchTuipApi.removeLike(parent.value.tuipId);
+    parent.value.youLiked = false;
+    parent.value.magradaCount--;
+  } else {
+    efect(e);
+    await fetchTuipApi.setLike(parent.value.tuipId);
+    parent.value.youLiked = true;
+    parent.value.magradaCount++;
+  }
+  loadingLike = false;
+}
+
 function efect(e: any) {
   let div = document.createElement("div");
   document.querySelector("body")?.appendChild(div);
@@ -103,96 +128,167 @@ function efect(e: any) {
   });
 }
 
-function handleClickCitar() {
-  openPostModalWithQuoting(tuipRef.value);
+function handleClickCitar(tuip: TuipInterface) {
+  openPostModalWithQuoting(tuip);
 }
 
-function handleClickResponse() {
-  openPostModalWithResponse(tuipRef.value);
+function handleClickResponse(tuip: TuipInterface) {
+  openPostModalWithResponse(tuip);
 }
 </script>
 <template>
-  <div
-    class="flex gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-2"
-  >
-    <img
-      @click="router.push('/profile/' + tuip.userName)"
-      src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
-      alt="user"
-      class="h-[50px] w-[50px] rounded-full cursor-pointer"
-    />
-    <div class="w-full flex flex-col gap-1">
-      <div class="flex gap-2 item-center justify-between">
-        <div class="flex gap-2 items-center">
-          <div class="flex flex-col gap-0.5">
-            <span
-              @click="router.push('/profile/' + tuip.userName)"
-              class="text-xs font-bold cursor-pointer hover:underline"
-              >{{ tuip.demonName }}</span
-            >
-            <span
-              @click="router.push('/profile/' + tuip.userName)"
-              class="text-xs font-light cursor-pointer hover:underline"
-              >@{{ tuip.userName }}</span
+  <div class="w-full">
+    <div
+      v-if="parent !== null"
+      class="flex gap-4 justify-around w-full px-3 py-2 relative pb-5"
+    >
+      <div
+        class="w-[2px] bg-light-background-colors-tertiary dark:bg-dark-background-color-tertiary absolute top-[8px] left-[37px] h-full z-0"
+      ></div>
+      <img
+        @click="router.push('/profile/' + parent.userName)"
+        src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+        alt="user"
+        class="h-[50px] w-[50px] rounded-full cursor-pointer z-10"
+      />
+      <div class="w-full flex flex-col gap-1">
+        <div class="flex gap-2 item-center justify-between">
+          <div class="flex gap-2 items-center">
+            <div class="flex flex-col gap-0.5">
+              <span
+                @click="router.push('/profile/' + parent.userName)"
+                class="text-xs font-bold cursor-pointer hover:underline"
+                >{{ parent.demonName }}</span
+              >
+              <span
+                @click="router.push('/profile/' + parent.userName)"
+                class="text-xs font-light cursor-pointer hover:underline"
+                >@{{ parent.userName }}</span
+              >
+            </div>
+            <span class="text-sm font-light">
+              ¤ {{ getDate(parent.tuipCreatedAt) }}</span
             >
           </div>
-          <span class="text-sm font-light">
-            ¤ {{ getDate(tuip.tuipCreatedAt) }}</span
-          >
         </div>
-      </div>
-      <span>{{ tuip.tuipContent }}</span>
-      <div
-        v-if="quoting"
-        class="px-2 py-3 border rounded-md border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
-      >
-        <header class="flex flex-row gap-1">
-          <img
-            src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
-            alt="user"
-            class="h-[20px] w-[20px] rounded-full"
-          />
-          <span class="font-bold text-sm">{{ quoting.demonName }}</span>
-          <span class="font-light text-sm"
-            >@{{ quoting.userName }} ¤
-            {{ getDate(quoting.tuipCreatedAt) }}</span
+        <span>{{ parent.tuipContent }}</span>
+        <div class="flex w-full m-auto justify-between text-xs mt-3">
+          <div
+            @click="handleClickResponse(parent)"
+            class="flex flex-row gap-0.5 cursor-pointer"
           >
-        </header>
-        <section>
-          <span>{{ quoting.tuipContent }}</span>
-        </section>
-      </div>
-      <div class="flex w-2/3 m-auto justify-between text-xs mt-3">
-        <div
-          @click="handleClickResponse"
-          class="flex flex-row gap-0.5 cursor-pointer"
-        >
+            <Icon
+              name="responseIcon"
+              custom-class="w-[17px] h-[17px] cursor-pointer"
+            />
+          </div>
+          <div
+            @click="handleClickLikeParent"
+            :class="{ 'grayscale-[100%]': !parent.youLiked }"
+            class="flex flex-row gap-[2px] cursor-pointer"
+          >
+            <img
+              src="../../shared/utils/images/antorcha.png"
+              class="w-[16px] h-[16px]"
+            />
+            {{ parent.magradaCount }}
+          </div>
           <Icon
-            name="responseIcon"
+            @click="handleClickCitar(parent)"
+            name="quotingIcon"
             custom-class="w-[17px] h-[17px] cursor-pointer"
           />
+          <div>
+            <Icon
+              name="shareIcon"
+              custom-class="w-[17px] h-[17px] cursor-pointer"
+            />
+          </div>
         </div>
+      </div>
+    </div>
+    <div
+      class="flex gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-2"
+    >
+      <img
+        @click="router.push('/profile/' + tuip.userName)"
+        src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+        alt="user"
+        class="h-[50px] w-[50px] rounded-full cursor-pointer"
+      />
+      <div class="w-full flex flex-col gap-1">
+        <div class="flex gap-2 item-center justify-between">
+          <div class="flex gap-2 items-center">
+            <div class="flex flex-col gap-0.5">
+              <span
+                @click="router.push('/profile/' + tuip.userName)"
+                class="text-xs font-bold cursor-pointer hover:underline"
+                >{{ tuip.demonName }}</span
+              >
+              <span
+                @click="router.push('/profile/' + tuip.userName)"
+                class="text-xs font-light cursor-pointer hover:underline"
+                >@{{ tuip.userName }}</span
+              >
+            </div>
+            <span class="text-sm font-light">
+              ¤ {{ getDate(tuip.tuipCreatedAt) }}</span
+            >
+          </div>
+        </div>
+        <span>{{ tuip.tuipContent }}</span>
         <div
-          @click="handleClickLike"
-          :class="{ 'grayscale-[100%]': !tuipRef.youLiked }"
-          class="flex flex-row gap-[2px] cursor-pointer"
+          v-if="quoting"
+          class="px-2 py-3 border rounded-md border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
         >
-          <img
-            src="../../shared/utils/images/antorcha.png"
-            class="w-[16px] h-[16px]"
-          />
-          {{ tuip.magradaCount }}
+          <header class="flex flex-row gap-1">
+            <img
+              src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+              alt="user"
+              class="h-[20px] w-[20px] rounded-full"
+            />
+            <span class="font-bold text-sm">{{ quoting.demonName }}</span>
+            <span class="font-light text-sm"
+              >@{{ quoting.userName }} ¤
+              {{ getDate(quoting.tuipCreatedAt) }}</span
+            >
+          </header>
+          <section>
+            <span>{{ quoting.tuipContent }}</span>
+          </section>
         </div>
-        <Icon
-          @click="handleClickCitar"
-          name="quotingIcon"
-          custom-class="w-[17px] h-[17px] cursor-pointer"
-        />
-        <div>
+        <div class="flex w-full m-auto justify-between text-xs mt-3">
+          <div
+            @click="handleClickResponse(tuip)"
+            class="flex flex-row gap-0.5 cursor-pointer"
+          >
+            <Icon
+              name="responseIcon"
+              custom-class="w-[17px] h-[17px] cursor-pointer"
+            />
+          </div>
+          <div
+            @click="handleClickLike"
+            :class="{ 'grayscale-[100%]': !tuipRef.youLiked }"
+            class="flex flex-row gap-[2px] cursor-pointer"
+          >
+            <img
+              src="../../shared/utils/images/antorcha.png"
+              class="w-[16px] h-[16px]"
+            />
+            {{ tuip.magradaCount }}
+          </div>
           <Icon
-            name="shareIcon"
+            @click="handleClickCitar(tuip)"
+            name="quotingIcon"
             custom-class="w-[17px] h-[17px] cursor-pointer"
           />
+          <div>
+            <Icon
+              name="shareIcon"
+              custom-class="w-[17px] h-[17px] cursor-pointer"
+            />
+          </div>
         </div>
       </div>
     </div>
