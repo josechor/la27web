@@ -3,9 +3,8 @@ import { onMounted, PropType, Ref, ref, watch } from "vue";
 import { TuipInterface } from "../types/tuipsTypes";
 import router from "../router";
 import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";
-import Button from "../atoms/buttons/Button.vue";
-import { ButtonSize } from "../types/shared";
 import { useTuipsStore } from "../stores/tuips/tuipsStore";
+import Icon from "../atoms/Icon.vue";
 
 const tuipsStore = useTuipsStore();
 const { openPostModalWithQuoting } = tuipsStore;
@@ -73,8 +72,6 @@ async function handleClickLike(e: Event) {
 }
 
 function efect(e: any) {
-  let winPos: any;
-  let flag = false;
   let div = document.createElement("div");
   document.querySelector("body")?.appendChild(div);
   div.style.left = e.pageX + "px";
@@ -102,24 +99,9 @@ function efect(e: any) {
     });
     window.setTimeout(function () {
       document.body.removeChild(div);
-    }, 9000);
+    }, 400);
   });
-  if (!flag) {
-    flag = true;
-    winPos = [document.body.scrollLeft, document.body.scrollTop];
-    let maxShakeOffset = 1;
-    let shake = window.setInterval(function () {
-      let shakeOffset = Math.floor(Math.random() * 10 * maxShakeOffset);
-      window.scrollTo(
-        winPos[0] - maxShakeOffset / 2 + shakeOffset,
-        winPos[1] - maxShakeOffset / 2 + shakeOffset
-      );
-    }, 10);
-    window.setTimeout(function () {
-      window.clearInterval(shake);
-      flag = false;
-    }, 200);
-  }
+
 }
 
 function handleClickCitar() {
@@ -134,30 +116,27 @@ function handleClickCitar() {
       @click="router.push('/profile/' + tuip.userName)"
       src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
       alt="user"
-      class="h-[40px] w-[40px] rounded-full cursor-pointer"
+      class="h-[50px] w-[50px] rounded-full cursor-pointer"
     />
-    <div class="w-full flex flex-col gap-2">
+    <div class="w-full flex flex-col gap-1">
       <div class="flex gap-2 item-center justify-between">
         <div class="flex gap-2 items-center">
-          <span
-            @click="router.push('/profile/' + tuip.userName)"
-            class="text-sm font-bold cursor-pointer hover:underline"
-            >{{ tuip.demonName }}</span
-          >
-          <span
-            @click="router.push('/profile/' + tuip.userName)"
-            class="text-sm font-light cursor-pointer hover:underline"
-            >@{{ tuip.userName }}</span
-          >
+          <div class="flex flex-col gap-0.5">
+            <span
+              @click="router.push('/profile/' + tuip.userName)"
+              class="text-xs font-bold cursor-pointer hover:underline"
+              >{{ tuip.demonName }}</span
+            >
+            <span
+              @click="router.push('/profile/' + tuip.userName)"
+              class="text-xs font-light cursor-pointer hover:underline"
+              >@{{ tuip.userName }}</span
+            >
+          </div>
           <span class="text-sm font-light">
             ¤ {{ getDate(tuip.tuipCreatedAt) }}</span
           >
         </div>
-        <Button
-          @click="handleClickCitar"
-          text="citar"
-          :size="ButtonSize.extraSmall"
-        />
       </div>
       <span>{{ tuip.tuipContent }}</span>
       <div
@@ -180,7 +159,7 @@ function handleClickCitar() {
           <span>{{ quoting.tuipContent }}</span>
         </section>
       </div>
-      <div class="flex w-2/3 m-auto justify-between text-xs">
+      <div class="flex w-2/3 m-auto justify-between text-xs mt-3">
         <div
           class="flex flex-row gap-[2px] cursor-pointer"
           :class="{ 'grayscale-[100%]': !tuipRef.youLiked }"
@@ -192,7 +171,11 @@ function handleClickCitar() {
           />
           {{ tuip.magradaCount }}
         </div>
-        <span>M</span>
+        <Icon
+          @click="handleClickCitar"
+          name="quotingIcon"
+          custom-class="w-[17px] h-[17px] cursor-pointer"
+        />
         <span>S</span>
       </div>
     </div>
