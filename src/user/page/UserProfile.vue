@@ -31,18 +31,23 @@ onMounted(() => {
   startProfile();
 });
 
-watch(() => route.params.username, () => {
-  username = route.params.username;
-  startProfile();
-});
+watch(
+  () => route.params.username,
+  () => {
+    username = route.params.username;
+    startProfile();
+  }
+);
 
 async function startProfile() {
   if (!username || typeof username !== "string") {
     console.error("El parámetro userId no es válido");
     return;
   }
-    user.value = await userStore.getUserData(username) || null;
-    tuips.value = await tuipsFetchApi.getTuips(page.value, limit, { authorId: user.value?.userId });
+  user.value = (await userStore.getUserData(username)) || null;
+  tuips.value = await tuipsFetchApi.getTuips(page.value, limit, {
+    authorId: user.value?.userId,
+  });
 }
 
 function handleClickFollow() {
@@ -80,8 +85,6 @@ const getUserCreatedAt = computed(() => {
     months[date.getMonth()]
   } de ${date.getFullYear()}`;
 });
-
-
 </script>
 <template>
   <div class="flex gap-6" v-if="user">
@@ -89,7 +92,7 @@ const getUserCreatedAt = computed(() => {
       class="border border-y-0 border-x-light-background-colors-quaternary dark:border-x-dark-background-color-quaternary w-[65%] min-h-screen"
     >
       <header
-        class="border border-x-0 border-t-0 border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary pb-6"
+        class="border border-x-0 border-t-0 border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary"
       >
         <div class="flex flex-row gap-10 items-center p-6 py-4">
           <span @click="router.go(-1)"><--</span>
@@ -140,19 +143,90 @@ const getUserCreatedAt = computed(() => {
             </div>
           </div>
         </div>
-        <div class="flex flex-row justify-around gap-2">
-          <span class="cursor-pointer" @click="currentTab='tuips'">Tuips</span>
-          <span class="cursor-pointer" @click="currentTab='likes'">Me gusta</span>
-          <span class="cursor-pointer" @click="currentTab='bestTuips'">Destacados</span>
+        <div class="flex flex-row justify-around gap-2 mt-6">
+          <div
+            class="flex flex-col gap-2 relative cursor-pointer"
+            @click="currentTab = 'tuips'"
+          >
+            <span
+              class="cursor-pointer"
+              :class="[
+                currentTab === 'tuips'
+                  ? 'font-bold text-light-text-color-primary'
+                  : 'text-light-text-color-tertiary',
+              ]"
+              >Tuips</span
+            >
+            <div class="light" v-show="currentTab === 'tuips'"></div>
+            <div
+              v-show="currentTab === 'tuips'"
+              class="h-[2px] w-full bg-violet-400"
+            ></div>
+          </div>
+          <div
+            class="flex flex-col gap-2 relative cursor-pointer"
+            @click="currentTab = 'likes'"
+          >
+            <span
+              class="cursor-pointer"
+              :class="[
+                currentTab === 'likes'
+                  ? 'font-bold text-light-text-color-primary'
+                  : 'text-light-text-color-tertiary',
+              ]"
+              >Me gusta</span
+            >
+            <div class="light" v-show="currentTab === 'likes'"></div>
+            <div
+              v-show="currentTab === 'likes'"
+              class="h-[2px] w-full bg-violet-400"
+            ></div>
+          </div>
+          <div
+            class="flex flex-col gap-2 relative cursor-pointer"
+            @click="currentTab = 'bestTuips'"
+          >
+            <span
+              class="cursor-pointer"
+              :class="[
+                currentTab === 'bestTuips'
+                  ? 'font-bold text-light-text-color-primary'
+                  : 'text-light-text-color-tertiary',
+              ]"
+              >Destacados</span
+            >
+            <div class="light" v-show="currentTab === 'bestTuips'"></div>
+            <div
+              v-show="currentTab === 'bestTuips'"
+              class="h-[2px] w-full bg-violet-400"
+            ></div>
+          </div>
         </div>
       </header>
       <section class="p-6">
-        <UserTuips :user-id="user.userId" v-if="currentTab === 'tuips'"/>
-        <LikedTuips :user-id="user.userId" v-if="currentTab === 'likes'"/>
-        <BestTuips :user-id="user.userId" v-if="currentTab === 'bestTuips'"/>
+        <UserTuips :user-id="user.userId" v-if="currentTab === 'tuips'" />
+        <LikedTuips :user-id="user.userId" v-if="currentTab === 'likes'" />
+        <BestTuips :user-id="user.userId" v-if="currentTab === 'bestTuips'" />
       </section>
     </section>
-    <section class="w-[35%]">
-    </section>
+    <section class="w-[35%]"></section>
   </div>
 </template>
+
+<style>
+.light {
+  position: absolute;
+  background-color: violet;
+  background: linear-gradient(
+    0deg,
+    rgba(238, 130, 238, 0.356) 0%,
+    transparent 100%
+  );
+  height: 25px;
+  width: 150%;
+  translate: -50%;
+  bottom: 0;
+  left: 50%;
+  clip-path: polygon(0 0%, 100% 0%, 81% 100%, 19% 100%);
+}
+</style>
