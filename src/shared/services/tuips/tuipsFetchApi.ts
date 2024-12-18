@@ -6,7 +6,9 @@ import { TuipsApi } from "./tuipsApi";
 export class TuipsFetchApi implements TuipsApi {
   domain = import.meta.env.VITE_API_URL;
   async getTuipById(tuipId: number): Promise<TuipInterface> {
-    return await apiGet<TuipInterface>(`/api/tuips/${tuipId}`);
+    const tuip = await apiGet<TuipInterface>(`/api/tuips/${tuipId}`);
+    tuip.tuipMultimedia = (tuip.tuipMultimedia as any) !== "" ? (tuip.tuipMultimedia as any).split(",") : []
+    return tuip;
   }
   async getTuips(page: number, limit: number, filters?: TuipFilters): Promise<TuipInterface[]> {
     let query = ""
@@ -16,7 +18,12 @@ export class TuipsFetchApi implements TuipsApi {
     if (filters && filters.likedById) {
       query += `&likedById=${filters.likedById}`
     }
-    return await apiGet<TuipInterface[]>(`/api/tuips?page=${page}&limit=${limit}${query}`);
+    const response = await apiGet<TuipInterface[]>(`/api/tuips?page=${page}&limit=${limit}${query}`);
+    response.forEach((tuip) => {
+
+      tuip.tuipMultimedia = (tuip.tuipMultimedia as any) !== "" ? (tuip.tuipMultimedia as any).split(",") : []
+    });
+    return response;
   }
   async createTuip(tuip: TuipCreate): Promise<void> {
     const userStore = useUserStore();

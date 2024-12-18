@@ -1,7 +1,7 @@
 export interface TuipInterface {
     tuipId: number;
     tuipContent: string;
-    tuipMultimedia: null | string;
+    tuipMultimedia: string[];
     tuipCreatedAt: string;
     demonId: string;
     userName: string;
@@ -11,6 +11,7 @@ export interface TuipInterface {
     quoting: null | number;
     secta: null | number;
     parent: null | number;
+    profilePicture: null | string;
 }
 
 export interface TuipCreate {

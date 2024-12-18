@@ -7,11 +7,15 @@ import Button from "../../shared/atoms/buttons/Button.vue";
 import { ButtonSize } from "../../shared/types/shared";
 import { TuipsFetchApi } from "../../shared/services/tuips/tuipsFetchApi";
 import { useUserStore } from "../../shared/stores/user/userStore";
+import { storeToRefs } from "pinia";
+import router from "../../shared/router";
+import Image from "../../shared/atoms/Image.vue";
 
 const tuipsFetchApi = new TuipsFetchApi();
 const tuipsStore = useTuipsStore();
 
 const userStore = useUserStore();
+const { loggedUser } = storeToRefs(userStore);
 
 const post = ref("");
 let page = 1;
@@ -78,9 +82,11 @@ function validateInput() {
       <section
         class="flex gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-1"
       >
-        <img
-          src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
-          alt="user"
+        <Image
+          v-if="loggedUser !== null"
+          @click.stop="router.push('/profile/' + loggedUser.userName)"
+          :src="loggedUser.profilePicture || null"
+          errorsrc="default-image.webp"
           class="h-[40px] w-[40px] rounded-full"
         />
         <div class="w-full flex gap-2 flex-col">

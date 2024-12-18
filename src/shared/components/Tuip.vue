@@ -5,6 +5,7 @@ import router from "../router";
 import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";
 import { useTuipsStore } from "../stores/tuips/tuipsStore";
 import Icon from "../atoms/Icon.vue";
+import Image from "../atoms/Image.vue";
 
 const tuipsStore = useTuipsStore();
 const { openPostModalWithQuoting, openPostModalWithResponse } = tuipsStore;
@@ -146,11 +147,11 @@ function handleClickResponse(tuip: TuipInterface) {
       <div
         class="w-[2px] bg-light-background-colors-tertiary dark:bg-dark-background-color-tertiary absolute top-[8px] left-[37px] h-full z-0"
       ></div>
-      <img
+      <Image
         @click.stop="router.push('/profile/' + parent.userName)"
-        src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
-        alt="user"
-        class="h-[50px] w-[50px] rounded-full cursor-pointer z-10"
+        :src="parent.profilePicture"
+        errorsrc="default-image.webp"
+        class="h-[50px] w-[50px] rounded-full cursor-pointer z-50"
       />
       <div class="w-full flex flex-col gap-1">
         <div class="flex gap-2 item-center justify-between">
@@ -207,10 +208,10 @@ function handleClickResponse(tuip: TuipInterface) {
       @click="console.log('hijo')"
       class="flex gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-2 tuip"
     >
-      <img
+      <Image
         @click.stop="router.push('/profile/' + tuip.userName)"
-        src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
-        alt="user"
+        :src="tuip.profilePicture"
+        errorsrc="default-image.webp"
         class="h-[50px] w-[50px] rounded-full cursor-pointer"
       />
       <div class="w-full flex flex-col gap-1">
@@ -235,13 +236,25 @@ function handleClickResponse(tuip: TuipInterface) {
         </div>
         <div class="content">{{ tuip.tuipContent }}</div>
         <div
+          class="grid"
+          :class="[
+            tuip.tuipMultimedia.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
+          ]"
+        >
+          <Image
+            v-for="image in tuip.tuipMultimedia"
+            :src="image"
+            errorsrc="default-image.webp"
+          />
+        </div>
+        <div
           v-if="quoting"
           class="px-2 py-3 border rounded-md border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
         >
           <header class="flex flex-row gap-1">
-            <img
-              src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
-              alt="user"
+            <Image
+              :src="quoting.profilePicture"
+              errorsrc="default-image.webp"
               class="h-[20px] w-[20px] rounded-full"
             />
             <span class="font-bold text-sm">{{ quoting.demonName }}</span>
