@@ -12,9 +12,11 @@ import router from "../../shared/router";
 import UserTuips from "../components/UserTuips.vue";
 import BestTuips from "../components/BestTuips.vue";
 import LikedTuips from "../components/LikedTuips.vue";
+import { storeToRefs } from "pinia";
 
 const tuipsFetchApi = new TuipsFetchApi();
 const userStore = useUserStore();
+const { loggedUser } = storeToRefs(userStore);
 
 const route = useRoute();
 let username = route.params.username;
@@ -85,6 +87,10 @@ const getUserCreatedAt = computed(() => {
     months[date.getMonth()]
   } de ${date.getFullYear()}`;
 });
+
+function handleClickEdit() {
+  console.log("Edit");
+}
 </script>
 <template>
   <div class="flex gap-6" v-if="user">
@@ -115,9 +121,17 @@ const getUserCreatedAt = computed(() => {
         </div>
         <div class="flex justify-end items-center p-6">
           <Button
+            v-if="loggedUser?.userId !== user.userId"
             @click="handleClickFollow"
             :size="ButtonSize.large"
             text="Seguir"
+            class=""
+            />
+            <Button
+            v-else
+            @click="handleClickEdit"
+            :size="ButtonSize.large"
+            text="Editar perfil"
             class=""
           />
         </div>

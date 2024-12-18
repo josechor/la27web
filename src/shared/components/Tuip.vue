@@ -306,6 +306,8 @@ function multimediaIsImage(multimedia: string) {
               {{ getDate(quoting.tuipCreatedAt) }}</span
             >
           </header>
+        <div class="content">{{ quoting.tuipContent }}</div>
+
           <div
             class="grid"
             :class="[

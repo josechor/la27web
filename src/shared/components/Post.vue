@@ -103,7 +103,7 @@ const handleFiles = (event: any) => {
 
 const removeFile = (index: number) => {
   // @ts-ignore
-  URL.revokeObjectURL(files.value[index].preview);
+  URL.revokeObjectURL(files.value[index]);
   files.value.splice(index, 1);
 };
 </script>
