@@ -77,7 +77,7 @@ function getDate(date: string) {
   ></div>
 
   <div
-    class="fixed top-[20%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] z-50 bg-light-background-colors-primary p-4 rounded-md"
+    class="fixed top-[20%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] z-50 bg-light-background-colors-primary p-4 rounded-md tuip"
   >
     <section v-if="responsePost" class="flex gap-4 w-full mb-1 relative">
       <img
@@ -160,3 +160,23 @@ function getDate(date: string) {
     </section>
   </div>
 </template>
+
+<style scoped>
+.tuip {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+}
+
+.tuip div {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+}
+</style>

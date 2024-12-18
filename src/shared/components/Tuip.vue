@@ -141,11 +141,10 @@ function handleClickResponse(tuip: TuipInterface) {
   <div class="w-full cursor-pointer">
     <div
       v-if="parent !== null"
-      @click="console.log('padre')"
-      class="flex gap-4 justify-around w-full px-3 py-2 relative pb-5"
+      class="flex gap-4 justify-around w-full px-3 py-2 relative pb-5 tuip"
     >
       <div
-        class="w-[2px] bg-light-background-colors-tertiary dark:bg-dark-background-color-tertiary absolute top-[8px] left-[37px] h-full z-0"
+        class="w-[2px] bg-light-background-colors-tertiary dark:bg-dark-background-color-tertiary absolute top-[8px] left-[37px] h-full z-0 "
       ></div>
       <img
         @click.stop="router.push('/profile/' + parent.userName)"
@@ -211,7 +210,7 @@ function handleClickResponse(tuip: TuipInterface) {
     </div>
     <div
       @click="console.log('hijo')"
-      class="flex gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-2"
+      class="flex gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-2 tuip"
     >
       <img
         @click.stop="router.push('/profile/' + tuip.userName)"
@@ -239,7 +238,7 @@ function handleClickResponse(tuip: TuipInterface) {
             >
           </div>
         </div>
-        <span>{{ tuip.tuipContent }}</span>
+        <div class="content">{{ tuip.tuipContent }}</div>
         <div
           v-if="quoting"
           class="px-2 py-3 border rounded-md border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
@@ -272,7 +271,11 @@ function handleClickResponse(tuip: TuipInterface) {
           </div>
           <div
             @click.stop="handleClickLike"
-            :class="[tuipRef.youLiked ? 'grayscale-0 hover:grayscale-[40%]' : 'grayscale-[100%] hover:grayscale-[60%]']"
+            :class="[
+              tuipRef.youLiked
+                ? 'grayscale-0 hover:grayscale-[40%]'
+                : 'grayscale-[100%] hover:grayscale-[60%]',
+            ]"
             class="flex flex-row gap-[2px] cursor-pointer"
           >
             <img
@@ -316,5 +319,23 @@ span.effect {
 
 .likeButton:hover {
   transition: filter 0.2s;
+}
+
+.tuip {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  box-sizing: border-box;
+}
+
+.tuip div {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  box-sizing: border-box;
 }
 </style>
