@@ -144,7 +144,7 @@ function handleClickResponse(tuip: TuipInterface) {
       class="flex gap-4 justify-around w-full px-3 py-2 relative pb-5 tuip"
     >
       <div
-        class="w-[2px] bg-light-background-colors-tertiary dark:bg-dark-background-color-tertiary absolute top-[8px] left-[37px] h-full z-0 "
+        class="w-[2px] bg-light-background-colors-tertiary dark:bg-dark-background-color-tertiary absolute top-[8px] left-[37px] h-full z-0"
       ></div>
       <img
         @click.stop="router.push('/profile/' + parent.userName)"
@@ -178,10 +178,7 @@ function handleClickResponse(tuip: TuipInterface) {
             @click.stop="handleClickResponse(parent)"
             class="flex flex-row gap-0.5 cursor-pointer"
           >
-            <Icon
-              name="responseIcon"
-              custom-class="w-[17px] h-[17px] cursor-pointer"
-            />
+            <Icon name="responseIcon" :width="16" :height="16" />
           </div>
           <div
             @click.stop="handleClickLikeParent"
@@ -197,13 +194,11 @@ function handleClickResponse(tuip: TuipInterface) {
           <Icon
             @click.stop="handleClickCitar(parent)"
             name="quotingIcon"
-            custom-class="w-[17px] h-[17px] cursor-pointer"
+            :width="16"
+            :height="16"
           />
           <div>
-            <Icon
-              name="shareIcon"
-              custom-class="w-[17px] h-[17px] cursor-pointer"
-            />
+            <Icon name="shareIcon" :width="16" :height="16" />
           </div>
         </div>
       </div>
@@ -264,10 +259,7 @@ function handleClickResponse(tuip: TuipInterface) {
             @click.stop="handleClickResponse(tuip)"
             class="flex flex-row gap-0.5 cursor-pointer"
           >
-            <Icon
-              name="responseIcon"
-              custom-class="w-[17px] h-[17px] cursor-pointer"
-            />
+            <Icon name="responseIcon" :width="16" :height="16" />
           </div>
           <div
             @click.stop="handleClickLike"
@@ -287,13 +279,11 @@ function handleClickResponse(tuip: TuipInterface) {
           <Icon
             @click.stop="handleClickCitar(tuip)"
             name="quotingIcon"
-            custom-class="w-[17px] h-[17px] cursor-pointer"
+            :width="16"
+            :height="16"
           />
           <div>
-            <Icon
-              name="shareIcon"
-              custom-class="w-[17px] h-[17px] cursor-pointer"
-            />
+            <Icon name="shareIcon" :width="16" :height="16" />
           </div>
         </div>
       </div>
@@ -325,8 +315,8 @@ span.effect {
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
-  overflow: hidden; 
-  text-overflow: ellipsis; 
+  overflow: hidden;
+  text-overflow: ellipsis;
   box-sizing: border-box;
 }
 
@@ -334,8 +324,8 @@ span.effect {
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
-  overflow: hidden; 
-  text-overflow: ellipsis; 
+  overflow: hidden;
+  text-overflow: ellipsis;
   box-sizing: border-box;
 }
 </style>

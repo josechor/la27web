@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import svgLoader from 'vite-svg-loader';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -10,5 +11,5 @@ export default defineConfig({
       usePolling: true,
     }
   },
-  plugins: [vue()],
+  plugins: [vue(), svgLoader()],
 });

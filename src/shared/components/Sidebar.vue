@@ -58,7 +58,7 @@ function redirect(route: string) {
         :key="item.name"
         class="h-[55px] text-xl font-bold flex flex-row gap-2 items-center cursor-pointer"
       >
-        <Icon :name="item.icon" class="" custom-class="w-[24px] h-[24px]" />
+        <Icon :name="item.icon" class="" :width="24" :height="24"/>
         <span>{{ item.name }}</span>
       </div>
     </div>

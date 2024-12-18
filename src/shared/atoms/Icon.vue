@@ -1,49 +1,60 @@
-<script setup lang="ts">
-import { ref, watch } from "vue";
+<script lang="ts" setup>
+import { defineAsyncComponent, watch } from "vue";
 
 const props = defineProps({
   name: {
     type: String,
     required: true,
   },
-  customClass: {
+  stroke: {
+    type: String,
+    default: "#003333",
+  },
+  fill: {
+    type: String,
+    default: "none",
+  },
+  width: {
+    type: Number,
+    default: 14,
+  },
+  height: {
+    type: Number,
+    default: 14,
+  },
+  title: {
     type: String,
     default: "",
   },
+  iconCustomClass: {
+    type: String,
+    default: "",
+  },
+  strokeWidth: {
+    type: Number,
+    default: 1.33,
+  },
 });
 
-const iconSvg = ref<string | null>(null);
-const iconPath = ref<string>(`/src/shared/utils/icons/${props.name}.svg`);
+let Icon = defineAsyncComponent(() => import(`../utils/icons/${props.name}.svg`));
 
 watch(
   () => props.name,
-  async (newName) => {
-    try {
-      const svg = await import(`../utils/icons/${newName}.svg?raw`);
-      iconSvg.value = svg.default || svg;
-    } catch (e) {
-      console.error(`Icon "${newName}" not found.`);
-      iconSvg.value = null;
-    }
-  },
-  { immediate: true }
+  () => {
+    Icon = defineAsyncComponent(() => import(`../utils/icons/${props.name}.svg`));
+  }
 );
 </script>
 
 <template>
-  <span
-    v-if="iconPath"
-    class="icon w-[24px] h-[24px]"
-    :class="[`icon-${name}`, customClass]"
-    v-html="iconSvg"
-  />
+  <div :title="title" :style="{ width: width + 'px', height: height + 'px' }">
+    <Icon
+      :stroke="stroke"
+      :fill="fill"
+      :stroke-width="strokeWidth"
+      :class="iconCustomClass"
+      :width="width"
+      :height="height"
+    />
+  </div>
 </template>
-
-<style scoped>
-.icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  fill: currentColor;
-}
-</style>
