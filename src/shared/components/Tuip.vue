@@ -193,16 +193,18 @@ function multimediaIsImage(multimedia: string) {
             parent.tuipMultimedia.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
           ]"
         >
-          <template v-for="multimedia in parent.tuipMultimedia">
+          <template v-for="multimedia in parent.tuipMultimedia" >
             <Video
               v-if="multimediaIsVideo(multimedia)"
               :src="multimedia"
               controls
+              class="max-h-[300px]"
             ></Video>
             <Image
               v-if="multimediaIsImage(multimedia)"
               :src="multimedia"
               errorsrc="default-image.webp"
+              class="max-h-[300px]"
             />
           </template>
         </div>
@@ -278,11 +280,13 @@ function multimediaIsImage(multimedia: string) {
               v-if="multimediaIsVideo(multimedia)"
               :src="multimedia"
               controls
+               class="max-h-[400px]"
             ></Video>
             <Image
               v-if="multimediaIsImage(multimedia)"
               :src="multimedia"
               errorsrc="default-image.webp"
+               class="max-h-[400px]"
             />
           </template>
         </div>
@@ -313,11 +317,13 @@ function multimediaIsImage(multimedia: string) {
                 v-if="multimediaIsVideo(multimedia)"
                 :src="multimedia"
                 controls
+                 class="max-h-[300px]"
               ></Video>
               <Image
                 v-if="multimediaIsImage(multimedia)"
                 :src="multimedia"
                 errorsrc="default-image.webp"
+                 class="max-h-[300px]"
               />
             </template>
           </div>

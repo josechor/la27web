@@ -6,6 +6,7 @@ import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";
 import Button from "../atoms/buttons/Button.vue";
 import { useTuipsStore } from "../stores/tuips/tuipsStore";
 import { storeToRefs } from "pinia";
+import Icon from "../atoms/Icon.vue";
 
 const emits = defineEmits(["update:modelValue"]);
 
@@ -30,7 +31,7 @@ onMounted(() => {
 });
 
 async function createPost() {
-  if (post.value.length === 0) return;
+  if (post.value.length === 0 && files.value.length === 0) return;
   const tuip: TuipCreate = {
     content: post.value,
     multimedia: files.value,
@@ -83,7 +84,10 @@ const handleFiles = (event: any) => {
   const remainingSlots = maxFiles - files.value.length;
 
   // Limitar a los slots disponibles
-  const validFiles: CustomFile[] = Array.from(selectedFiles).slice(0, remainingSlots) as File[];
+  const validFiles: CustomFile[] = Array.from(selectedFiles).slice(
+    0,
+    remainingSlots
+  ) as File[];
 
   validFiles.forEach((file) => {
     const preview = URL.createObjectURL(file); // Crear un URL temporal para la previsualización
@@ -98,7 +102,7 @@ const handleFiles = (event: any) => {
 };
 
 const removeFile = (index: number) => {
-    // @ts-ignore
+  // @ts-ignore
   URL.revokeObjectURL(files.value[index].preview);
   files.value.splice(index, 1);
 };
@@ -157,26 +161,30 @@ const removeFile = (index: number) => {
           @input="validateInput"
           @keydown.enter.prevent="createPost"
         />
-        <div class="grid grid-cols-4 gap-2">
-          <div v-for="(file, index) in files" class="relative">
+        <div class="flex flex-nowrap overflow-x-scroll">
+          <div v-for="file in files" class="relative">
             <img
               v-if="file.type.startsWith('image/')"
               :src="file.preview"
               alt="Imagen subida"
-              class="h-[150px] w-[150px] aspect-square object-cover"
+              class="h-[200px] object-cover"
             />
             <!-- Previsualización de video -->
-            <video v-if="file.type.startsWith('video/')" controls>
-              <source
-                :src="file.preview"
-                :type="file.type"
-                class="h-[150px] w-[150px] aspect-square object-cover"
-              />
+            <video
+              v-if="file.type.startsWith('video/')"
+              controls
+              class="h-[200px] object-cover"
+            >
+              <source :src="file.preview" :type="file.type" />
               Tu navegador no soporta videos.
             </video>
-            <button @click="removeFile(index)" class="absolute top-1 right-1">
-              Eliminar
-            </button>
+            <Icon
+              @click="removeFile"
+              :width="24"
+              :height="24"
+              name="searchIcon"
+              class="absolute top-0 right-0 cursor-pointer"
+            />
           </div>
         </div>
         <div
@@ -212,7 +220,7 @@ const removeFile = (index: number) => {
             <span class="text-xs">{{ post.length }}/255</span>
             <Button
               @click="createPost"
-              :disabled="post.length === 0"
+              :disabled="post.length === 0 && files.length === 0"
               :size="ButtonSize.small"
               text="Publicar"
             />
