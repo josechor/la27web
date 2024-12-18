@@ -6,6 +6,11 @@ import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";
 import { useTuipsStore } from "../stores/tuips/tuipsStore";
 import Icon from "../atoms/Icon.vue";
 import Image from "../atoms/Image.vue";
+import {
+  validImageTypes,
+  validVideoTypes,
+} from "../constants/validMultimediaTypes";
+import Video from "../atoms/Video.vue";
 
 const tuipsStore = useTuipsStore();
 const { openPostModalWithQuoting, openPostModalWithResponse } = tuipsStore;
@@ -69,12 +74,12 @@ async function handleClickLike(e: Event) {
   if (tuipRef.value.youLiked) {
     await fetchTuipApi.removeLike(tuipRef.value.tuipId);
     tuipRef.value.youLiked = false;
-    tuipRef.value.magradaCount--;
+    tuipRef.value.likesCount--;
   } else {
     efect(e);
     await fetchTuipApi.setLike(tuipRef.value.tuipId);
     tuipRef.value.youLiked = true;
-    tuipRef.value.magradaCount++;
+    tuipRef.value.likesCount++;
   }
   loadingLike = false;
 }
@@ -87,12 +92,12 @@ async function handleClickLikeParent(e: Event) {
   if (parent.value.youLiked) {
     await fetchTuipApi.removeLike(parent.value.tuipId);
     parent.value.youLiked = false;
-    parent.value.magradaCount--;
+    parent.value.likesCount--;
   } else {
     efect(e);
     await fetchTuipApi.setLike(parent.value.tuipId);
     parent.value.youLiked = true;
-    parent.value.magradaCount++;
+    parent.value.likesCount++;
   }
   loadingLike = false;
 }
@@ -137,6 +142,14 @@ function handleClickCitar(tuip: TuipInterface) {
 function handleClickResponse(tuip: TuipInterface) {
   openPostModalWithResponse(tuip);
 }
+
+function multimediaIsVideo(multimedia: string) {
+  return validVideoTypes.includes(multimedia.split(".").pop() || "");
+}
+
+function multimediaIsImage(multimedia: string) {
+  return validImageTypes.includes(multimedia.split(".").pop() || "");
+}
 </script>
 <template>
   <div class="w-full cursor-pointer">
@@ -174,6 +187,25 @@ function handleClickResponse(tuip: TuipInterface) {
           </div>
         </div>
         <span>{{ parent.tuipContent }}</span>
+        <div
+          class="grid"
+          :class="[
+            parent.tuipMultimedia.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
+          ]"
+        >
+          <template v-for="multimedia in parent.tuipMultimedia">
+            <Video
+              v-if="multimediaIsVideo(multimedia)"
+              :src="multimedia"
+              controls
+            ></Video>
+            <Image
+              v-if="multimediaIsImage(multimedia)"
+              :src="multimedia"
+              errorsrc="default-image.webp"
+            />
+          </template>
+        </div>
         <div class="flex w-full m-auto justify-between text-xs mt-3">
           <div
             @click.stop="handleClickResponse(parent)"
@@ -190,7 +222,7 @@ function handleClickResponse(tuip: TuipInterface) {
               src="../../shared/utils/images/antorcha.png"
               class="w-[16px] h-[16px]"
             />
-            {{ parent.magradaCount }}
+            {{ parent.likesCount }}
           </div>
           <Icon
             @click.stop="handleClickCitar(parent)"
@@ -241,11 +273,18 @@ function handleClickResponse(tuip: TuipInterface) {
             tuip.tuipMultimedia.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
           ]"
         >
-          <Image
-            v-for="image in tuip.tuipMultimedia"
-            :src="image"
-            errorsrc="default-image.webp"
-          />
+          <template v-for="multimedia in tuip.tuipMultimedia">
+            <Video
+              v-if="multimediaIsVideo(multimedia)"
+              :src="multimedia"
+              controls
+            ></Video>
+            <Image
+              v-if="multimediaIsImage(multimedia)"
+              :src="multimedia"
+              errorsrc="default-image.webp"
+            />
+          </template>
         </div>
         <div
           v-if="quoting"
@@ -263,9 +302,25 @@ function handleClickResponse(tuip: TuipInterface) {
               {{ getDate(quoting.tuipCreatedAt) }}</span
             >
           </header>
-          <section>
-            <span>{{ quoting.tuipContent }}</span>
-          </section>
+          <div
+            class="grid"
+            :class="[
+              quoting.tuipMultimedia.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
+            ]"
+          >
+            <template v-for="multimedia in quoting.tuipMultimedia">
+              <Video
+                v-if="multimediaIsVideo(multimedia)"
+                :src="multimedia"
+                controls
+              ></Video>
+              <Image
+                v-if="multimediaIsImage(multimedia)"
+                :src="multimedia"
+                errorsrc="default-image.webp"
+              />
+            </template>
+          </div>
         </div>
         <div class="flex w-full m-auto justify-between text-xs mt-3">
           <div
@@ -287,7 +342,7 @@ function handleClickResponse(tuip: TuipInterface) {
               src="../../shared/utils/images/antorcha.png"
               class="w-[16px] h-[16px]"
             />
-            {{ tuip.magradaCount }}
+            {{ tuip.likesCount }}
           </div>
           <Icon
             @click.stop="handleClickCitar(tuip)"

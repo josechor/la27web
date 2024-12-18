@@ -6,7 +6,9 @@ export interface TuipInterface {
     demonId: string;
     userName: string;
     demonName: string;
-    magradaCount: number;
+    likesCount: number;
+    responsesCount: number;
+    quotingCount: number;
     youLiked: boolean;
     quoting: null | number;
     secta: null | number;
