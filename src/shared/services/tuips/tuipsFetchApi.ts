@@ -1,8 +1,10 @@
+import { useUserStore } from "../../stores/user/userStore";
 import { TuipInterface, TuipCreate, TuipFilters } from "../../types/tuipsTypes";
 import { apiDelete, apiGet, apiPost } from "../api";
 import { TuipsApi } from "./tuipsApi";
 
 export class TuipsFetchApi implements TuipsApi {
+  domain = import.meta.env.VITE_API_URL;
   async getTuipById(tuipId: number): Promise<TuipInterface> {
     return await apiGet<TuipInterface>(`/api/tuips/${tuipId}`);
   }
@@ -17,7 +19,26 @@ export class TuipsFetchApi implements TuipsApi {
     return await apiGet<TuipInterface[]>(`/api/tuips?page=${page}&limit=${limit}${query}`);
   }
   async createTuip(tuip: TuipCreate): Promise<void> {
-    await apiPost("/api/tuips", tuip);
+    const userStore = useUserStore();
+    const formData = new FormData();
+    if (!userStore.sessionToken) return;
+
+    formData.append("content", tuip.content);
+    tuip.multimedia.forEach((fileObj) => {
+      // @ts-ignore
+      formData.append("multimedia", fileObj.file);
+    });
+    formData.append("quoting", tuip.quoting?.toString() || "");
+    formData.append("secta", tuip.secta?.toString() || "");
+    formData.append("parent", tuip.parent?.toString() || "");
+    await fetch(this.domain + "/api/tuips", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Demon-Token": userStore.sessionToken,
+      },
+      body: formData,
+    });
   }
   async setLike(tuipId: number): Promise<void> {
     await apiPost(`/api/tuips/like/${tuipId}`, {});

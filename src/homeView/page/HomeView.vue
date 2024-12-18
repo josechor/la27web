@@ -54,7 +54,7 @@ async function createPost() {
   if (post.value.length === 0) return;
   const tuip: TuipCreate = {
     content: post.value,
-    multimedia: null,
+    multimedia: [],
     quoting: null,
     secta: null,
     parent: null,

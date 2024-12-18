@@ -21,11 +21,11 @@ export async function apiPatch(path: string, payload: any): Promise<void> {
   throwErrorIfNeeded(response);
 }
 
-export async function apiPost(path: string, payload: any) {
+export async function apiPost(path: string, payload: any, headers?: HeadersInit) {
   if (payload !== null) {
     payload = JSON.stringify(payload);
   }
-  const response = await makeRequest(path, "POST", undefined, payload);
+  const response = await makeRequest(path, "POST", headers, payload);
   throwErrorIfNeeded(response);
 }
 

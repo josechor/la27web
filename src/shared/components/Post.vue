@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
+import { onMounted, Ref, ref } from "vue";
 import { ButtonSize } from "../types/shared";
 import { TuipCreate } from "../types/tuipsTypes";
 import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";
@@ -33,13 +33,14 @@ async function createPost() {
   if (post.value.length === 0) return;
   const tuip: TuipCreate = {
     content: post.value,
-    multimedia: null,
+    multimedia: files.value,
     quoting: quotingPost.value?.tuipId || null,
     parent: responsePost.value?.tuipId || null,
     secta: null,
   };
   await tuipsFetchApi.createTuip(tuip);
   post.value = "";
+  files.value = [];
   closeModal();
 }
 
@@ -69,6 +70,38 @@ function getDate(date: string) {
   if (seconds < 31536000) return `${Math.floor(seconds / 2592000)} meses`;
   return `${Math.floor(seconds / 31536000)} años`;
 }
+
+interface CustomFile extends File {
+  preview?: string;
+}
+
+const files: Ref<CustomFile[]> = ref([]);
+
+const handleFiles = (event: any) => {
+  const maxFiles = 4;
+  const selectedFiles = event.target.files;
+  const remainingSlots = maxFiles - files.value.length;
+
+  // Limitar a los slots disponibles
+  const validFiles: CustomFile[] = Array.from(selectedFiles).slice(0, remainingSlots) as File[];
+
+  validFiles.forEach((file) => {
+    const preview = URL.createObjectURL(file); // Crear un URL temporal para la previsualización
+    // @ts-ignore
+    files.value.push({ file, preview, type: file.type });
+  });
+
+  // Limitar al máximo permitido
+  if (files.value.length > maxFiles) {
+    files.value = files.value.slice(0, maxFiles);
+  }
+};
+
+const removeFile = (index: number) => {
+    // @ts-ignore
+  URL.revokeObjectURL(files.value[index].preview);
+  files.value.splice(index, 1);
+};
 </script>
 <template>
   <div
@@ -124,6 +157,28 @@ function getDate(date: string) {
           @input="validateInput"
           @keydown.enter.prevent="createPost"
         />
+        <div class="grid grid-cols-4 gap-2">
+          <div v-for="(file, index) in files" class="relative">
+            <img
+              v-if="file.type.startsWith('image/')"
+              :src="file.preview"
+              alt="Imagen subida"
+              class="h-[150px] w-[150px] aspect-square object-cover"
+            />
+            <!-- Previsualización de video -->
+            <video v-if="file.type.startsWith('video/')" controls>
+              <source
+                :src="file.preview"
+                :type="file.type"
+                class="h-[150px] w-[150px] aspect-square object-cover"
+              />
+              Tu navegador no soporta videos.
+            </video>
+            <button @click="removeFile(index)" class="absolute top-1 right-1">
+              Eliminar
+            </button>
+          </div>
+        </div>
         <div
           v-if="quotingPost"
           class="px-2 py-3 border rounded-md border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
@@ -145,7 +200,14 @@ function getDate(date: string) {
           </section>
         </div>
         <div class="flex justify-between gap-4">
-          <div></div>
+          <div>
+            <input
+              type="file"
+              accept=".jpg,.jpeg,.png,.gif,.mp4,.mov,.avi,.mkv,.webm"
+              multiple
+              @change="handleFiles"
+            />
+          </div>
           <div class="flex gap-2 items-center">
             <span class="text-xs">{{ post.length }}/255</span>
             <Button

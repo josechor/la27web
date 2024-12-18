@@ -15,7 +15,7 @@ export interface TuipInterface {
 
 export interface TuipCreate {
     content: string;
-    multimedia: null | string;
+    multimedia: File[];
     quoting: null | number;
     secta: null | number;
     parent: null | number
