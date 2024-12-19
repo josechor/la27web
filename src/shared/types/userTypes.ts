@@ -20,4 +20,5 @@ export interface User {
   following: number;
   tuipsCount: number;
   likesCount: number;
+  followed?: boolean;
 }

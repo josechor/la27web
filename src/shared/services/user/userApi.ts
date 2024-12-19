@@ -6,4 +6,6 @@ export interface UserApi {
   authUser(email: string, password: string): Promise<{ token: string }>;
   getSelfUserData(): Promise<User>;
   getUserData(username: string): Promise<User>; 
+  followUser(userName: string): Promise<void>;
+  unfollowUser(userName: string): Promise<void>;
 }

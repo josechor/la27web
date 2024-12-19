@@ -1,5 +1,5 @@
 import { CreateUser, User } from "../../types/userTypes";
-import { apiGet } from "../api";
+import { apiDelete, apiGet, apiPost } from "../api";
 import { UserApi } from "./userApi";
 
 export class UserFetchApi implements UserApi {
@@ -37,5 +37,13 @@ export class UserFetchApi implements UserApi {
 
   async getUserData(username: string): Promise<User> {
     return await apiGet<User>(`/api/users/${username}`);
+  }
+
+  async followUser(userName: string): Promise<void> {
+    return await apiPost(`/api/users/follow/${userName}`, {});
+  }
+
+  async unfollowUser(userName: string): Promise<void> {
+    return await apiDelete(`/api/users/follow/${userName}`, {});
   }
 }

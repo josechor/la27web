@@ -13,8 +13,10 @@ import UserTuips from "../components/UserTuips.vue";
 import BestTuips from "../components/BestTuips.vue";
 import LikedTuips from "../components/LikedTuips.vue";
 import { storeToRefs } from "pinia";
+import { UserFetchApi } from "../../shared/services/user/UserFetchApi";
 
 const tuipsFetchApi = new TuipsFetchApi();
+const userFetchApi = new UserFetchApi();
 const userStore = useUserStore();
 const { loggedUser } = storeToRefs(userStore);
 
@@ -52,8 +54,17 @@ async function startProfile() {
   });
 }
 
-function handleClickFollow() {
-  console.log("Follow");
+async function handleClickFollow() {
+  if (!user.value || user.value.followed === undefined) return;
+  if (user.value.followed) {
+    await userFetchApi.unfollowUser(user.value.userName);
+    user.value.followers--;
+    user.value.followed = false;
+  } else {
+    await userFetchApi.followUser(user.value.userName);
+    user.value.followers++;
+    user.value.followed = true;
+  }
 }
 
 const months = [
@@ -120,14 +131,23 @@ function handleClickEdit() {
           />
         </div>
         <div class="flex justify-end items-center p-6">
-          <Button
-            v-if="loggedUser?.userId !== user.userId"
-            @click="handleClickFollow"
-            :size="ButtonSize.large"
-            text="Seguir"
-            class=""
+          <template v-if="loggedUser?.userId !== user.userId">
+            <Button
+              v-if="user.followed"
+              @click="handleClickFollow"
+              :size="ButtonSize.large"
+              text="Dejar seguir"
+              class=""
             />
             <Button
+              v-else
+              @click="handleClickFollow"
+              :size="ButtonSize.large"
+              text="Seguir"
+              class=""
+            />
+          </template>
+          <Button
             v-else
             @click="handleClickEdit"
             :size="ButtonSize.large"
@@ -142,7 +162,6 @@ function handleClickEdit() {
           </div>
           <span v-if="user.description">{{ user.description }}</span>
           <div>
-            {{ user.birthday }}
             <span v-if="user.birthday">{{ getUserBirthday }}</span>
             <span v-if="user.createdAt">{{ getUserCreatedAt }}</span>
           </div>
