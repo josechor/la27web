@@ -10,6 +10,7 @@ export class TuipsFetchApi implements TuipsApi {
     tuip.tuipMultimedia = (tuip.tuipMultimedia as any) !== "" ? (tuip.tuipMultimedia as any).split(",") : []
     return tuip;
   }
+
   async getTuips(page: number, limit: number, filters?: TuipFilters): Promise<TuipInterface[]> {
     let query = ""
     if (filters && filters.authorId) {
@@ -25,6 +26,7 @@ export class TuipsFetchApi implements TuipsApi {
     });
     return response;
   }
+
   async createTuip(tuip: TuipCreate): Promise<void> {
     const userStore = useUserStore();
     const formData = new FormData();
@@ -35,9 +37,15 @@ export class TuipsFetchApi implements TuipsApi {
       // @ts-ignore
       formData.append("multimedia", fileObj.file);
     });
-    formData.append("quoting", tuip.quoting?.toString() || "");
-    formData.append("secta", tuip.secta?.toString() || "");
-    formData.append("parent", tuip.parent?.toString() || "");
+    if (tuip.quoting) {
+      formData.append("quoting", tuip.quoting?.toString() || "");
+    }
+    if (tuip.secta) {
+      formData.append("secta", tuip.secta?.toString() || "");
+    }
+    if (tuip.parent) {
+      formData.append("parent", tuip.parent?.toString() || "");
+    }
     await fetch(this.domain + "/api/tuips", {
       method: "POST",
       headers: {
@@ -47,9 +55,11 @@ export class TuipsFetchApi implements TuipsApi {
       body: formData,
     });
   }
+
   async setLike(tuipId: number): Promise<void> {
     await apiPost(`/api/tuips/like/${tuipId}`, {});
   }
+
   async removeLike(tuipId: number): Promise<void> {
     await apiDelete(`/api/tuips/like/${tuipId}`, {});
   }
