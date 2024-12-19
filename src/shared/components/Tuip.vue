@@ -9,7 +9,6 @@ import TuipFooterButtons from "./Tuip/TuipFooterButtons.vue";
 import TuipHeader from "./Tuip/TuipHeader.vue";
 import TuipMultimedia from "./Tuip/TuipMultimedia.vue";
 
-
 const tuipsFetchApi = new TuipsFetchApi();
 
 const props = defineProps({
@@ -74,6 +73,7 @@ function getDate(date: string) {
         :src="parent.profilePicture"
         errorsrc="default-image.webp"
         class="h-[50px] w-[50px] rounded-full cursor-pointer z-50"
+        role="button"
       />
       <div class="w-full flex flex-col gap-1">
         <TuipHeader :tuip="parent" />
@@ -91,6 +91,7 @@ function getDate(date: string) {
         :src="tuip.profilePicture"
         errorsrc="default-image.webp"
         class="h-[50px] w-[50px] rounded-full cursor-pointer"
+        role="button"
       />
       <div class="w-full flex flex-col gap-1">
         <TuipHeader :tuip="tuip" />
@@ -105,6 +106,7 @@ function getDate(date: string) {
               :src="quoting.profilePicture"
               errorsrc="default-image.webp"
               class="h-[20px] w-[20px] rounded-full"
+              role="button"
             />
             <span class="font-bold text-sm">{{ quoting.demonName }}</span>
             <span class="font-light text-sm"

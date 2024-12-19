@@ -32,11 +32,13 @@ import { TuipInterface } from "../../types/tuipsTypes";
         <span
           @click.stop="router.push('/profile/' + tuip.userName)"
           class="text-xs font-bold cursor-pointer hover:underline"
+          role="button"
           >{{ tuip.demonName }}</span
         >
         <span
           @click.stop="router.push('/profile/' + tuip.userName)"
           class="text-xs font-light cursor-pointer hover:underline"
+          role="button"
           >@{{ tuip.userName }}</span
         >
       </div>

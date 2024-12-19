@@ -57,8 +57,9 @@ function redirect(route: string) {
         @click="redirect(item.router)"
         :key="item.name"
         class="h-[55px] text-xl font-bold flex flex-row gap-2 items-center cursor-pointer"
+        role="button"
       >
-        <Icon :name="item.icon" class="" :width="24" :height="24"/>
+        <Icon :name="item.icon" class="" :width="24" :height="24" />
         <span>{{ item.name }}</span>
       </div>
     </div>
@@ -67,8 +68,9 @@ function redirect(route: string) {
 
     <div>
       <div
-        class="flex flex-row items-center gap-2 rounded-3xl p-2 hover:bg-[#333] cursor-pointer"
         @click="logout"
+        class="flex flex-row items-center gap-2 rounded-3xl p-2 hover:bg-[#333] cursor-pointer"
+        role="button"
       >
         <img
           class="h-[30px] w-[30px] rounded-full"

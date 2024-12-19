@@ -87,6 +87,7 @@ function efect(e: any) {
     <div
       @click.stop="handleClickResponse(tuip)"
       class="flex flex-row gap-0.5 cursor-pointer"
+      role="button"
     >
       <Icon name="responseIcon" :width="16" :height="16" />
     </div>
@@ -98,6 +99,7 @@ function efect(e: any) {
           : 'grayscale-[100%] hover:grayscale-[60%]',
       ]"
       class="flex flex-row gap-[2px] cursor-pointer"
+      role="button"
     >
       <img
         src="../../../shared/utils/images/antorcha.png"
@@ -110,6 +112,7 @@ function efect(e: any) {
       name="quotingIcon"
       :width="16"
       :height="16"
+      role="button"
     />
     <div>
       <Icon name="shareIcon" :width="16" :height="16" />
