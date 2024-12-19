@@ -3,17 +3,12 @@ import { onMounted, PropType, Ref, ref, watch } from "vue";
 import { TuipInterface } from "../types/tuipsTypes";
 import router from "../router";
 import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";
-import { useTuipsStore } from "../stores/tuips/tuipsStore";
-import Icon from "../atoms/Icon.vue";
 import Image from "../atoms/Image.vue";
-import {
-  validImageTypes,
-  validVideoTypes,
-} from "../constants/validMultimediaTypes";
-import Video from "../atoms/Video.vue";
 
-const tuipsStore = useTuipsStore();
-const { openPostModalWithQuoting, openPostModalWithResponse } = tuipsStore;
+import TuipFooterButtons from "./Tuip/TuipFooterButtons.vue";
+import TuipHeader from "./Tuip/TuipHeader.vue";
+import TuipMultimedia from "./Tuip/TuipMultimedia.vue";
+
 
 const tuipsFetchApi = new TuipsFetchApi();
 
@@ -64,92 +59,6 @@ function getDate(date: string) {
   if (seconds < 31536000) return `${Math.floor(seconds / 2592000)} meses`;
   return `${Math.floor(seconds / 31536000)} años`;
 }
-
-let loadingLike = false;
-
-async function handleClickLike(e: Event) {
-  if (loadingLike) return;
-  loadingLike = true;
-  const fetchTuipApi = new TuipsFetchApi();
-  if (tuipRef.value.youLiked) {
-    await fetchTuipApi.removeLike(tuipRef.value.tuipId);
-    tuipRef.value.youLiked = false;
-    tuipRef.value.likesCount--;
-  } else {
-    efect(e);
-    await fetchTuipApi.setLike(tuipRef.value.tuipId);
-    tuipRef.value.youLiked = true;
-    tuipRef.value.likesCount++;
-  }
-  loadingLike = false;
-}
-
-async function handleClickLikeParent(e: Event) {
-  if (!parent.value) return;
-  if (loadingLike) return;
-  loadingLike = true;
-  const fetchTuipApi = new TuipsFetchApi();
-  if (parent.value.youLiked) {
-    await fetchTuipApi.removeLike(parent.value.tuipId);
-    parent.value.youLiked = false;
-    parent.value.likesCount--;
-  } else {
-    efect(e);
-    await fetchTuipApi.setLike(parent.value.tuipId);
-    parent.value.youLiked = true;
-    parent.value.likesCount++;
-  }
-  loadingLike = false;
-}
-
-function efect(e: any) {
-  let div = document.createElement("div");
-  document.querySelector("body")?.appendChild(div);
-  div.style.left = e.pageX + "px";
-  div.style.top = e.pageY + "px";
-  div.style.position = "absolute";
-  const maxElems = 10;
-  for (let i = 0; i < maxElems; i++) {
-    let span = document.createElement("span");
-    span.className = "effect";
-    span.style.opacity = "1";
-    span.style.transition = "transform 0.45s, opacity 0.45s";
-    let newSpan = div.appendChild(span);
-    let deg = i * (360 / maxElems) + Math.floor(Math.random() * 15);
-    let height = 10 + Math.floor(Math.random() * 5);
-    let width = 2 + Math.floor(Math.random() * 1);
-    newSpan.style.height = height + "px";
-    newSpan.style.width = width + "px";
-    newSpan.style.transform = "rotate(" + deg + "deg)";
-  }
-
-  setTimeout(() => {
-    Array.from(div.querySelectorAll("span")).forEach((el) => {
-      let trasY = -50 - Math.floor(Math.random() * 10);
-      el.style.transform += "scaleY(0.5) translateY(" + trasY + "px)";
-      el.style.opacity = "0";
-    });
-    setTimeout(() => {
-      document.body.removeChild(div);
-    }, 400);
-  }, 20);
-}
-
-function handleClickCitar(tuip: TuipInterface) {
-  openPostModalWithQuoting(tuip);
-}
-
-function handleClickResponse(tuip: TuipInterface) {
-  openPostModalWithResponse(tuip);
-}
-
-function multimediaIsVideo(multimedia: string) {
-  return validVideoTypes.includes(multimedia.split(".").pop() || "");
-}
-
-function multimediaIsImage(multimedia: string) {
-  return validImageTypes.includes(multimedia.split(".").pop() || "");
-}
 </script>
 <template>
   <div class="w-full cursor-pointer">
@@ -167,75 +76,10 @@ function multimediaIsImage(multimedia: string) {
         class="h-[50px] w-[50px] rounded-full cursor-pointer z-50"
       />
       <div class="w-full flex flex-col gap-1">
-        <div class="flex gap-2 item-center justify-between">
-          <div class="flex gap-2 items-center">
-            <div class="flex flex-col gap-0.5">
-              <span
-                @click.stop="router.push('/profile/' + parent.userName)"
-                class="text-xs font-bold cursor-pointer hover:underline"
-                >{{ parent.demonName }}</span
-              >
-              <span
-                @click.stop="router.push('/profile/' + parent.userName)"
-                class="text-xs font-light cursor-pointer hover:underline"
-                >@{{ parent.userName }}</span
-              >
-            </div>
-            <span class="text-sm font-light">
-              ¤ {{ getDate(parent.tuipCreatedAt) }}</span
-            >
-          </div>
-        </div>
+        <TuipHeader :tuip="parent" />
         <span>{{ parent.tuipContent }}</span>
-        <div
-          class="grid"
-          :class="[
-            parent.tuipMultimedia.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
-          ]"
-        >
-          <template v-for="multimedia in parent.tuipMultimedia" >
-            <Video
-              v-if="multimediaIsVideo(multimedia)"
-              :src="multimedia"
-              controls
-              class="max-h-[300px]"
-            ></Video>
-            <Image
-              v-if="multimediaIsImage(multimedia)"
-              :src="multimedia"
-              errorsrc="default-image.webp"
-              class="max-h-[300px]"
-            />
-          </template>
-        </div>
-        <div class="flex w-full m-auto justify-between text-xs mt-3">
-          <div
-            @click.stop="handleClickResponse(parent)"
-            class="flex flex-row gap-0.5 cursor-pointer"
-          >
-            <Icon name="responseIcon" :width="16" :height="16" />
-          </div>
-          <div
-            @click.stop="handleClickLikeParent"
-            :class="{ 'grayscale-[100%]': !parent.youLiked }"
-            class="flex flex-row gap-[2px] cursor-pointer"
-          >
-            <img
-              src="../../shared/utils/images/antorcha.png"
-              class="w-[16px] h-[16px]"
-            />
-            {{ parent.likesCount }}
-          </div>
-          <Icon
-            @click.stop="handleClickCitar(parent)"
-            name="quotingIcon"
-            :width="16"
-            :height="16"
-          />
-          <div>
-            <Icon name="shareIcon" :width="16" :height="16" />
-          </div>
-        </div>
+        <TuipMultimedia :tuip="parent" />
+        <TuipFooterButtons :tuip="parent" />
       </div>
     </div>
     <div
@@ -249,47 +93,9 @@ function multimediaIsImage(multimedia: string) {
         class="h-[50px] w-[50px] rounded-full cursor-pointer"
       />
       <div class="w-full flex flex-col gap-1">
-        <div class="flex gap-2 item-center justify-between">
-          <div class="flex gap-2 items-center">
-            <div class="flex flex-col gap-0.5">
-              <span
-                @click.stop="router.push('/profile/' + tuip.userName)"
-                class="text-xs font-bold cursor-pointer hover:underline"
-                >{{ tuip.demonName }}</span
-              >
-              <span
-                @click.stop="router.push('/profile/' + tuip.userName)"
-                class="text-xs font-light cursor-pointer hover:underline"
-                >@{{ tuip.userName }}</span
-              >
-            </div>
-            <span class="text-sm font-light">
-              ¤ {{ getDate(tuip.tuipCreatedAt) }}</span
-            >
-          </div>
-        </div>
+        <TuipHeader :tuip="tuip" />
         <div class="content">{{ tuip.tuipContent }}</div>
-        <div
-          class="grid"
-          :class="[
-            tuip.tuipMultimedia.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
-          ]"
-        >
-          <template v-for="multimedia in tuip.tuipMultimedia">
-            <Video
-              v-if="multimediaIsVideo(multimedia)"
-              :src="multimedia"
-              controls
-               class="max-h-[400px]"
-            ></Video>
-            <Image
-              v-if="multimediaIsImage(multimedia)"
-              :src="multimedia"
-              errorsrc="default-image.webp"
-               class="max-h-[400px]"
-            />
-          </template>
-        </div>
+        <TuipMultimedia :tuip="tuip" />
         <div
           v-if="quoting"
           class="px-2 py-3 border rounded-md border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
@@ -306,62 +112,10 @@ function multimediaIsImage(multimedia: string) {
               {{ getDate(quoting.tuipCreatedAt) }}</span
             >
           </header>
-        <div class="content">{{ quoting.tuipContent }}</div>
-
-          <div
-            class="grid"
-            :class="[
-              quoting.tuipMultimedia.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
-            ]"
-          >
-            <template v-for="multimedia in quoting.tuipMultimedia">
-              <Video
-                v-if="multimediaIsVideo(multimedia)"
-                :src="multimedia"
-                controls
-                 class="max-h-[300px]"
-              ></Video>
-              <Image
-                v-if="multimediaIsImage(multimedia)"
-                :src="multimedia"
-                errorsrc="default-image.webp"
-                 class="max-h-[300px]"
-              />
-            </template>
-          </div>
+          <div class="content">{{ quoting.tuipContent }}</div>
+          <TuipMultimedia :tuip="quoting" />
         </div>
-        <div class="flex w-full m-auto justify-between text-xs mt-3">
-          <div
-            @click.stop="handleClickResponse(tuip)"
-            class="flex flex-row gap-0.5 cursor-pointer"
-          >
-            <Icon name="responseIcon" :width="16" :height="16" />
-          </div>
-          <div
-            @click.stop="handleClickLike"
-            :class="[
-              tuipRef.youLiked
-                ? 'grayscale-0 hover:grayscale-[40%]'
-                : 'grayscale-[100%] hover:grayscale-[60%]',
-            ]"
-            class="flex flex-row gap-[2px] cursor-pointer"
-          >
-            <img
-              src="../../shared/utils/images/antorcha.png"
-              class="w-[16px] h-[16px]"
-            />
-            {{ tuip.likesCount }}
-          </div>
-          <Icon
-            @click.stop="handleClickCitar(tuip)"
-            name="quotingIcon"
-            :width="16"
-            :height="16"
-          />
-          <div>
-            <Icon name="shareIcon" :width="16" :height="16" />
-          </div>
-        </div>
+        <TuipFooterButtons :tuip="tuip" />
       </div>
     </div>
   </div>
