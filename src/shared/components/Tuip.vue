@@ -121,7 +121,7 @@ function getDate(date: string) {
   </div>
 </template>
 
-<style>
+<style scoped>
 span.effect {
   display: block;
   width: 2px;

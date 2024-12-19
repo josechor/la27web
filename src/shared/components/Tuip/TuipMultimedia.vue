@@ -21,22 +21,26 @@ function multimediaIsImage(multimedia: string) {
 </script>
 <template>
   <div
-    class="grid"
-    :class="[tuip.tuipMultimedia.length > 1 ? 'grid-cols-2' : 'grid-cols-1']"
+    class="flex items-stretch justify-start rounded-md overflow-hidden border border-light-background-colors-tertiary dark:bg-dark-background-color-tertiary w-fit"
+    :class="{
+      'h-[200px]': tuip.tuipMultimedia.length > 1,
+    }"
   >
-    <template v-for="multimedia in tuip.tuipMultimedia">
-      <Video
-        v-if="multimediaIsVideo(multimedia)"
-        :src="multimedia"
-        controls
-        class="max-h-[300px]"
-      ></Video>
-      <Image
-        v-if="multimediaIsImage(multimedia)"
-        :src="multimedia"
-        errorsrc="default-image.webp"
-        class="max-h-[300px]"
-      />
-    </template>
+    <div class="flex flex-row overflow-auto">
+        <template v-for="multimedia in tuip.tuipMultimedia">
+          <Video
+            v-if="multimediaIsVideo(multimedia)"
+            :src="multimedia"
+            controls
+            class="max-h-[300px]"
+          ></Video>
+          <Image
+            v-if="multimediaIsImage(multimedia)"
+            :src="multimedia"
+            errorsrc="default-image.webp"
+            class="max-h-[300px]"
+          />
+        </template>
+    </div>
   </div>
 </template>
