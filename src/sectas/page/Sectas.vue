@@ -29,7 +29,11 @@ async function handleEventCreateSecta() {
     <header
       class="flex flex-row gap-4 border-b border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary px-2 py-4 items-center"
     >
-      <div role="button" class="flex items-center gap-2 p-4 whitespace-nowrap">
+      <div
+        @click="$router.push('/')"
+        role="button"
+        class="flex items-center gap-2 p-4 whitespace-nowrap"
+      >
         <--
       </div>
       <input
@@ -53,6 +57,10 @@ async function handleEventCreateSecta() {
         />
       </template>
     </section>
-    <CreateSectaModal v-if="openModal" v-model="openModal" @create-secta="handleEventCreateSecta" />
+    <CreateSectaModal
+      v-if="openModal"
+      v-model="openModal"
+      @create-secta="handleEventCreateSecta"
+    />
   </section>
 </template>

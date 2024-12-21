@@ -83,32 +83,39 @@ const createSectaDisabled = computed(() => {
     class="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50 z-50"
   ></div>
   <div
-    class="fixed top-[20%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] z-50 bg-light-background-colors-primary p-4 rounded-md"
+    class="fixed top-[5%] left-1/2 transform -translate-x-1/2 w-[600px] z-50 bg-light-background-colors-primary p-4 rounded-md"
   >
     <h2 class="text-2xl font-bold mb-6">Crear secta</h2>
-    <div class="flex flex-col gap-4">
-      <input
-        v-model="name"
-        type="text"
-        class="p-2 border-b h-[35px] border-light-background-colors-quaternary dark:border-dark-background-color-quaternary outline-none rounded"
-        placeholder="Nombre de la secta"
-      />
-      <textarea
-        v-model="description"
-        class="p-2 border-b h-[200px] border-light-background-colors-quaternary dark:border-dark-background-color-quaternary outline-none rounded"
-        placeholder="Descripción de la secta"
-      ></textarea>
-      <input
-        type="file"
-        @change="handleFiles"
-        placeholder="Imagen de la secta"
-      />
-      <img
-        v-if="fileRef && fileRef.type.startsWith('image/')"
-        :src="fileRef.preview"
-        alt="Imagen subida"
-        class="h-[150px] object-cover"
-      />
+    <div class="grid grid-cols-2 gap-4">
+      <div class="flex flex-col gap-4">
+        <input
+          v-model="name"
+          type="text"
+          class="p-2 border-b h-[35px] border-light-background-colors-quaternary dark:border-dark-background-color-quaternary outline-none rounded"
+          placeholder="Nombre de la secta"
+        />
+        <textarea
+          v-model="description"
+          class="p-2 border-b h-[200px] border-light-background-colors-quaternary dark:border-dark-background-color-quaternary outline-none rounded"
+          placeholder="Descripción de la secta"
+        ></textarea>
+      </div>
+      <div class="flex flex-col gap-4">
+        <input
+          type="file"
+          @change="handleFiles"
+          placeholder="Imagen de la secta"
+        />
+        <img
+          v-if="fileRef && fileRef.type.startsWith('image/')"
+          :src="fileRef.preview"
+          alt="Imagen subida"
+          class="h-[150px] w-[150px] object-cover"
+          accept=".jpg,.jpeg,.png,.gif"
+          a
+        />
+      </div>
+      <div></div>
       <div class="flex flex-row justify-end gap-4">
         <Button @click="closeModal" text="Cancelar" class="w-[100px]" />
         <Button
@@ -121,3 +128,5 @@ const createSectaDisabled = computed(() => {
     </div>
   </div>
 </template>
+
+<style scoped></style>

@@ -19,6 +19,9 @@ export class TuipsFetchApi implements TuipsApi {
     if (filters && filters.likedById) {
       query += `&likedById=${filters.likedById}`
     }
+    if (filters && filters.sectaId) {
+      query += `&sectaId=${filters.sectaId}`
+    }
     const response = await apiGet<TuipInterface[]>(`/api/tuips?page=${page}&limit=${limit}${query}`);
     response.forEach((tuip) => {
 

@@ -27,4 +27,5 @@ export interface TuipCreate {
 export interface TuipFilters {
     authorId?: string;
     likedById?: string;
+    sectaId?: number;
 }
