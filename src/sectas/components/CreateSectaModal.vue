@@ -2,16 +2,14 @@
 import { computed, onMounted, onUnmounted, Ref, ref } from "vue";
 import Button from "../../shared/atoms/buttons/Button.vue";
 import { FetchSectasApi } from "../services/fetchSectasApi";
+import { ICustomFile } from "../../shared/services/tuips/types";
 
-interface CustomFile extends File {
-  preview?: string;
-}
 const emits = defineEmits(["update:modelValue", "createSecta"]);
 
 const name = ref("");
 const description = ref("");
 
-const fileRef: Ref<CustomFile | null> = ref(null);
+const fileRef: Ref<ICustomFile | null> = ref(null);
 
 defineProps({
   modelValue: {
@@ -26,7 +24,7 @@ function handleFiles(e: Event) {
   if (!file) return;
   const reader = new FileReader();
   reader.onloadend = () => {
-    fileRef.value = file as CustomFile;
+    fileRef.value = file as ICustomFile;
     fileRef.value.preview = reader.result as string;
   };
   reader.readAsDataURL(file);
@@ -46,7 +44,7 @@ async function createSecta() {
     await fetchSectasApi.createSecta({
       sectaName: name.value,
       sectaDescription: description.value,
-      sectaPicture: null,
+      sectaPicture: fileRef.value,
       sectaBanner: null,
     });
     emits("createSecta");

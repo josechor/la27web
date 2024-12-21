@@ -7,6 +7,8 @@ import Button from "../atoms/buttons/Button.vue";
 import { useTuipsStore } from "../stores/tuips/tuipsStore";
 import { storeToRefs } from "pinia";
 import Icon from "../atoms/Icon.vue";
+import { UserFetchApi } from "../services/user/UserFetchApi";
+import { ISectasFollowed } from "../../sectas/types/types";
 
 const emits = defineEmits(["update:modelValue"]);
 
@@ -18,11 +20,19 @@ defineProps({
 });
 
 const tuipsFetchApi = new TuipsFetchApi();
+const userFetchApi = new UserFetchApi();
 
 const tuipsStore = useTuipsStore();
 const { quotingPost, responsePost } = storeToRefs(tuipsStore);
 
-onMounted(() => {
+const sectasOptions = ref<{ label: string; value: string }[]>([]);
+// const sectaSelected = ref<{ label: string; value: string } | null>(null);
+onMounted(async () => {
+  const response = await userFetchApi.getFollowedSectas();
+  sectasOptions.value = response.map((secta: ISectasFollowed) => ({
+    label: secta.sectaName,
+    value: secta.sectaId.toString(),
+  }));
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       closeModal();

@@ -1,3 +1,4 @@
+import { ISectasFollowed } from "../../../sectas/types/types";
 import { CreateUser, User } from "../../types/userTypes";
 import { apiDelete, apiGet, apiPost } from "../api";
 import { UserApi } from "./userApi";
@@ -45,5 +46,9 @@ export class UserFetchApi implements UserApi {
 
   async unfollowUser(userName: string): Promise<void> {
     return await apiDelete(`/api/users/follow/${userName}`, {});
+  }
+
+  async getFollowedSectas() {
+    return await apiGet<ISectasFollowed[]>("/api/users/followedSectas");
   }
 }

@@ -1,3 +1,4 @@
+import { ISectasFollowed } from "../../../sectas/types/types";
 import { CreateUser, User } from "../../types/userTypes";
 
 export interface UserApi {
@@ -8,4 +9,5 @@ export interface UserApi {
   getUserData(username: string): Promise<User>; 
   followUser(userName: string): Promise<void>;
   unfollowUser(userName: string): Promise<void>;
+  getFollowedSectas(): Promise<ISectasFollowed[]>;
 }
