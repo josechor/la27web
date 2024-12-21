@@ -31,6 +31,11 @@ const sidebar: Sidebar[] = [
   },
   {
     icon: "userIcon",
+    name: "Sectas",
+    router: `/Sectas`,
+  },
+  {
+    icon: "userIcon",
     name: "Perfil",
     router: `/profile/${loggedUser.value?.userName}`,
   },

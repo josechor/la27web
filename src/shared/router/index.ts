@@ -4,10 +4,14 @@ import Loggin from "../../notLogged/pages/Loggin.vue";
 import Register from "../../notLogged/pages/Register.vue";
 import { useUserStore } from "../stores/user/userStore";
 import UserProfile from "../../user/page/UserProfile.vue";
+import Sectas from "../../sectas/page/Sectas.vue";
+import SectaDetails from "../../sectaDetails/page/SectaDetails.vue";
 
 const routes = [
   { path: "/", component: HomeView, meta: { requiresAuth: true } },
   { path: "/profile/:username", component: UserProfile, meta: { requiresAuth: true } },
+  { path: "/sectas", component: Sectas, meta: { requiresAuth: true } },
+  { path: "/sectas/:sectaId", component: SectaDetails, meta: { requiresAuth: true } },
   { path: "/login", component: Loggin, meta: { notLogged: true } },
   { path: "/register", component: Register, meta: { notLogged: true } },
   { path: "/:pathMatch(.*)*", redirect: "/" },

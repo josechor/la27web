@@ -11,7 +11,7 @@ const props = defineProps({
   },
   errorsrc: {
     type: String,
-    default: "default-placeholder.png",
+    default: "default-image.webp",
   },
   alt: {
     type: String,
