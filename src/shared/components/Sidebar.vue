@@ -48,6 +48,10 @@ function logout() {
 function redirect(route: string) {
   router.push(route);
 }
+
+function handleDarkMode() {
+  document.body.classList.toggle("dark");
+}
 </script>
 <template>
   <nav
@@ -72,6 +76,7 @@ function redirect(route: string) {
     <Button @click="modalPost = true" text="Publicar" />
 
     <div>
+      <Button @click="handleDarkMode" text="Modo oscuro" />
       <div
         @click="logout"
         class="flex flex-row items-center gap-2 rounded-3xl p-2 hover:bg-[#333] cursor-pointer"

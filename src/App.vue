@@ -42,7 +42,7 @@ onMounted(async () => {
   <div v-if="!loading" class="flex flex-row justify-center w-full relative">
     <Sidebar class="w-[250px] px-4" v-if="userStore.sessionToken" />
     <main
-      :class="[!pathIsLogin ? 'max-w-[1050px] w-[1050px] min-h-screen' : '']"
+      :class="[!pathIsLogin ? 'max-w-[1500px] w-[1500px] min-h-screen' : '']"
     >
       <RouterView />
       <Post v-if="userStore.loggedUser && modalPost" v-model="modalPost" />
