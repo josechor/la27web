@@ -4,7 +4,7 @@ import { ISecta, ISectaById, ISectaCreate } from "../types/types";
 import { SectasApi } from "./sectasApi";
 
 export class FetchSectasApi implements SectasApi {
-    domain = window.location.href.includes('192.168.1.136') ? import.meta.env.VITE_API_URL : import.meta.env.VITE_API_URL;
+    domain = window.location.href.includes('192.168.1.136') ? import.meta.env.VITE_API_URL : import.meta.env.VITE_API_URL_PROD;
     userStore = useUserStore();
     async createSecta(secta: ISectaCreate): Promise<void> {
         if (!this.userStore.sessionToken) return;
