@@ -4,3 +4,9 @@ export enum ButtonSize {
     small = "small",
     extraSmall = "extraSmall"
 }
+
+export interface Sidebar {
+    icon: string;
+    name: string;
+    router: string;
+}

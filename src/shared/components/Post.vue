@@ -6,7 +6,6 @@ import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";
 import Button from "../atoms/buttons/Button.vue";
 import { useTuipsStore } from "../stores/tuips/tuipsStore";
 import { storeToRefs } from "pinia";
-import Icon from "../atoms/Icon.vue";
 import { UserFetchApi } from "../services/user/UserFetchApi";
 import { ISectasFollowed } from "../../sectas/types/types";
 
@@ -89,7 +88,7 @@ interface CustomFile extends File {
 const files: Ref<CustomFile[]> = ref([]);
 
 const handleFiles = (event: any) => {
-  const maxFiles = 4;
+  const maxFiles = 1;
   const selectedFiles = event.target.files;
   const remainingSlots = maxFiles - files.value.length;
 
@@ -124,7 +123,7 @@ const removeFile = (index: number) => {
   ></div>
 
   <div
-    class="fixed top-[20%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] z-50 bg-light-background-colors-primary p-4 rounded-md tuip"
+    class="fixed top-[20%] left-1/2 transform -translate-x-1/2 w-full max-w-[600px] z-50 bg-light-background-colors-primary p-4 rounded-md tuip"
   >
     <section v-if="responsePost" class="flex gap-4 w-full mb-1 relative">
       <img
@@ -172,7 +171,7 @@ const removeFile = (index: number) => {
           @keydown.enter.prevent="createPost"
         />
         <div class="flex flex-nowrap overflow-x-scroll">
-          <div v-for="file in files" class="relative">
+          <div v-for="(file, index) in files" class="relative">
             <img
               v-if="file.type.startsWith('image/')"
               :src="file.preview"
@@ -188,13 +187,12 @@ const removeFile = (index: number) => {
               <source :src="file.preview" :type="file.type" />
               Tu navegador no soporta videos.
             </video>
-            <Icon
-              @click="removeFile"
-              :width="24"
-              :height="24"
-              name="searchIcon"
-              class="absolute top-0 right-0 cursor-pointer"
-            />
+            <div
+              @click="removeFile(index)"
+              class="absolute w-6 h-6 top-0 right-0 cursor-pointer"
+            >
+              X
+            </div>
           </div>
         </div>
         <div
@@ -226,7 +224,7 @@ const removeFile = (index: number) => {
               @change="handleFiles"
             />
           </div>
-          <div class="flex gap-2 items-center">
+          <div class="flex gap-2 items-center min-w-fit">
             <span class="text-xs">{{ post.length }}/255</span>
             <Button
               @click="createPost"

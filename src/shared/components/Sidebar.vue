@@ -5,12 +5,7 @@ import Icon from "../atoms/Icon.vue";
 import router from "../router";
 import Button from "../atoms/buttons/Button.vue";
 import { useTuipsStore } from "../stores/tuips/tuipsStore";
-
-interface Sidebar {
-  icon: string;
-  name: string;
-  router: string;
-}
+import { Sidebar } from "../types/shared";
 
 const userStore = useUserStore();
 const { loggedUser } = storeToRefs(userStore);
@@ -19,26 +14,26 @@ const tuipsStore = useTuipsStore();
 const { modalPost } = storeToRefs(tuipsStore);
 
 const sidebar: Sidebar[] = [
-  {
-    icon: "homeIcon",
-    name: "Inicio",
-    router: "/",
-  },
-  {
-    icon: "searchIcon",
-    name: "Buscar",
-    router: "/search",
-  },
-  {
-    icon: "userIcon",
-    name: "Sectas",
-    router: `/Sectas`,
-  },
-  {
-    icon: "userIcon",
-    name: "Perfil",
-    router: `/profile/${loggedUser.value?.userName}`,
-  },
+    {
+        icon: "homeIcon",
+        name: "Inicio",
+        router: "/",
+    },
+    {
+        icon: "searchIcon",
+        name: "Buscar",
+        router: "/search",
+    },
+    // {
+    //     icon: "userIcon",
+    //     name: "Sectas",
+    //     router: `/Sectas`,
+    // },
+    {
+        icon: "userIcon",
+        name: "Perfil",
+        router: `/profile/${loggedUser.value?.userName}`,
+    },
 ];
 
 function logout() {
@@ -55,7 +50,7 @@ function handleDarkMode() {
 </script>
 <template>
   <nav
-    class="h-screen text-left flex flex-col gap-4 py-4 justify-between sticky top-0 left-0"
+    class="h-screen text-left hidden lg:flex flex-col gap-4 p-4 justify-between sticky top-0 left-0"
   >
     <div>
       <div class="h-[100px]">

@@ -106,7 +106,7 @@ function handleClickEdit() {
 <template>
   <div class="flex gap-6" v-if="user">
     <section
-      class="border border-y-0 border-x-light-background-colors-quaternary dark:border-x-dark-background-color-quaternary w-[65%] min-h-screen"
+      class="border border-y-transparent border-x-light-background-colors-quaternary dark:border-x-dark-background-color-quaternary w-full lg:w-[65%] min-h-screen"
     >
       <header
         class="border border-x-0 border-t-0 border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary"
@@ -242,7 +242,7 @@ function handleClickEdit() {
         <BestTuips :user-id="user.userId" v-if="currentTab === 'bestTuips'" />
       </section>
     </section>
-    <section class="w-[35%]"></section>
+    <section class="w-[350px] hidden xl:block"></section>
   </div>
 </template>
 

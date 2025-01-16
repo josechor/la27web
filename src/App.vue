@@ -7,7 +7,7 @@ import { computed } from "@vue/reactivity";
 import Post from "./shared/components/Post.vue";
 import { useTuipsStore } from "./shared/stores/tuips/tuipsStore";
 import { storeToRefs } from "pinia";
-
+import SidebarMobile from "./shared/components/SidebarMobile.vue";
 const tuipsStore = useTuipsStore();
 const { modalPost } = storeToRefs(tuipsStore);
 
@@ -39,11 +39,10 @@ onMounted(async () => {
   <template v-if="loading">
     <h1>Loading...</h1>
   </template>
-  <div v-if="!loading" class="flex flex-row justify-center w-full relative">
-    <Sidebar class="w-[250px] px-4" v-if="userStore.sessionToken" />
-    <main
-      :class="[!pathIsLogin ? 'max-w-[1500px] w-[1500px] min-h-screen' : '']"
-    >
+  <div v-if="!loading" class="w-full lg:grid grid-cols-[250px_1fr]">
+    <Sidebar v-if="userStore.sessionToken" />
+    <SidebarMobile v-if="userStore.sessionToken" />
+    <main :class="[!pathIsLogin ? 'min-h-screen' : '']">
       <RouterView />
       <Post v-if="userStore.loggedUser && modalPost" v-model="modalPost" />
     </main>
