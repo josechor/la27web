@@ -119,11 +119,11 @@ const removeFile = (index: number) => {
 <template>
   <div
     @click="closeModal"
-    class="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50 z-50"
+    class="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50 z-[120]"
   ></div>
 
   <div
-    class="fixed top-[20%] left-1/2 transform -translate-x-1/2 w-full max-w-[600px] z-50 bg-light-background-colors-primary p-4 rounded-md tuip"
+    class="fixed top-[20%] left-1/2 transform -translate-x-1/2 w-full max-w-[600px] z-[121] bg-light-background-colors-primary p-4 rounded-md tuip"
   >
     <section v-if="responsePost" class="flex gap-4 w-full mb-1 relative">
       <img
