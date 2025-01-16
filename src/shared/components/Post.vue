@@ -220,6 +220,7 @@ const removeFile = (index: number) => {
             <input
               type="file"
               accept=".jpg,.jpeg,.png,.gif,.mp4,.mov,.avi,.mkv,.webm"
+              capture="environment"
               multiple
               @change="handleFiles"
             />
