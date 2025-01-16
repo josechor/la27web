@@ -60,7 +60,7 @@ function handleDarkMode() {
         v-for="item in sidebar"
         @click="redirect(item.router)"
         :key="item.name"
-        class="h-[55px] text-xl font-bold flex flex-row gap-2 items-center cursor-pointer"
+        class="h-[55px] text-xl font-semibold flex flex-row gap-2 items-center cursor-pointer"
         role="button"
       >
         <Icon :name="item.icon" class="" :width="24" :height="24" />
@@ -71,7 +71,6 @@ function handleDarkMode() {
     <Button @click="modalPost = true" text="Publicar" />
 
     <div>
-      <Button @click="handleDarkMode" text="Modo oscuro" />
       <div
         @click="logout"
         class="flex flex-row items-center gap-2 rounded-3xl p-2 hover:bg-[#333] cursor-pointer"

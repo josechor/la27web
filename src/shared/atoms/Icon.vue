@@ -8,7 +8,7 @@ const props = defineProps({
   },
   stroke: {
     type: String,
-    default: "#003333",
+    default: "#fff",
   },
   fill: {
     type: String,
