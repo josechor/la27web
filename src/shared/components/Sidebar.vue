@@ -14,26 +14,26 @@ const tuipsStore = useTuipsStore();
 const { modalPost } = storeToRefs(tuipsStore);
 
 const sidebar: Sidebar[] = [
-    {
-        icon: "homeIcon",
-        name: "Inicio",
-        router: "/",
-    },
-    {
-        icon: "searchIcon",
-        name: "Buscar",
-        router: "/search",
-    },
-    // {
-    //     icon: "userIcon",
-    //     name: "Sectas",
-    //     router: `/Sectas`,
-    // },
-    {
-        icon: "userIcon",
-        name: "Perfil",
-        router: `/profile/${loggedUser.value?.userName}`,
-    },
+  {
+    icon: "homeIcon",
+    name: "Inicio",
+    router: "/",
+  },
+  {
+    icon: "searchIcon",
+    name: "Buscar",
+    router: "/search",
+  },
+  // {
+  //     icon: "userIcon",
+  //     name: "Sectas",
+  //     router: `/Sectas`,
+  // },
+  {
+    icon: "userIcon",
+    name: "Perfil",
+    router: `/profile/${loggedUser.value?.userName}`,
+  },
 ];
 
 function logout() {
@@ -56,11 +56,24 @@ function redirect(route: string) {
         v-for="item in sidebar"
         @click="redirect(item.router)"
         :key="item.name"
-        class="py-5 text-2xl flex flex-row gap-2 items-center cursor-pointer"
+        class="py-5 text-xl flex flex-row gap-2 items-center cursor-pointer"
         role="button"
       >
-        <Icon :name="item.icon" class="" :width="32" :height="32" />
-        <span>{{ item.name }}</span>
+        <Icon
+          :stroke-width="
+            $router.currentRoute.value.path === item.router ? 3 : 1
+          "
+          :name="item.icon"
+          class=""
+          :width="32"
+          :height="32"
+        />
+        <span
+          :class="
+            $router.currentRoute.value.path === item.router ? 'font-bold' : ''
+          "
+          >{{ item.name }}</span
+        >
       </div>
     </div>
 

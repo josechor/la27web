@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, Ref, ref } from "vue";
+import { onMounted, onUnmounted, Ref, ref } from "vue";
 import { ButtonSize } from "../types/shared";
 import { TuipCreate } from "../types/tuipsTypes";
 import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";
@@ -8,6 +8,7 @@ import { useTuipsStore } from "../stores/tuips/tuipsStore";
 import { storeToRefs } from "pinia";
 import { UserFetchApi } from "../services/user/UserFetchApi";
 import { ISectasFollowed } from "../../sectas/types/types";
+import TuipMultimedia from "./Tuip/TuipMultimedia.vue";
 
 const emits = defineEmits(["update:modelValue"]);
 
@@ -25,14 +26,24 @@ const tuipsStore = useTuipsStore();
 const { quotingPost, responsePost } = storeToRefs(tuipsStore);
 
 const sectasOptions = ref<{ label: string; value: string }[]>([]);
-// const sectaSelected = ref<{ label: string; value: string } | null>(null);
+
+let textArea: HTMLElement | null = document.getElementById("postTextArea");
 onMounted(async () => {
+  textArea = document.getElementById("postTextArea");
   const response = await userFetchApi.getFollowedSectas();
   sectasOptions.value = response.map((secta: ISectasFollowed) => ({
     label: secta.sectaName,
     value: secta.sectaId.toString(),
   }));
   window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeModal();
+    }
+  });
+});
+
+onUnmounted(() => {
+  window.removeEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       closeModal();
     }
@@ -61,6 +72,10 @@ function closeModal() {
 }
 
 function validateInput() {
+  if (!textArea) return;
+  textArea.style.height = "56px";
+  let scHeight = textArea.scrollHeight;
+  textArea.style.height = `${scHeight}px`;
   if (post.value.length > 255) post.value = post.value.slice(0, 255);
 }
 
@@ -123,8 +138,14 @@ const removeFile = (index: number) => {
   ></div>
 
   <div
-    class="fixed top-[20%] left-1/2 transform -translate-x-1/2 w-full max-w-[600px] z-[121] bg-light-background-colors-primary p-5 rounded-xl tuip"
+    class="fixed top-0 w-full h-screen max-h-screen lg:h-fit lg:top-[20%] lg:left-1/2 lg:-translate-x-1/2 lg:max-w-[600px] z-[121] bg-light-background-colors-primary p-5 rounded-xl tuip"
   >
+    <div
+      @click="closeModal"
+      class="translate-x-1 translate-y-[-15px] p-2 text-xl font-bold cursor-pointer w-fit mb-[-10px]"
+    >
+      X
+    </div>
     <section v-if="responsePost" class="flex gap-4 w-full mb-1 relative">
       <img
         src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
@@ -143,7 +164,12 @@ const removeFile = (index: number) => {
           >
         </header>
         <section>
-          <span>{{ responsePost.tuipContent }}</span>
+          <span class="text-sm">{{ responsePost.tuipContent }}</span>
+          <TuipMultimedia
+            v-if="responsePost.tuipMultimedia.length"
+            custom-class="max-h-[200px]"
+            :tuip="responsePost"
+          />
         </section>
         <section class="my-2">
           <span
@@ -165,11 +191,12 @@ const removeFile = (index: number) => {
       />
       <div class="w-full flex gap-2 flex-col">
         <textarea
+          id="postTextArea"
           v-model="post"
           placeholder="Que te cuentas?"
           @input="validateInput"
           @keydown.enter.prevent="createPost"
-          class="text-white bg-transparent p-0 border-0 h-[170px] text-xl"
+          class="text-white bg-transparent p-0 border-0 text-xl"
         />
         <div class="flex flex-nowrap overflow-x-scroll">
           <div v-for="(file, index) in files" class="relative">
@@ -198,7 +225,7 @@ const removeFile = (index: number) => {
         </div>
         <div
           v-if="quotingPost"
-          class="px-2 py-3 border rounded-md border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
+          class="px-2 py-3 border rounded-lg border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
         >
           <header class="flex flex-row gap-1">
             <img
@@ -212,8 +239,14 @@ const removeFile = (index: number) => {
               {{ getDate(quotingPost.tuipCreatedAt) }}</span
             >
           </header>
-          <section>
-            <span>{{ quotingPost.tuipContent }}</span>
+          <section class="w-full">
+            <span class="text-sm">{{ quotingPost.tuipContent }}</span>
+            <TuipMultimedia
+              v-if="quotingPost.tuipMultimedia.length"
+              class="w-full"
+              custom-class="max-h-[200px] w-full object-cover"
+              :tuip="quotingPost"
+            />
           </section>
         </div>
         <div class="flex justify-between gap-4">

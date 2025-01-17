@@ -8,6 +8,7 @@ import Post from "./shared/components/Post.vue";
 import { useTuipsStore } from "./shared/stores/tuips/tuipsStore";
 import { storeToRefs } from "pinia";
 import SidebarMobile from "./shared/components/SidebarMobile.vue";
+import Icon from "./shared/atoms/Icon.vue";
 const tuipsStore = useTuipsStore();
 const { modalPost } = storeToRefs(tuipsStore);
 
@@ -22,6 +23,7 @@ const pathIsLogin = computed(() => {
 });
 
 onMounted(async () => {
+  const startTime = new Date().getTime();
   userStore.reconstruct();
   if (userStore.sessionToken === null) {
     userStore.logout();
@@ -31,13 +33,23 @@ onMounted(async () => {
   }
   await userStore.getLoggedUser();
   router.push(window.location.pathname);
-  loading.value = false;
+  const endTime = new Date().getTime();
+  const time = endTime - startTime;
+  if (time < 1500) {
+    setTimeout(() => {
+      loading.value = false;
+    }, 1500 - time);
+  } else {
+    loading.value = false;
+  }
 });
 </script>
 
 <template>
   <template v-if="loading">
-    <h1>Loading...</h1>
+    <div class="w-screen h-screen flex items-center justify-center">
+      <Icon name="bouncingCirclesIcon" :height="200" :width="200" />
+    </div>
   </template>
   <div
     v-if="!loading"

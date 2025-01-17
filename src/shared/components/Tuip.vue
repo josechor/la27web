@@ -99,7 +99,7 @@ function getDate(date: string) {
         <TuipMultimedia v-if="tuip.tuipMultimedia.length" :tuip="tuip" />
         <div
           v-if="quoting"
-          class="px-2 py-3 border rounded-md border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
+          class="px-2 py-3 border rounded-lg border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
         >
           <header class="flex flex-row gap-1">
             <Image

@@ -80,7 +80,7 @@ function validateInput() {
       class="border border-y-transparent border-x-light-background-colors-quaternary dark:border-x-dark-background-color-quaternary w-full lg:w-[100%] lg:max-w-[1000px] min-h-screen"
     >
       <section
-        class="flex gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-1"
+        class="hidden lg:flex  gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-1"
       >
         <Image
           v-if="loggedUser !== null"
