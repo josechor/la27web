@@ -7,6 +7,7 @@ import Video from "../atoms/Video.vue";
 import Image from "../atoms/Image.vue";
 import { useMultimediaStore } from "../stores/multimedia/multimediaStore";
 import { storeToRefs } from "pinia";
+import { onMounted, onUnmounted } from "vue";
 
 const multimediaStore = useMultimediaStore();
 const { multimedia, isOpenModal } = storeToRefs(multimediaStore);
@@ -18,6 +19,14 @@ function multimediaIsVideo(multimedia: string) {
 function multimediaIsImage(multimedia: string) {
   return validImageTypes.includes(multimedia.split(".").pop() || "");
 }
+
+onMounted(() => {
+  document.body.style.overflow = "hidden";
+});
+
+onUnmounted(() => {
+  document.body.style.overflow = "auto";
+});
 </script>
 <template>
   <div
