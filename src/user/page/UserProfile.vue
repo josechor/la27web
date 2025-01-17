@@ -110,10 +110,10 @@ function handleClickEdit() {
 <template>
   <div class="flex gap-6" v-if="user && !loading">
     <section
-      class="border border-y-transparent border-x-background-colors-quaternary  w-full lg:w-[65%] min-h-screen"
+      class="border border-y-transparent border-x-background-colors-quaternary w-full lg:w-[65%] min-h-screen"
     >
       <header
-        class="border border-x-0 border-t-0 border-b-background-colors-quaternary "
+        class="border border-x-0 border-t-0 border-b-background-colors-quaternary"
       >
         <div class="flex flex-row gap-10 items-center p-6 py-4">
           <span @click="router.go(-1)"><--</span>
@@ -182,7 +182,7 @@ function handleClickEdit() {
         </div>
         <div class="flex flex-row justify-around gap-2 mt-6">
           <div
-            class="flex flex-col gap-2 relative cursor-pointer"
+            class="flex flex-col gap-1 relative cursor-pointer"
             @click="currentTab = 'tuips'"
           >
             <span
@@ -194,14 +194,13 @@ function handleClickEdit() {
               ]"
               >Tuips</span
             >
-            <div class="light" v-show="currentTab === 'tuips'"></div>
             <div
               v-show="currentTab === 'tuips'"
-              class="h-[2px] w-full bg-violet-400"
+              class="h-[4px] rounded-full w-full bg-purple-primary"
             ></div>
           </div>
           <div
-            class="flex flex-col gap-2 relative cursor-pointer"
+            class="flex flex-col gap-1 relative cursor-pointer"
             @click="currentTab = 'likes'"
           >
             <span
@@ -213,14 +212,13 @@ function handleClickEdit() {
               ]"
               >Me gusta</span
             >
-            <div class="light" v-show="currentTab === 'likes'"></div>
             <div
               v-show="currentTab === 'likes'"
-              class="h-[2px] w-full bg-violet-400"
+              class="h-[4px] m rounded-full w-full bg-purple-primary"
             ></div>
           </div>
           <div
-            class="flex flex-col gap-2 relative cursor-pointer"
+            class="flex flex-col gap-1 relative cursor-pointer"
             @click="currentTab = 'bestTuips'"
           >
             <span
@@ -232,10 +230,9 @@ function handleClickEdit() {
               ]"
               >Destacados</span
             >
-            <div class="light" v-show="currentTab === 'bestTuips'"></div>
             <div
               v-show="currentTab === 'bestTuips'"
-              class="h-[2px] w-full bg-violet-400"
+              class="h-[4px] rounded-full w-full bg-purple-primary"
             ></div>
           </div>
         </div>
@@ -251,19 +248,5 @@ function handleClickEdit() {
 </template>
 
 <style>
-.light {
-  position: absolute;
-  background-color: violet;
-  background: linear-gradient(
-    0deg,
-    rgba(238, 130, 238, 0.356) 0%,
-    transparent 100%
-  );
-  height: 25px;
-  width: 150%;
-  translate: -50%;
-  bottom: 0;
-  left: 50%;
-  clip-path: polygon(0 0%, 100% 0%, 81% 100%, 19% 100%);
-}
+
 </style>

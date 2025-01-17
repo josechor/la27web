@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, onMounted, PropType, Ref, ref, watch } from "vue";
+import { onMounted, PropType, Ref, ref, watch } from "vue";
 import { TuipInterface } from "../types/tuipsTypes";
 import router from "../router";
 import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";

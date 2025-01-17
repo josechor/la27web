@@ -17,7 +17,9 @@ export default {
           tertiary: "#999999",
         },
         "purple": {
-          primary: "#9c4eaa",
+          primary: "#b061c2",
+          secondary: "#a44f9b",
+
         }
       },
     },
