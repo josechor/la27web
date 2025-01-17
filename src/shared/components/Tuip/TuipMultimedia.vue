@@ -28,7 +28,7 @@ function multimediaIsImage(multimedia: string) {
 </script>
 <template>
   <div
-    class="flex items-stretch justify-start rounded-lg overflow-hidden border border-light-background-colors-tertiary dark:bg-dark-background-color-tertiary w-fit"
+    class="flex items-stretch justify-start rounded-lg overflow-hidden border border-background-colors-tertiary w-fit"
     :class="{
       'h-[200px]': tuip.tuipMultimedia.length > 1,
     }"

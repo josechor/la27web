@@ -80,7 +80,7 @@ const onScroll = () => {
 </script>
 <template>
   <div
-    class="lg:hidden flex flex-row justify-around gap-2 bg-light-background-colors-quaternary fixed bottom-0 w-full bg-opacity-100 transition-all duration-300 z-[100]"
+    class="lg:hidden flex flex-row justify-around gap-2 bg-background-colors-quaternary fixed bottom-0 w-full bg-opacity-100 transition-all duration-300 z-[100]"
     id="sidebarMobile"
   >
     <div
@@ -96,7 +96,7 @@ const onScroll = () => {
       class="p-2 cursor-pointer"
       :class="
         $router.currentRoute.value.path === item.router
-          ? 'bg-light-background-colors-primary rounded-xl bg-opacity-30'
+          ? 'bg-background-colors-primary rounded-xl bg-opacity-30'
           : ''
       "
     >

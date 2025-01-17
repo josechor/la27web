@@ -140,8 +140,8 @@ const removeFile = (index: number) => {
   ></div>
 
   <div
-    class="fixed top-0 w-full h-screen max-h-screen overflow-y-auto lg:h-fit lg:top-[20%] lg:left-1/2 lg:-translate-x-1/2 lg:max-w-[600px] z-[121] bg-light-background-colors-primary p-5 lg:rounded-xl tuip"
-    style="overflow: auto;"
+    class="fixed top-0 w-full h-screen max-h-screen overflow-y-auto lg:h-fit lg:top-[20%] lg:left-1/2 lg:-translate-x-1/2 lg:max-w-[600px] z-[121] bg-background-colors-primary p-5 lg:rounded-xl tuip"
+    style="overflow: auto"
   >
     <div
       @click="closeModal"
@@ -156,7 +156,7 @@ const removeFile = (index: number) => {
         class="h-[40px] w-[40px] rounded-full z-10"
       />
       <div
-        class="absolute w-[2px] top-0 left-[20px] h-full z-0 bg-light-background-colors-tertiary dark:bg-dark-background-color-tertiary"
+        class="absolute w-[2px] top-0 left-[20px] h-full z-0 bg-background-colors-tertiary"
       ></div>
       <div class="flex flex-col gap-0.5">
         <header class="flex flex-row gap-1 items-center">
@@ -175,11 +175,9 @@ const removeFile = (index: number) => {
           />
         </section>
         <section class="my-2">
-          <span
-            class="text-light-text-color-tertiary dark:text-dark-text-color-tertiary text-sm"
+          <span class="text-text-color-tertiary text-sm"
             >Respondiendo a
-            <strong
-              class="text-light-text-color-primary dark:text-dark-text-color-primary"
+            <strong class="text-text-color-primary"
               >@{{ responsePost.userName }}</strong
             ></span
           >
@@ -232,7 +230,7 @@ const removeFile = (index: number) => {
         </div>
         <div
           v-if="quotingPost"
-          class="px-2 py-3 border rounded-lg border-light-background-colors-quaternary dark:border-dark-background-color-quaternary z-10"
+          class="px-2 py-3 border rounded-lg border-background-colors-quaternary z-10"
         >
           <header class="flex flex-row gap-1">
             <img

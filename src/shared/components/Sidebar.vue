@@ -79,7 +79,7 @@ function redirect(route: string) {
 
     <Button @click="openModal()" text="Publicar" />
 
-    <div>
+    <div class="">
       <div
         @click="logout"
         class="flex flex-row items-center gap-2 rounded-3xl p-2 hover:bg-[#333] cursor-pointer"
@@ -90,11 +90,10 @@ function redirect(route: string) {
           src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
           alt="user"
         />
-        <div class="flex flex-col gap-0">
-          <span class="font-bold">{{ loggedUser?.demonName }}</span
+        <div class="flex flex-col gap-0 truncate w-full">
+          <span class="font-bold text-sm truncate w-full">{{ loggedUser?.demonName }}</span
           ><span class="text-xs">@{{ loggedUser?.userName }}</span>
         </div>
-        <div class="w-full text-end">...</div>
       </div>
     </div>
   </nav>

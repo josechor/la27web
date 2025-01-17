@@ -58,13 +58,11 @@ function handleClickUnfollow() {
 <template>
   <div
     v-if="secta"
-    class="border border-y-0 border-x-light-background-colors-quaternary dark:border-x-dark-background-color-quaternary w-[65%] min-h-screen"
+    class="border border-y-0 border-x-background-colors-quaternary w-[65%] min-h-screen"
   >
-    <header
-      class="border-b border-light-background-colors-quaternary dark:border-dark-background-colors-quaternary"
-    >
+    <header class="border-b border-background-colors-quaternary">
       <div
-        class="flex flex-row gap-10 px-4 py-3 items-center border-b border-light-background-colors-quaternary dark:border-dark-background-colors-quaternary"
+        class="flex flex-row gap-10 px-4 py-3 items-center border-b border-background-colors-quaternary"
       >
         <span @click="$router.push('/sectas')" class="cursor-pointer p-2"
           ><--</span
@@ -79,7 +77,7 @@ function handleClickUnfollow() {
           <Image :src="secta.sectaPicture" class="w-[120px] h-[120px]" />
         </div>
         <div
-          class="absolute top-1/2 -translate-y-1/2 left-0 h-[50px] w-full border-y border-light-background-colors-quaternary dark:border-dark-background-color-quaternary z-10 pl-[180px] flex items-center font-bold text-lg bg-white"
+          class="absolute top-1/2 -translate-y-1/2 left-0 h-[50px] w-full border-y border-background-colors-quaternary z-10 pl-[180px] flex items-center font-bold text-lg bg-white"
         >
           {{ secta.sectaName }}
         </div>
@@ -100,15 +98,12 @@ function handleClickUnfollow() {
           ></Button>
           <Button text="Editar secta" :size="ButtonSize.small"></Button>
         </div>
-        <span
-          class="text-light-text-color-primary dark:text-dark-text-color-primary"
-          >{{ secta.sectaDescription }}</span
-        >
+        <span class="text-text-color-primary">{{
+          secta.sectaDescription
+        }}</span>
         <div class="flex justify-between">
           <span></span>
-          <div
-            class="px-4 py-1 bg-light-background-colors-tertiary dark:bg-dark-background-color-tertiary rounded-md"
-          >
+          <div class="px-4 py-1 bg-background-colors-tertiary rounded-md">
             <span class="text-sm font-bold"
               >{{ secta.followersCount }}
               <span class="text0-sm font-normal"> fieles</span></span

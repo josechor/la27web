@@ -24,10 +24,10 @@ async function handleEventCreateSecta() {
 </script>
 <template>
   <section
-    class="border border-y-transparent border-x-light-background-colors-quaternary dark:border-x-dark-background-color-quaternary w-[65%] min-h-screen"
+    class="border border-y-transparent border-x-background-colors-quaternary  w-[65%] min-h-screen"
   >
     <header
-      class="flex flex-row gap-4 border-b border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary px-2 py-4 items-center"
+      class="flex flex-row gap-4 border-b border-b-background-colors-quaternary  px-2 py-4 items-center"
     >
       <div
         @click="$router.push('/')"
@@ -38,7 +38,7 @@ async function handleEventCreateSecta() {
       </div>
       <input
         type="text"
-        class="w-full p-2 border-b h-[45px] border-light-background-colors-quaternary dark:border-dark-background-color-quaternary outline-none rounded-full"
+        class="w-full p-2 border-b h-[45px] border-background-colors-quaternary  outline-none rounded-full"
         placeholder="Buscar sectas"
       />
       <div
@@ -53,7 +53,7 @@ async function handleEventCreateSecta() {
       <template v-for="secta in sectas" :key="secta.sectaId">
         <SectaPreview :secta="secta" />
         <hr
-          class="bg-light-background-colors-quaternary dark:bg-dark-background-color-quaternary h-[2px]"
+          class="bg-background-colors-quaternary  h-[2px]"
         />
       </template>
     </section>

@@ -19,7 +19,7 @@ defineProps({
 </script>
 <template>
   <button
-    class="bg-dark-background-color-primary text-dark-text-color-primary dark:bg-light-background-colors-primary dark:text-dark-background-color-primary rounded-3xl cursor-pointer"
+    class="bg-lig bg-text-color-primary text-background-colors-primary rounded-3xl cursor-pointer"
     :class="[
       {
         'px-2 py-1 text-xs': size === ButtonSize.extraSmall,

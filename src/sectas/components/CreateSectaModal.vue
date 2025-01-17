@@ -81,7 +81,7 @@ const createSectaDisabled = computed(() => {
     class="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50 z-50"
   ></div>
   <div
-    class="fixed top-[5%] left-1/2 transform -translate-x-1/2 w-[600px] z-50 bg-light-background-colors-primary p-4 rounded-md"
+    class="fixed top-[5%] left-1/2 transform -translate-x-1/2 w-[600px] z-50 bg-background-colors-primary p-4 rounded-md"
   >
     <h2 class="text-2xl font-bold mb-6">Crear secta</h2>
     <div class="grid grid-cols-2 gap-4">
@@ -89,12 +89,12 @@ const createSectaDisabled = computed(() => {
         <input
           v-model="name"
           type="text"
-          class="p-2 border-b h-[35px] border-light-background-colors-quaternary dark:border-dark-background-color-quaternary outline-none rounded"
+          class="p-2 border-b h-[35px] border-background-colors-quaternary  outline-none rounded"
           placeholder="Nombre de la secta"
         />
         <textarea
           v-model="description"
-          class="p-2 border-b h-[200px] border-light-background-colors-quaternary dark:border-dark-background-color-quaternary outline-none rounded"
+          class="p-2 border-b h-[200px] border-background-colors-quaternary  outline-none rounded"
           placeholder="Descripción de la secta"
         ></textarea>
       </div>

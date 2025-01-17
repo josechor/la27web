@@ -77,10 +77,10 @@ function validateInput() {
 <template>
   <div class="flex gap-6">
     <section
-      class="border border-y-transparent border-x-light-background-colors-quaternary dark:border-x-dark-background-color-quaternary w-full lg:w-[100%] lg:max-w-[680px] min-h-screen"
+      class="border border-y-transparent border-x-background-colors-quaternary w-full lg:w-[100%] lg:max-w-[680px] min-h-screen"
     >
       <section
-        class="hidden lg:flex  gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-1"
+        class="hidden lg:flex gap-4 justify-around border border-transparent border-b-background-colors-quaternary w-full px-3 py-1"
       >
         <Image
           v-if="loggedUser !== null"
@@ -97,9 +97,7 @@ function validateInput() {
             @keydown.enter.prevent="createPost"
             class="text-white bg-transparent p-0 border-0 h-[130px] text-lg"
           />
-          <hr
-            class="w-full border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
-          />
+          <hr class="w-full border-background-colors-quaternary" />
           <div class="flex justify-between gap-4">
             <div></div>
             <div class="flex gap-2 items-center">

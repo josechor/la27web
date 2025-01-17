@@ -110,10 +110,10 @@ function handleClickEdit() {
 <template>
   <div class="flex gap-6" v-if="user && !loading">
     <section
-      class="border border-y-transparent border-x-light-background-colors-quaternary dark:border-x-dark-background-color-quaternary w-full lg:w-[65%] min-h-screen"
+      class="border border-y-transparent border-x-background-colors-quaternary  w-full lg:w-[65%] min-h-screen"
     >
       <header
-        class="border border-x-0 border-t-0 border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary"
+        class="border border-x-0 border-t-0 border-b-background-colors-quaternary "
       >
         <div class="flex flex-row gap-10 items-center p-6 py-4">
           <span @click="router.go(-1)"><--</span>
@@ -189,8 +189,8 @@ function handleClickEdit() {
               class="cursor-pointer"
               :class="[
                 currentTab === 'tuips'
-                  ? 'font-bold text-light-text-color-primary'
-                  : 'text-light-text-color-tertiary',
+                  ? 'font-bold text-text-color-primary'
+                  : 'text-text-color-tertiary',
               ]"
               >Tuips</span
             >
@@ -208,8 +208,8 @@ function handleClickEdit() {
               class="cursor-pointer"
               :class="[
                 currentTab === 'likes'
-                  ? 'font-bold text-light-text-color-primary'
-                  : 'text-light-text-color-tertiary',
+                  ? 'font-bold text-text-color-primary'
+                  : 'text-text-color-tertiary',
               ]"
               >Me gusta</span
             >
@@ -227,8 +227,8 @@ function handleClickEdit() {
               class="cursor-pointer"
               :class="[
                 currentTab === 'bestTuips'
-                  ? 'font-bold text-light-text-color-primary'
-                  : 'text-light-text-color-tertiary',
+                  ? 'font-bold text-text-color-primary'
+                  : 'text-text-color-tertiary',
               ]"
               >Destacados</span
             >

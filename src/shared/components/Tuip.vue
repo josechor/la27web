@@ -66,7 +66,7 @@ function getDate(date: string) {
       class="flex gap-4 justify-around w-full px-3 py-2 relative pb-5 tuip"
     >
       <div
-        class="w-[2px] bg-light-background-colors-tertiary dark:bg-dark-background-color-tertiary absolute top-[8px] left-[37px] h-full z-0"
+        class="w-[2px] bg-background-colors-tertiary absolute top-[8px] left-[37px] h-full z-0"
       ></div>
       <Image
         @click.stop="router.push('/profile/' + parent.userName)"
@@ -84,7 +84,7 @@ function getDate(date: string) {
     </div>
     <div
       @click="console.log('hijo')"
-      class="flex gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-2 tuip"
+      class="flex gap-4 justify-around border border-transparent border-b-background-colors-quaternary w-full px-3 py-2 tuip"
     >
       <Image
         @click.stop="router.push('/profile/' + tuip.userName)"
@@ -99,7 +99,7 @@ function getDate(date: string) {
         <TuipMultimedia v-if="tuip.tuipMultimedia.length" :tuip="tuip" />
         <div
           v-if="quoting"
-          class="px-2 py-3 border rounded-lg border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
+          class="px-2 py-3 border rounded-lg border-background-colors-quaternary"
         >
           <header class="flex flex-row gap-1">
             <Image
@@ -115,7 +115,10 @@ function getDate(date: string) {
             >
           </header>
           <div class="content">{{ quoting.tuipContent }}</div>
-          <TuipMultimedia v-if="quoting.tuipMultimedia.length" :tuip="quoting" />
+          <TuipMultimedia
+            v-if="quoting.tuipMultimedia.length"
+            :tuip="quoting"
+          />
         </div>
         <TuipFooterButtons :tuip="tuip" />
       </div>
