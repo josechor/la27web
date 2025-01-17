@@ -68,6 +68,7 @@ async function createPost() {
 }
 
 function closeModal() {
+  window.history.back();
   post.value = "";
   quotingPost.value = null;
   emits("update:modelValue", false);
@@ -176,7 +177,7 @@ const removeFile = (index: number) => {
         </section>
         <section class="my-2">
           <span
-            class="text-light-text-color-tertiary dark:text-dark-text-color-tertiary"
+            class="text-light-text-color-tertiary dark:text-dark-text-color-tertiary text-sm"
             >Respondiendo a
             <strong
               class="text-light-text-color-primary dark:text-dark-text-color-primary"
