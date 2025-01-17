@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted, Ref, ref } from "vue";
+import { onMounted, onUnmounted, Ref, ref, watch } from "vue";
 import { ButtonSize } from "../types/shared";
 import { TuipCreate } from "../types/tuipsTypes";
 import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";
@@ -9,6 +9,7 @@ import { storeToRefs } from "pinia";
 import { UserFetchApi } from "../services/user/UserFetchApi";
 import { ISectasFollowed } from "../../sectas/types/types";
 import TuipMultimedia from "./Tuip/TuipMultimedia.vue";
+import router from "../router";
 
 const emits = defineEmits(["update:modelValue"]);
 
@@ -70,6 +71,7 @@ async function createPost() {
 function closeModal() {
   post.value = "";
   quotingPost.value = null;
+  router.go(-1);
   emits("update:modelValue", false);
 }
 
@@ -135,6 +137,12 @@ const removeFile = (index: number) => {
 
 function handleClickEnter(event: KeyboardEvent) {
   if (event.shiftKey) return;
+  router.go(-1);
+  createPost();
+}
+
+function handleClickCreatePost() {
+  router.go(-1);
   createPost();
 }
 </script>
@@ -274,7 +282,7 @@ function handleClickEnter(event: KeyboardEvent) {
           <div class="flex gap-2 items-center min-w-fit">
             <span class="text-xs">{{ post.length }}/255</span>
             <Button
-              @click="createPost"
+              @click="handleClickCreatePost()"
               :disabled="post.length === 0 && files.length === 0"
               :size="ButtonSize.small"
               text="Publicar"
