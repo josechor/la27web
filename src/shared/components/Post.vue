@@ -140,7 +140,8 @@ const removeFile = (index: number) => {
   ></div>
 
   <div
-    class="fixed top-0 w-full h-screen max-h-screen lg:h-fit lg:top-[20%] lg:left-1/2 lg:-translate-x-1/2 lg:max-w-[600px] z-[121] bg-light-background-colors-primary p-5 rounded-xl tuip"
+    class="fixed top-0 w-full h-screen max-h-screen overflow-y-auto lg:h-fit lg:top-[20%] lg:left-1/2 lg:-translate-x-1/2 lg:max-w-[600px] z-[121] bg-light-background-colors-primary p-5 lg:rounded-xl tuip"
+    style="overflow: auto;"
   >
     <div
       @click="closeModal"
@@ -186,48 +187,52 @@ const removeFile = (index: number) => {
       </div>
     </section>
     <section class="flex gap-4 justify-around w-full">
-      <img
-        src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
-        alt="user"
-        class="h-[40px] w-[40px] rounded-full"
-      />
       <div class="w-full flex gap-2 flex-col">
-        <textarea
-          id="postTextArea"
-          v-model="post"
-          placeholder="Que te cuentas?"
-          @input="validateInput"
-          @keydown.enter.prevent="createPost"
-          class="text-white bg-transparent p-0 border-0 text-xl"
-        />
-        <div class="flex flex-nowrap overflow-x-scroll">
-          <div v-for="(file, index) in files" class="relative">
-            <img
-              v-if="file.type.startsWith('image/')"
-              :src="file.preview"
-              alt="Imagen subida"
-              class="h-[200px] object-cover"
+        <div class="flex flex-row gap-2">
+          <img
+            src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+            alt="user"
+            class="h-[40px] w-[40px] rounded-full"
+          />
+          <div class="flex flex-col gap-2 w-full">
+            <textarea
+              id="postTextArea"
+              v-model="post"
+              placeholder="Que te cuentas?"
+              @input="validateInput"
+              @keydown.enter.prevent="createPost"
+              class="text-white bg-transparent p-0 w-full border-0 text-xl"
             />
-            <!-- Previsualización de video -->
-            <video
-              v-if="file.type.startsWith('video/')"
-              controls
-              class="h-[200px] object-cover"
-            >
-              <source :src="file.preview" :type="file.type" />
-              Tu navegador no soporta videos.
-            </video>
-            <div
-              @click="removeFile(index)"
-              class="absolute w-6 h-6 top-0 right-0 cursor-pointer"
-            >
-              X
+            <div class="flex flex-nowrap overflow-x-scroll">
+              <div v-for="(file, index) in files" class="relative">
+                <img
+                  v-if="file.type.startsWith('image/')"
+                  :src="file.preview"
+                  alt="Imagen subida"
+                  class="h-[200px] object-cover"
+                />
+                <!-- Previsualización de video -->
+                <video
+                  v-if="file.type.startsWith('video/')"
+                  controls
+                  class="h-[200px] object-cover"
+                >
+                  <source :src="file.preview" :type="file.type" />
+                  Tu navegador no soporta videos.
+                </video>
+                <div
+                  @click="removeFile(index)"
+                  class="absolute w-6 h-6 top-0 right-0 cursor-pointer"
+                >
+                  X
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div
           v-if="quotingPost"
-          class="px-2 py-3 border rounded-lg border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
+          class="px-2 py-3 border rounded-lg border-light-background-colors-quaternary dark:border-dark-background-color-quaternary z-10"
         >
           <header class="flex flex-row gap-1">
             <img
@@ -235,7 +240,9 @@ const removeFile = (index: number) => {
               alt="user"
               class="h-[20px] w-[20px] rounded-full"
             />
-            <span class="font-bold text-sm">{{ quotingPost.demonName }}</span>
+            <span class="font-bold text-sm truncate">{{
+              quotingPost.demonName
+            }}</span>
             <span class="font-light text-sm"
               >@{{ quotingPost.userName }} ¤
               {{ getDate(quotingPost.tuipCreatedAt) }}</span
