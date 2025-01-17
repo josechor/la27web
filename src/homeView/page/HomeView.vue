@@ -95,6 +95,7 @@ function validateInput() {
             placeholder="Que te cuentas?"
             @input="validateInput"
             @keydown.enter.prevent="createPost"
+            class="text-white bg-transparent p-0 border-0 h-[130px] text-lg"
           />
           <hr
             class="w-full border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"

@@ -39,7 +39,10 @@ onMounted(async () => {
   <template v-if="loading">
     <h1>Loading...</h1>
   </template>
-  <div v-if="!loading" class="w-full lg:grid grid-cols-[250px_1fr]">
+  <div
+    v-if="!loading"
+    class="w-full lg:grid grid-cols-[250px_1fr] max-w-[1275px] m-auto"
+  >
     <Sidebar v-if="userStore.sessionToken" />
     <SidebarMobile v-if="userStore.sessionToken" />
     <main :class="[!pathIsLogin ? 'min-h-screen' : '']">

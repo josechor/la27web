@@ -78,7 +78,7 @@ function getDate(date: string) {
       <div class="w-full flex flex-col gap-1">
         <TuipHeader :tuip="parent" />
         <span>{{ parent.tuipContent }}</span>
-        <TuipMultimedia :tuip="parent" />
+        <TuipMultimedia v-if="parent.tuipMultimedia.length" :tuip="parent" />
         <TuipFooterButtons :tuip="parent" />
       </div>
     </div>
@@ -96,7 +96,7 @@ function getDate(date: string) {
       <div class="w-full flex flex-col gap-1">
         <TuipHeader :tuip="tuip" />
         <div class="content">{{ tuip.tuipContent }}</div>
-        <TuipMultimedia :tuip="tuip" />
+        <TuipMultimedia v-if="tuip.tuipMultimedia.length" :tuip="tuip" />
         <div
           v-if="quoting"
           class="px-2 py-3 border rounded-md border-light-background-colors-quaternary dark:border-dark-background-color-quaternary"
@@ -115,7 +115,7 @@ function getDate(date: string) {
             >
           </header>
           <div class="content">{{ quoting.tuipContent }}</div>
-          <TuipMultimedia :tuip="quoting" />
+          <TuipMultimedia v-if="quoting.tuipMultimedia.length" :tuip="quoting" />
         </div>
         <TuipFooterButtons :tuip="tuip" />
       </div>

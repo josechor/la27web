@@ -43,10 +43,6 @@ function logout() {
 function redirect(route: string) {
   router.push(route);
 }
-
-function handleDarkMode() {
-  document.body.classList.toggle("dark");
-}
 </script>
 <template>
   <nav
@@ -60,10 +56,10 @@ function handleDarkMode() {
         v-for="item in sidebar"
         @click="redirect(item.router)"
         :key="item.name"
-        class="h-[55px] text-xl font-semibold flex flex-row gap-2 items-center cursor-pointer"
+        class="py-5 text-2xl flex flex-row gap-2 items-center cursor-pointer"
         role="button"
       >
-        <Icon :name="item.icon" class="" :width="24" :height="24" />
+        <Icon :name="item.icon" class="" :width="32" :height="32" />
         <span>{{ item.name }}</span>
       </div>
     </div>
