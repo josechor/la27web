@@ -91,7 +91,7 @@ function efect(e: any) {
       <Icon
         @click.stop="handleClickResponse(tuip)"
         stroke="#999999"
-        icon-custom-class="hover:stroke-[#fff] transition-all duration-150 lg:w-[20px] lg:h-[20px] h-[14px] w-[14px]"
+        icon-custom-class="hover:stroke-[#fff] transition-all duration-150 lg:w-[20px] lg:h-[20px] h-[16px] w-[16px]"
         role="button"
         name="responseIcon"
       />
@@ -108,7 +108,7 @@ function efect(e: any) {
     >
       <img
         src="../../../shared/utils/images/antorcha.png"
-        class=" lg:w-[20px] lg:h-[20px] h-[14px] w-[14px] iconHover"
+        class=" lg:w-[20px] lg:h-[20px] h-[16px] w-[16px] iconHover"
       />
       {{ tuip.likesCount }}
     </div>
@@ -117,7 +117,7 @@ function efect(e: any) {
       :width="20"
       :height="20"
       stroke="#999999"
-      icon-custom-class="hover:stroke-[#fff] transition-all duration-150 lg:w-[20px] lg:h-[20px] h-[14px] w-[14px]"
+      icon-custom-class="hover:stroke-[#fff] transition-all duration-150 lg:w-[20px] lg:h-[20px] h-[16px] w-[16px]"
       name="quotingIcon"
       role="button"
     />
