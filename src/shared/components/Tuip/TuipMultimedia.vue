@@ -7,6 +7,7 @@ import {
 } from "../../constants/validMultimediaTypes";
 import Video from "../../atoms/Video.vue";
 import Image from "../../atoms/Image.vue";
+import { useMultimediaStore } from "../../stores/multimedia/multimediaStore";
 defineProps({
   tuip: {
     type: Object as PropType<TuipInterface>,
@@ -18,12 +19,19 @@ defineProps({
   },
 });
 
+const multimediaStore = useMultimediaStore();
+const { openModal } = multimediaStore;
+
 function multimediaIsVideo(multimedia: string) {
   return validVideoTypes.includes(multimedia.split(".").pop() || "");
 }
 
 function multimediaIsImage(multimedia: string) {
   return validImageTypes.includes(multimedia.split(".").pop() || "");
+}
+
+function handleClickImage(multi: string) {
+  openModal(multi);
 }
 </script>
 <template>
@@ -36,6 +44,7 @@ function multimediaIsImage(multimedia: string) {
     <div class="flex flex-row overflow-auto w-full">
       <template v-for="multimedia in tuip.tuipMultimedia">
         <Video
+          ref="video"
           v-if="multimediaIsVideo(multimedia)"
           :src="multimedia"
           controls
@@ -43,6 +52,7 @@ function multimediaIsImage(multimedia: string) {
         ></Video>
         <Image
           v-if="multimediaIsImage(multimedia)"
+          @click="handleClickImage(multimedia)"
           :src="multimedia"
           errorsrc="default-image.webp"
           :class="customClass"

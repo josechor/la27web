@@ -9,10 +9,13 @@ import { useTuipsStore } from "./shared/stores/tuips/tuipsStore";
 import { storeToRefs } from "pinia";
 import SidebarMobile from "./shared/components/SidebarMobile.vue";
 import Icon from "./shared/atoms/Icon.vue";
+import ImageModal from "./shared/components/ImageModal.vue";
+import { useMultimediaStore } from "./shared/stores/multimedia/multimediaStore";
 const tuipsStore = useTuipsStore();
 const { modalPost } = storeToRefs(tuipsStore);
 
 const userStore = useUserStore();
+const multimediaStore = useMultimediaStore();
 const loading = ref(true);
 
 const pathIsLogin = computed(() => {
@@ -60,6 +63,10 @@ onMounted(async () => {
     <main :class="[!pathIsLogin ? 'min-h-screen' : '']">
       <RouterView />
       <Post v-if="userStore.loggedUser && modalPost" v-model="modalPost" />
+      <ImageModal
+        v-if="multimediaStore.isOpenModal"
+        v-model="multimediaStore.isOpenModal"
+      />
     </main>
   </div>
 </template>
