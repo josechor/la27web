@@ -68,7 +68,6 @@ async function createPost() {
 }
 
 function closeModal() {
-  window.history.back();
   post.value = "";
   quotingPost.value = null;
   emits("update:modelValue", false);

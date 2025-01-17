@@ -11,7 +11,7 @@ const userStore = useUserStore();
 const { loggedUser } = storeToRefs(userStore);
 
 const tuipsStore = useTuipsStore();
-const { modalPost } = storeToRefs(tuipsStore);
+const { openModal } = tuipsStore;
 
 const sidebar: Sidebar[] = [
   {
@@ -77,7 +77,7 @@ function redirect(route: string) {
       </div>
     </div>
 
-    <Button @click="modalPost = true" text="Publicar" />
+    <Button @click="openModal()" text="Publicar" />
 
     <div>
       <div

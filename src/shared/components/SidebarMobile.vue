@@ -10,7 +10,7 @@ const userStore = useUserStore();
 const { loggedUser } = storeToRefs(userStore);
 
 const tuipsStore = useTuipsStore();
-const { modalPost } = storeToRefs(tuipsStore);
+const { openModal } = tuipsStore;
 
 const sidebarMobile: Sidebar[] = [
   {
@@ -84,7 +84,7 @@ const onScroll = () => {
     id="sidebarMobile"
   >
     <div
-      @click="modalPost = true"
+      @click="openModal()"
       class="p-3 z-[100] rounded-full bg-dark-background-color-quaternary absolute -top-[150%] right-2 transition-all duration-300 cursor-pointer"
       id="sidebarMobileButton"
     >

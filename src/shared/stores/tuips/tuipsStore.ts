@@ -10,19 +10,23 @@ export const useTuipsStore = defineStore("tuipsStore", () => {
   const responsePost: Ref<TuipInterface | null> = ref(null);
 
   function openPostModalWithQuoting(tuip: TuipInterface) {
-    window.history.pushState(null, "", 'post');
     responsePost.value = null;
     quotingPost.value = tuip;
     modalPost.value = true;
   }
 
   function openPostModalWithResponse(tuip: TuipInterface) {
-    console.log(window.location.href)
-    window.history.pushState(null, "", 'post');
     quotingPost.value = null;
     responsePost.value = tuip;
     modalPost.value = true
   }
+
+  function openModal() {
+    quotingPost.value = null;
+    responsePost.value = null;
+    modalPost.value = true
+  }
+
 
   async function createTuip(tuip: TuipCreate) {
     await tuipsFetchApi.createTuip(tuip);
@@ -34,6 +38,7 @@ export const useTuipsStore = defineStore("tuipsStore", () => {
     openPostModalWithQuoting,
     openPostModalWithResponse,
     quotingPost,
-    responsePost
+    responsePost,
+    openModal
   }
 });
