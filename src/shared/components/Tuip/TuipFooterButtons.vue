@@ -51,15 +51,18 @@ async function handleClickLike(e: Event) {
 
 function efect(e: any) {
   let div = document.createElement("div");
+  const target = e.target.getBoundingClientRect()
   document.querySelector("body")?.appendChild(div);
-  div.style.left = e.pageX + "px";
-  div.style.top = e.pageY + "px";
+  div.style.left = (target.left + e.target.width  / 2) + "px";
+  div.style.top = (target.top + 5) + "px";
   div.style.position = "absolute";
-  const maxElems = 10;
+  const maxElems = 13;
   for (let i = 0; i < maxElems; i++) {
     let span = document.createElement("span");
     span.className = "effect";
     span.style.opacity = "1";
+    span.style.backgroundColor = "#f8b160";
+    span.style.position = "absolute";
     span.style.transition = "transform 0.45s, opacity 0.45s";
     let newSpan = div.appendChild(span);
     let deg = i * (360 / maxElems) + Math.floor(Math.random() * 15);
@@ -78,7 +81,7 @@ function efect(e: any) {
     });
     setTimeout(() => {
       document.body.removeChild(div);
-    }, 400);
+    }, 500);
   }, 20);
 }
 </script>
