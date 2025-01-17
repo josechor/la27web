@@ -51,10 +51,10 @@ async function handleClickLike(e: Event) {
 
 function efect(e: any) {
   let div = document.createElement("div");
-  const target = e.target.getBoundingClientRect()
+  const target = e.target.getBoundingClientRect();
   document.querySelector("body")?.appendChild(div);
-  div.style.left = (target.left + e.target.width  / 2) + "px";
-  div.style.top = (target.top + 5) + "px";
+  div.style.left = target.left + e.target.width / 2 + "px";
+  div.style.top = target.top + 5 + "px";
   div.style.position = "absolute";
   const maxElems = 13;
   for (let i = 0; i < maxElems; i++) {
@@ -90,10 +90,8 @@ function efect(e: any) {
     <div>
       <Icon
         @click.stop="handleClickResponse(tuip)"
-        :width="20"
-        :height="20"
         stroke="#999999"
-        icon-custom-class="hover:stroke-[#fff] transition-all duration-150"
+        icon-custom-class="hover:stroke-[#fff] transition-all duration-150 lg:w-[20px] lg:h-[20px] h-[14px] w-[14px]"
         role="button"
         name="responseIcon"
       />
@@ -110,7 +108,7 @@ function efect(e: any) {
     >
       <img
         src="../../../shared/utils/images/antorcha.png"
-        class="w-[20px] h-[20px] iconHover"
+        class=" lg:w-[20px] lg:h-[20px] h-[14px] w-[14px] iconHover"
       />
       {{ tuip.likesCount }}
     </div>
@@ -119,7 +117,7 @@ function efect(e: any) {
       :width="20"
       :height="20"
       stroke="#999999"
-      icon-custom-class="hover:stroke-[#fff] transition-all duration-150"
+      icon-custom-class="hover:stroke-[#fff] transition-all duration-150 lg:w-[20px] lg:h-[20px] h-[14px] w-[14px]"
       name="quotingIcon"
       role="button"
     />
