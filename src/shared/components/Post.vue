@@ -10,6 +10,7 @@ import { UserFetchApi } from "../services/user/UserFetchApi";
 import { ISectasFollowed } from "../../sectas/types/types";
 import TuipMultimedia from "./Tuip/TuipMultimedia.vue";
 import router from "../router";
+import Icon from "../atoms/Icon.vue";
 
 const emits = defineEmits(["update:modelValue"]);
 
@@ -233,7 +234,7 @@ function handleClickCreatePost() {
                 </video>
                 <div
                   @click="removeFile(index)"
-                  class="absolute w-6 h-6 top-0 right-0 cursor-pointer"
+                  class="absolute w-6 h-6 top-1 right-1 rounded-full cursor-pointer bg-background-colors-secondary flex items-center justify-center"
                 >
                   X
                 </div>
@@ -269,12 +270,24 @@ function handleClickCreatePost() {
             />
           </section>
         </div>
-        <div class="flex justify-between gap-4">
+        <div class="flex justify-between gap-4 ml-[44px]">
           <div>
+            <label for="file" title="Subir multimedia" class="cursor-pointer">
+              <Icon
+                name="imageIcon"
+                :width="32"
+                :height="32"
+                stroke="#b061c2"
+                :stroke-width="2.5"
+              />
+            </label>
             <input
               type="file"
               accept=".jpg,.jpeg,.png,.gif,.mp4,.mov,.avi,.mkv,.webm"
               capture="environment"
+              class="hidden"
+              name="file"
+              id="file"
               multiple
               @change="handleFiles"
             />
