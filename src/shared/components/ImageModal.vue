@@ -25,18 +25,16 @@ function multimediaIsImage(multimedia: string) {
     @click="isOpenModal = false"
   >
     <Video
-      @click.stop=""
       v-if="multimediaIsVideo(multimedia)"
       :src="multimedia"
       controls
-      class="max-w-[80%] max-h-[80%]"
+      class="max-w-[95%] max-h-[90%] lg:max-w-[80%] lg:max-h-[80%]"
     />
     <Image
-      @click.stop=""
       v-if="multimediaIsImage(multimedia)"
       :src="multimedia"
       errorsrc="default-image.webp"
-      class="max-w-[80%] max-h-[80%]"
+      class="max-w-[95%] max-h-[95%] lg:max-w-[80%] lg:max-h-[80%]"
     />
   </div>
 </template>
