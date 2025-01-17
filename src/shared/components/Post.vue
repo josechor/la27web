@@ -29,6 +29,7 @@ const sectasOptions = ref<{ label: string; value: string }[]>([]);
 
 let textArea: HTMLElement | null = document.getElementById("postTextArea");
 onMounted(async () => {
+  document.body.style.overflow = "hidden";
   textArea = document.getElementById("postTextArea");
   const response = await userFetchApi.getFollowedSectas();
   sectasOptions.value = response.map((secta: ISectasFollowed) => ({
@@ -43,6 +44,7 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
+  document.body.style.overflow = "auto";
   window.removeEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       closeModal();
