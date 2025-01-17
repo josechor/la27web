@@ -102,7 +102,7 @@ function handleClickEnter(e: KeyboardEvent) {
             placeholder="Que te cuentas?"
             @input="validateInput"
             @keydown.enter="handleClickEnter"
-            class="text-white bg-transparent p-0 border-0 h-[130px] text-lg"
+            class="text-white bg-transparent p-0 border-0 h-[130px]"
           />
           <hr class="w-full border-background-colors-quaternary" />
           <div class="flex justify-between gap-4">

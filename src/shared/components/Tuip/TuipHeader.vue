@@ -28,16 +28,16 @@ import { TuipInterface } from "../../types/tuipsTypes";
 <template>
   <div class="flex gap-2 item-center justify-between">
     <div class="flex gap-2 items-center">
-      <div class="flex flex-col gap-0.5">
+      <div class="flex flex-col gap-1">
         <span
           @click.stop="router.push('/profile/' + tuip.userName)"
-          class="text-xs font-bold cursor-pointer hover:underline"
+          class="text-sm font-bold cursor-pointer hover:underline"
           role="button"
           >{{ tuip.demonName }}</span
         >
         <span
           @click.stop="router.push('/profile/' + tuip.userName)"
-          class="text-xs font-light cursor-pointer hover:underline"
+          class="text-xs text-text-color-secondary font-light cursor-pointer hover:underline"
           role="button"
           >@{{ tuip.userName }}</span
         >

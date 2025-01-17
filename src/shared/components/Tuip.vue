@@ -64,7 +64,7 @@ function getDate(date: string) {
   <div class="w-full cursor-pointer">
     <div
       v-if="parent !== null"
-      class="flex gap-4 justify-around w-full px-3 py-2 relative pb-5 tuip"
+      class="flex gap-4 justify-around w-full px-3 py-2 relative pb-7 tuip"
     >
       <div
         class="w-[2px] bg-background-colors-tertiary absolute top-[8px] left-[37px] h-full z-0"
@@ -100,20 +100,22 @@ function getDate(date: string) {
         <TuipMultimedia v-if="tuip.tuipMultimedia.length" :tuip="tuip" />
         <div
           v-if="quoting"
-          class="px-2 py-3 border rounded-lg border-background-colors-quaternary"
+          class="px-2 py-3 border rounded-xl border-background-colors-quaternary mt-4"
         >
-          <header class="flex flex-row gap-1">
+          <header class="flex flex-row gap-1 items-center">
             <Image
               :src="quoting.profilePicture"
               errorsrc="default-image.webp"
               class="h-[20px] w-[20px] rounded-full"
               role="button"
             />
-            <span class="font-bold text-sm">{{ quoting.demonName }}</span>
-            <span class="font-light text-sm"
-              >@{{ quoting.userName }} ¤
-              {{ getDate(quoting.tuipCreatedAt) }}</span
-            >
+            <div class="flex items-end gap-1 translate-y-[-2px]">
+              <span class="font-bold text-sm">{{ quoting.demonName }}</span>
+              <span class="font-light text-text-color-secondary text-xs"
+                >@{{ quoting.userName }} ¤
+                {{ getDate(quoting.tuipCreatedAt) }}</span
+              >
+            </div>
           </header>
           <div class="content" v-html="textParse(quoting.tuipContent)"></div>
           <TuipMultimedia

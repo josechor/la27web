@@ -173,9 +173,9 @@ function handleClickCreatePost() {
         class="absolute w-[2px] top-0 left-[20px] h-full z-0 bg-background-colors-tertiary"
       ></div>
       <div class="flex flex-col gap-0.5">
-        <header class="flex flex-row gap-1 items-center">
+        <header class="flex flex-row gap-1 items-end">
           <span class="font-bold text-sm">{{ responsePost.demonName }}</span>
-          <span class="font-light text-sm"
+          <span class="font-light text-xs text-text-color-secondary"
             >@{{ responsePost.userName }} ¤
             {{ getDate(responsePost.tuipCreatedAt) }}</span
           >
@@ -252,13 +252,15 @@ function handleClickCreatePost() {
               alt="user"
               class="h-[20px] w-[20px] rounded-full"
             />
-            <span class="font-bold text-sm truncate">{{
-              quotingPost.demonName
-            }}</span>
-            <span class="font-light text-sm"
-              >@{{ quotingPost.userName }} ¤
-              {{ getDate(quotingPost.tuipCreatedAt) }}</span
-            >
+            <div class="flex items-end gap-1 translate-y-[-3px]">
+              <span class="font-bold text-sm truncate">{{
+                quotingPost.demonName
+              }}</span>
+              <span class="font-light text-xs text-text-color-secondary"
+                >@{{ quotingPost.userName }} ¤
+                {{ getDate(quotingPost.tuipCreatedAt) }}</span
+              >
+            </div>
           </header>
           <section class="w-full">
             <span class="text-sm">{{ quotingPost.tuipContent }}</span>

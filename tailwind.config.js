@@ -3,6 +3,13 @@ export default {
   purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   content: [],
   theme: {
+    fontSize: {
+      xs: ['12px', '14px'],
+      sm: ['13px', '16px'],
+      base: ['14px', '20px'],
+      lg: ['16px', '24px'],
+      xl: ['20px', '32px'],
+    },
     extend: {
       colors: {
         "background-colors": {

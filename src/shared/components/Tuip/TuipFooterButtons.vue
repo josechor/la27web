@@ -83,13 +83,17 @@ function efect(e: any) {
 }
 </script>
 <template>
-  <div class="flex w-full m-auto justify-between text-xs mt-3">
-    <div
-      @click.stop="handleClickResponse(tuip)"
-      class="flex flex-row gap-0.5 cursor-pointer"
-      role="button"
-    >
-      <Icon name="responseIcon" :width="16" :height="16" />
+  <div class="flex w-full m-auto justify-around text-xs mt-2">
+    <div>
+      <Icon
+        @click.stop="handleClickResponse(tuip)"
+        :width="20"
+        :height="20"
+        stroke="#999999"
+        icon-custom-class="hover:stroke-[#fff] transition-all duration-150"
+        role="button"
+        name="responseIcon"
+      />
     </div>
     <div
       @click.stop="handleClickLike"
@@ -103,19 +107,26 @@ function efect(e: any) {
     >
       <img
         src="../../../shared/utils/images/antorcha.png"
-        class="w-[16px] h-[16px]"
+        class="w-[20px] h-[20px] iconHover"
       />
       {{ tuip.likesCount }}
     </div>
     <Icon
       @click.stop="handleClickCitar(tuip)"
+      :width="20"
+      :height="20"
+      stroke="#999999"
+      icon-custom-class="hover:stroke-[#fff] transition-all duration-150"
       name="quotingIcon"
-      :width="16"
-      :height="16"
       role="button"
     />
-    <div>
-      <Icon name="shareIcon" :width="16" :height="16" />
-    </div>
+    <!-- <Icon
+      :width="20"
+      :height="20"
+      stroke="#999999"
+      icon-custom-class="hover:stroke-[#fff] transition-all duration-150"
+      name="shareIcon"
+      role="button"
+    /> -->
   </div>
 </template>
