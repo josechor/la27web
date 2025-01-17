@@ -132,6 +132,11 @@ const removeFile = (index: number) => {
   URL.revokeObjectURL(files.value[index]);
   files.value.splice(index, 1);
 };
+
+function handleClickEnter(event: KeyboardEvent) {
+  if (event.shiftKey) return;
+  createPost();
+}
 </script>
 <template>
   <div
@@ -198,7 +203,7 @@ const removeFile = (index: number) => {
               v-model="post"
               placeholder="Que te cuentas?"
               @input="validateInput"
-              @keydown.enter.prevent="createPost"
+              @keydown.enter="handleClickEnter"
               class="text-white bg-transparent p-0 w-full border-0 text-xl"
             />
             <div class="flex flex-nowrap overflow-x-scroll">
