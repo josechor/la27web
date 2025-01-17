@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, PropType, Ref, ref, watch } from "vue";
+import { computed, onMounted, PropType, Ref, ref, watch } from "vue";
 import { TuipInterface } from "../types/tuipsTypes";
 import router from "../router";
 import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";
@@ -8,6 +8,7 @@ import Image from "../atoms/Image.vue";
 import TuipFooterButtons from "./Tuip/TuipFooterButtons.vue";
 import TuipHeader from "./Tuip/TuipHeader.vue";
 import TuipMultimedia from "./Tuip/TuipMultimedia.vue";
+import { textParse } from "../utils/functions/textParse";
 
 const tuipsFetchApi = new TuipsFetchApi();
 
@@ -77,7 +78,7 @@ function getDate(date: string) {
       />
       <div class="w-full flex flex-col gap-1">
         <TuipHeader :tuip="parent" />
-        <span>{{ parent.tuipContent }}</span>
+        <div class="content" v-html="textParse(parent.tuipContent)"></div>
         <TuipMultimedia v-if="parent.tuipMultimedia.length" :tuip="parent" />
         <TuipFooterButtons :tuip="parent" />
       </div>
@@ -95,7 +96,7 @@ function getDate(date: string) {
       />
       <div class="w-full flex flex-col gap-1">
         <TuipHeader :tuip="tuip" />
-        <div class="content">{{ tuip.tuipContent }}</div>
+        <p class="content" v-html="textParse(tuip.tuipContent)"></p>
         <TuipMultimedia v-if="tuip.tuipMultimedia.length" :tuip="tuip" />
         <div
           v-if="quoting"
@@ -114,7 +115,7 @@ function getDate(date: string) {
               {{ getDate(quoting.tuipCreatedAt) }}</span
             >
           </header>
-          <div class="content">{{ quoting.tuipContent }}</div>
+          <div class="content" v-html="textParse(quoting.tuipContent)"></div>
           <TuipMultimedia
             v-if="quoting.tuipMultimedia.length"
             :tuip="quoting"

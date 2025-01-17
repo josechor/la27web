@@ -85,7 +85,7 @@ const onScroll = () => {
   >
     <div
       @click="openModal()"
-      class="p-3 z-[100] rounded-full bg-dark-background-color-quaternary absolute -top-[150%] right-2 transition-all duration-300 cursor-pointer"
+      class="p-3 z-[100] rounded-full bg-purple-primary absolute -top-[150%] right-2 transition-all duration-300 cursor-pointer"
       id="sidebarMobileButton"
     >
       <Icon name="plusIcon" :width="24" :height="24" class="" />
@@ -93,10 +93,10 @@ const onScroll = () => {
     <div
       v-for="item in sidebarMobile"
       @click="$router.push(item.router)"
-      class="p-2 cursor-pointer"
+      class="p-3 cursor-pointer"
       :class="
         $router.currentRoute.value.path === item.router
-          ? 'bg-background-colors-primary rounded-xl bg-opacity-30'
+          ? 'bg-purple-primary rounded-xl bg-opacity-50'
           : ''
       "
     >
