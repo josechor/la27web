@@ -163,5 +163,6 @@ span.effect {
   overflow: hidden;
   text-overflow: ellipsis;
   box-sizing: border-box;
+  white-space: pre-wrap;
 }
 </style>

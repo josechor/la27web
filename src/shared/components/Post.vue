@@ -298,5 +298,6 @@ const removeFile = (index: number) => {
   overflow: hidden;
   text-overflow: ellipsis;
   box-sizing: border-box;
+  white-space: pre-wrap;
 }
 </style>
