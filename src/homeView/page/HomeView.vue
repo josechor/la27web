@@ -77,7 +77,7 @@ function validateInput() {
 <template>
   <div class="flex gap-6">
     <section
-      class="border border-y-transparent border-x-light-background-colors-quaternary dark:border-x-dark-background-color-quaternary w-full lg:w-[100%] lg:max-w-[1000px] min-h-screen"
+      class="border border-y-transparent border-x-light-background-colors-quaternary dark:border-x-dark-background-color-quaternary w-full lg:w-[100%] lg:max-w-[680px] min-h-screen"
     >
       <section
         class="hidden lg:flex  gap-4 justify-around border border-transparent border-b-light-background-colors-quaternary dark:border-b-dark-background-color-quaternary w-full px-3 py-1"
@@ -118,7 +118,7 @@ function validateInput() {
         <Tuip v-for="tuip in tuips" :key="tuip.tuipId" :tuip="tuip" />
       </section>
     </section>
-    <section class="w-[350px] hidden xl:block">
+    <section class="w-[450px] hidden xl:block">
       <div v-for="_ in 1" class="h-[200px] w-full bg-[#333]">hola</div>
     </section>
   </div>

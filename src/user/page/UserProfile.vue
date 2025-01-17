@@ -30,6 +30,7 @@ const page = ref(1);
 const limit = 20;
 
 const currentTab = ref("tuips");
+const loading = ref(false);
 
 onMounted(() => {
   startProfile();
@@ -44,14 +45,17 @@ watch(
 );
 
 async function startProfile() {
+  loading.value = true;
   if (!username || typeof username !== "string") {
     console.error("El parámetro userId no es válido");
+    loading.value = false;
     return;
   }
   user.value = (await userStore.getUserData(username)) || null;
   tuips.value = await tuipsFetchApi.getTuips(page.value, limit, {
     authorId: user.value?.userId,
   });
+  loading.value = false;
 }
 
 async function handleClickFollow() {
@@ -104,7 +108,7 @@ function handleClickEdit() {
 }
 </script>
 <template>
-  <div class="flex gap-6" v-if="user">
+  <div class="flex gap-6" v-if="user && !loading">
     <section
       class="border border-y-transparent border-x-light-background-colors-quaternary dark:border-x-dark-background-color-quaternary w-full lg:w-[65%] min-h-screen"
     >
