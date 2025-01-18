@@ -91,7 +91,7 @@ function getDate(date: string) {
         @click.stop="router.push('/profile/' + tuip.userName)"
         :src="tuip.profilePicture"
         errorsrc="default-image.webp"
-        class="h-[50px] w-[50px] rounded-full cursor-pointer"
+        class="h-[50px] w-[50px] rounded-full cursor-pointer object-cover"
         role="button"
       />
       <div class="w-full flex flex-col gap-1">
@@ -106,7 +106,7 @@ function getDate(date: string) {
             <Image
               :src="quoting.profilePicture"
               errorsrc="default-image.webp"
-              class="h-[20px] w-[20px] rounded-full"
+              class="h-[20px] w-[20px] rounded-full object-cover"
               role="button"
             />
             <div class="flex items-end gap-1 translate-y-[-2px]">

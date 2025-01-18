@@ -14,6 +14,8 @@ import BestTuips from "../components/BestTuips.vue";
 import LikedTuips from "../components/LikedTuips.vue";
 import { storeToRefs } from "pinia";
 import { UserFetchApi } from "../../shared/services/user/UserFetchApi";
+import Image from "../../shared/atoms/Image.vue";
+import { useMultimediaStore } from "../../shared/stores/multimedia/multimediaStore";
 
 const tuipsFetchApi = new TuipsFetchApi();
 const userFetchApi = new UserFetchApi();
@@ -106,6 +108,9 @@ const getUserCreatedAt = computed(() => {
 function handleClickEdit() {
   console.log("Edit");
 }
+
+const multimediaStore = useMultimediaStore();
+const { openModal } = multimediaStore;
 </script>
 <template>
   <div class="flex gap-6" v-if="user && !loading">
@@ -128,10 +133,11 @@ function handleClickEdit() {
             src="https://www.excelsior.com.mx/media/styles/image1200x630/public/pictures/2024/11/21/3216015.jpg"
             alt=""
           />
-          <img
-            class="h-[80px] w-[80px] rounded-full absolute -bottom-[40px] left-0"
-            src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+          <Image
+           :src="user.profilePicture"
+            class="h-[100px] w-[100px] rounded-full absolute -bottom-[50px] left-[20px] object-cover"
             alt="user"
+            @click="user.profilePicture && openModal(user.profilePicture)"
           />
         </div>
         <div class="flex justify-end items-center p-6">
