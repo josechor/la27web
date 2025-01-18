@@ -73,13 +73,6 @@ async function createPost() {
 function validateInput() {
   if (post.value.length > 255) post.value = post.value.slice(0, 255);
 }
-
-function handleClickEnter(e: KeyboardEvent) {
-  if (e.shiftKey) {
-    return;
-  }
-  createPost();
-}
 </script>
 <template>
   <div class="flex gap-6">
@@ -101,7 +94,6 @@ function handleClickEnter(e: KeyboardEvent) {
             v-model="post"
             placeholder="Que te cuentas?"
             @input="validateInput"
-            @keydown.enter="handleClickEnter"
             class="text-white bg-transparent p-0 border-0 h-[130px]"
           />
           <hr class="w-full border-background-colors-quaternary" />

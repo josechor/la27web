@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted, Ref, ref, watch } from "vue";
+import { onMounted, onUnmounted, Ref, ref } from "vue";
 import { ButtonSize } from "../types/shared";
 import { TuipCreate } from "../types/tuipsTypes";
 import { TuipsFetchApi } from "../services/tuips/tuipsFetchApi";
@@ -54,8 +54,10 @@ onUnmounted(() => {
   });
 });
 
+const creatingPost = ref(false);
 async function createPost() {
   if (post.value.length === 0 && files.value.length === 0) return;
+  creatingPost.value = true;
   const tuip: TuipCreate = {
     content: post.value,
     multimedia: files.value,
@@ -64,6 +66,7 @@ async function createPost() {
     secta: null,
   };
   await tuipsFetchApi.createTuip(tuip);
+  creatingPost.value = false;
   post.value = "";
   files.value = [];
   closeModal();
@@ -136,14 +139,7 @@ const removeFile = (index: number) => {
   files.value.splice(index, 1);
 };
 
-function handleClickEnter(event: KeyboardEvent) {
-  if (event.shiftKey) return;
-  router.go(-1);
-  createPost();
-}
-
 function handleClickCreatePost() {
-  router.go(-1);
   createPost();
 }
 </script>
@@ -212,7 +208,6 @@ function handleClickCreatePost() {
               v-model="post"
               placeholder="Que te cuentas?"
               @input="validateInput"
-              @keydown.enter="handleClickEnter"
               class="text-white bg-transparent p-0 w-full border-0 text-xl"
             />
             <div class="flex flex-nowrap overflow-x-scroll">
@@ -298,7 +293,7 @@ function handleClickCreatePost() {
             <span class="text-xs">{{ post.length }}/255</span>
             <Button
               @click="handleClickCreatePost()"
-              :disabled="post.length === 0 && files.length === 0"
+              :disabled="(post.length === 0 && files.length === 0) || creatingPost"
               :size="ButtonSize.small"
               text="Publicar"
             />
