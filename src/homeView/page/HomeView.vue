@@ -116,7 +116,7 @@ function validateInput() {
       </section>
     </section>
     <section class="w-[450px] hidden xl:block">
-      <div v-for="_ in 1" class="h-[200px] w-full bg-[#333]">hola</div>
+      <div v-for="_ in 0" class="h-[200px] w-full bg-[#333]">hola</div>
     </section>
   </div>
 </template>
