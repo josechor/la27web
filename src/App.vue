@@ -56,11 +56,11 @@ onMounted(async () => {
   </template>
   <div
     v-if="!loading"
-    class="w-full lg:grid grid-cols-[250px_1fr] max-w-[1275px] m-auto"
+    :class="[pathIsLogin ? 'flex items-center justify-center' : 'w-full lg:grid grid-cols-[250px_1fr] max-w-[1275px] m-auto']"
   >
     <Sidebar v-if="userStore.sessionToken" />
     <SidebarMobile v-if="userStore.sessionToken" />
-    <main :class="[!pathIsLogin ? 'min-h-screen' : '']">
+    <main class="min-h-screen min-w-screen" :class="[pathIsLogin ? 'flex items-center justify-center' : '']">
       <RouterView />
       <Post v-if="userStore.loggedUser && modalPost" v-model="modalPost" />
       <ImageModal

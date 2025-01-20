@@ -27,14 +27,16 @@ async function register() {
 </script>
 
 <template>
-  <div class="border border-[#333] p-8 rounded-md w-[300px]">
-    <h1 class="mb-8">Loggin</h1>
+  <div
+    class="border border-background-colors-tertiary bg-background-colors-secondary p-8 rounded-md min-w-[300ppx] w-[350px]"
+  >
+    <h1 class="mb-8 text-xl2 font-bold">Registro</h1>
     <div class="flex flex-col gap-4">
       <div class="flex flex-col mb-1 justify-start items-start gap-1">
         <label for="email">Nombre</label>
         <input
           v-model="name"
-          class="w-full"
+          class="w-full text-background-colors-primary outline-none px-2 py-1 rounded-xl"
           type="text"
           id="name"
           name="name"
@@ -45,7 +47,7 @@ async function register() {
         <label for="password">Nombre demonio</label>
         <input
           v-model="demonName"
-          class="w-full"
+          class="w-full text-background-colors-primary outline-none px-2 py-1 rounded-xl"
           type="text"
           id="demonName"
           name="demonName"
@@ -56,7 +58,7 @@ async function register() {
         <label for="email">Email</label>
         <input
           v-model="email"
-          class="w-full"
+          class="w-full text-background-colors-primary outline-none px-2 py-1 rounded-xl"
           type="email"
           id="email"
           name="email"
@@ -67,19 +69,31 @@ async function register() {
         <label for="password">Password</label>
         <input
           v-model="password"
-          class="w-full"
+          class="w-full text-background-colors-primary outline-none px-2 py-1 rounded-xl"
           type="password"
           id="password"
           name="password"
           required
         />
       </div>
-      <div class="flex justify-end">
+      <div class="flex justify-between">
+        <button
+          @click="$router.push('/login')"
+          class="bg-background-colors-tertiary px-4 py-2 rounded-2xl w-fit text-lg"
+        >
+          Ir a Login
+        </button>
         <button
           @click="register"
           :disabled="!email || !password || !name || !demonName"
+          :title="
+            !email || !password || !name || !demonName
+              ? 'Completa los campos'
+              : ''
+          "
+          class="bg-background-colors-tertiary px-4 py-2 rounded-2xl w-fit text-lg disabled:bg-opacity-20 disabled:text-text-color-tertiary"
         >
-          Loggin
+          Registrarse
         </button>
       </div>
     </div>

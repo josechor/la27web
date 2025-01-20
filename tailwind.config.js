@@ -9,6 +9,8 @@ export default {
       base: ['14px', '20px'],
       lg: ['16px', '24px'],
       xl: ['20px', '32px'],
+      xl2: ['32px', '38px'],
+
     },
     extend: {
       colors: {
