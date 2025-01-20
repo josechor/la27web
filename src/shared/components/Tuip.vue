@@ -67,13 +67,13 @@ function getDate(date: string) {
       class="flex gap-4 justify-around w-full px-3 py-2 relative pb-7 tuip"
     >
       <div
-        class="w-[2px] bg-background-colors-tertiary absolute top-[8px] left-[37px] h-full z-0"
+        class="w-[2px] bg-background-colors-tertiary absolute top-[19px] left-[35px] h-full z-0"
       ></div>
       <Image
         @click.stop="router.push('/profile/' + parent.userName)"
         :src="parent.profilePicture"
         errorsrc="default-image.webp"
-        class="h-[50px] w-[50px] rounded-full cursor-pointer z-50"
+        class="h-[50px] w-[50px] rounded-full cursor-pointer z-50 object-cover"
         role="button"
       />
       <div class="w-full flex flex-col gap-1">
