@@ -53,7 +53,7 @@ function efect(e: any) {
   let div = document.createElement("div");
   const target = e.target.getBoundingClientRect();
   document.querySelector("body")?.appendChild(div);
-  div.style.left = target.left + e.target.width / 2 + "px";
+  div.style.left = target.left + 10 + "px";
   div.style.top = target.top + window.scrollY + 5 + "px";
   div.style.position = "absolute";
   const maxElems = 13;
