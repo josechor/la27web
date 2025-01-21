@@ -143,15 +143,16 @@ function handleClickEdit() {
         </div>
         <div class="relative">
           <Image
-            class="w-full h-[200px] object-cover"
+            @click="user.banner && openModal(user.banner)"
             :src="user.banner"
+            class="w-full h-[200px] object-cover"
             alt=""
           />
           <Image
+            @click="user.profilePicture && openModal(user.profilePicture)"
             :src="user.profilePicture"
             class="h-[100px] w-[100px] rounded-full absolute -bottom-[50px] left-[20px] object-cover"
             alt="user"
-            @click="user.profilePicture && openModal(user.profilePicture)"
           />
         </div>
         <div class="flex justify-end items-center p-6">
