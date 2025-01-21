@@ -54,7 +54,7 @@ function efect(e: any) {
   const target = e.target.getBoundingClientRect();
   document.querySelector("body")?.appendChild(div);
   div.style.left = target.left + e.target.width / 2 + "px";
-  div.style.top = target.top + 5 + "px";
+  div.style.top = target.top + window.scrollY + 5 + "px";
   div.style.position = "absolute";
   const maxElems = 13;
   for (let i = 0; i < maxElems; i++) {
@@ -108,7 +108,7 @@ function efect(e: any) {
     >
       <img
         src="../../../shared/utils/images/antorcha.png"
-        class=" lg:w-[20px] lg:h-[20px] h-[17px] w-[17px] iconHover"
+        class="lg:w-[20px] lg:h-[20px] h-[17px] w-[17px] iconHover"
       />
       {{ tuip.likesCount }}
     </div>
