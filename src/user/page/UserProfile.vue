@@ -16,6 +16,8 @@ import { storeToRefs } from "pinia";
 import { UserFetchApi } from "../../shared/services/user/UserFetchApi";
 import Image from "../../shared/atoms/Image.vue";
 import { useMultimediaStore } from "../../shared/stores/multimedia/multimediaStore";
+import EditProfile from "../components/EditProfile.vue";
+import { useEditProfileStore } from "../stores/editProfileStore";
 
 const tuipsFetchApi = new TuipsFetchApi();
 const userFetchApi = new UserFetchApi();
@@ -58,6 +60,15 @@ async function startProfile() {
     authorId: user.value?.userId,
   });
   loading.value = false;
+}
+
+async function handleUpdateProfile() {
+  if (!username || typeof username !== "string") {
+    console.error("El parámetro userId no es válido");
+    loading.value = false;
+    return;
+  }
+  user.value = (await userStore.getUserData(username)) || null;
 }
 
 async function handleClickFollow() {
@@ -105,12 +116,15 @@ const getUserCreatedAt = computed(() => {
   } de ${date.getFullYear()}`;
 });
 
-function handleClickEdit() {
-  console.log("Edit");
-}
-
 const multimediaStore = useMultimediaStore();
 const { openModal } = multimediaStore;
+
+const editProfileStore = useEditProfileStore();
+const { editProfileModalRef } = storeToRefs(editProfileStore);
+function handleClickEdit() {
+  if (!user.value) return;
+  editProfileStore.openModal(user.value);
+}
 </script>
 <template>
   <div class="flex gap-6" v-if="user && !loading">
@@ -128,13 +142,13 @@ const { openModal } = multimediaStore;
           </div>
         </div>
         <div class="relative">
-          <img
+          <Image
             class="w-full h-[200px] object-cover"
-            src="https://www.excelsior.com.mx/media/styles/image1200x630/public/pictures/2024/11/21/3216015.jpg"
+            :src="user.banner"
             alt=""
           />
           <Image
-           :src="user.profilePicture"
+            :src="user.profilePicture"
             class="h-[100px] w-[100px] rounded-full absolute -bottom-[50px] left-[20px] object-cover"
             alt="user"
             @click="user.profilePicture && openModal(user.profilePicture)"
@@ -250,9 +264,12 @@ const { openModal } = multimediaStore;
       </section>
     </section>
     <section class="w-[350px] hidden xl:block"></section>
+    <EditProfile
+      v-if="userStore.loggedUser && editProfileModalRef"
+      v-model="editProfileModalRef"
+      @update-profile="handleUpdateProfile"
+    />
   </div>
 </template>
 
-<style>
-
-</style>
+<style></style>

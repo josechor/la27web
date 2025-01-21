@@ -1,8 +1,9 @@
-
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, watch } from "vue";
 
-const domain = window.location.href.includes('192.168.1.136') ? import.meta.env.VITE_API_URL : import.meta.env.VITE_API_URL_PROD;
+const domain = window.location.href.includes("192.168.1.136")
+  ? import.meta.env.VITE_API_URL
+  : import.meta.env.VITE_API_URL_PROD;
 
 const props = defineProps({
   src: {
@@ -20,11 +21,19 @@ const props = defineProps({
 });
 
 const imgSrc = ref(`${domain}/multimedia/${props.src}`);
-const defaultImg = new URL(`../utils/images/${props.errorsrc}`, import.meta.url).href;
+const defaultImg = new URL(`../utils/images/${props.errorsrc}`, import.meta.url)
+  .href;
 
 const onError = () => {
   imgSrc.value = defaultImg;
 };
+
+watch(
+  () => props.src,
+  () => {
+    imgSrc.value = `${domain}/multimedia/${props.src}`;
+  }
+);
 </script>
 
 <template>

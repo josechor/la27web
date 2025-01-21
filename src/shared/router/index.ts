@@ -7,6 +7,7 @@ import UserProfile from "../../user/page/UserProfile.vue";
 import Sectas from "../../sectas/page/Sectas.vue";
 import SectaDetails from "../../sectaDetails/page/SectaDetails.vue";
 import { useTuipsStore } from "../stores/tuips/tuipsStore";
+import { useEditProfileStore } from "../../user/stores/editProfileStore";
 
 const routes = [
   { path: "/", component: HomeView, meta: { requiresAuth: true } },
@@ -26,8 +27,12 @@ const router = createRouter({
 router.beforeEach((to, _, next) => {
   const userStore = useUserStore();
   const tuipsStore = useTuipsStore();
+  const editProfileStore = useEditProfileStore();
   if (!to.query.post) {
     tuipsStore.modalPost = false;
+  }
+  if (!to.query.editProfile) {
+    editProfileStore.editProfileModalRef = false;
   }
   const isAuthenticated = userStore.sessionToken !== null;
   if (to.meta.notLogged && isAuthenticated) {
