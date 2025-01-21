@@ -7,7 +7,6 @@ export class TuipsFetchApi implements TuipsApi {
   domain = window.location.href.includes('192.168.1.136') ? import.meta.env.VITE_API_URL : import.meta.env.VITE_API_URL_PROD;
   async getTuipById(tuipId: number): Promise<TuipInterface> {
     const tuip = await apiGet<TuipInterface>(`/api/tuips/${tuipId}`);
-    tuip.tuipMultimedia = (tuip.tuipMultimedia as any) !== "" ? (tuip.tuipMultimedia as any).split(",") : []
     return tuip;
   }
 
