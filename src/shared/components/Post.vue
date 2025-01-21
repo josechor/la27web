@@ -65,6 +65,7 @@ async function createPost() {
     parent: responsePost.value?.tuipId || null,
     secta: null,
   };
+
   await tuipsFetchApi.createTuip(tuip);
   creatingPost.value = false;
   post.value = "";
@@ -111,7 +112,7 @@ interface CustomFile extends File {
 const files: Ref<CustomFile[]> = ref([]);
 
 const handleFiles = (event: any) => {
-  const maxFiles = 1;
+  const maxFiles = 2;
   const selectedFiles = event.target.files;
   const remainingSlots = maxFiles - files.value.length;
 
@@ -280,7 +281,7 @@ function handleClickCreatePost() {
             </label>
             <input
               type="file"
-              accept=".jpg,.jpeg,.png,.gif,.mp4,.mov,.avi,.mkv,.webm"
+              accept="image/*, video/*"
               capture="environment"
               class="hidden"
               name="file"
@@ -293,9 +294,11 @@ function handleClickCreatePost() {
             <span class="text-xs">{{ post.length }}/255</span>
             <Button
               @click="handleClickCreatePost()"
-              :disabled="(post.length === 0 && files.length === 0) || creatingPost"
+              :disabled="
+                (post.length === 0 && files.length === 0) || creatingPost
+              "
               :size="ButtonSize.small"
-              text="Publicar"
+              :text="creatingPost ? 'Publicando...' : 'Publicar'"
             />
           </div>
         </div>

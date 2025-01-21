@@ -24,8 +24,9 @@ export class TuipsFetchApi implements TuipsApi {
     }
     const response = await apiGet<TuipInterface[]>(`/api/tuips?page=${page}&limit=${limit}${query}`);
     response.forEach((tuip) => {
-
-      tuip.tuipMultimedia = (tuip.tuipMultimedia as any) !== "" ? (tuip.tuipMultimedia as any).split(",") : []
+      if (tuip.tuipMultimedia === null) {
+        tuip.tuipMultimedia = []
+      }
     });
     return response;
   }
@@ -38,7 +39,7 @@ export class TuipsFetchApi implements TuipsApi {
     formData.append("content", tuip.content);
     tuip.multimedia.forEach((fileObj) => {
       // @ts-ignore
-      formData.append("multimedia", fileObj.file);
+      formData.append("media", fileObj.file);
     });
     if (tuip.quoting) {
       formData.append("quoting", tuip.quoting?.toString() || "");
