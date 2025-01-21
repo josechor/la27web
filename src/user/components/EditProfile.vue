@@ -27,6 +27,14 @@ interface CustomFile extends File {
   preview?: string;
 }
 
+function handleInputDescription(event: any) {
+  if (!userData.value) return;
+  const value = event.target.value;
+  if (value.length > 255) {
+    userData.value.description = value.slice(0, 255);
+  }
+}
+
 const banner: Ref<CustomFile[]> = ref([]);
 
 const handleBanner = (event: any) => {
@@ -157,8 +165,10 @@ async function handleClickSave() {
             type="email"
             id="description"
             name="description"
+            @input="handleInputDescription"
             required
           />
+          {{ userData.description?.length ?? 0 }} / 255
         </div>
         <div class="flex flex-col mb-1 justify-start items-start gap-1">
           <label for="email" class="pl-1 font-semibold">Email</label>
