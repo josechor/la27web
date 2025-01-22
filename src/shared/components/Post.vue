@@ -169,7 +169,7 @@ function handleClickCreatePost() {
       <Image
         :src="responsePost.profilePicture"
         alt="user"
-        class="h-[40px] w-[40px] rounded-full z-10"
+        class="h-[40px] w-[40px] rounded-full z-10 object-cover"
       />
       <div
         class="absolute w-[2px] top-0 left-[20px] h-full z-0 bg-background-colors-tertiary"
@@ -206,7 +206,7 @@ function handleClickCreatePost() {
           <Image
             :src="loggedUser?.profilePicture ?? null"
             alt="user"
-            class="h-[40px] w-[40px] rounded-full"
+            class="h-[40px] w-[40px] rounded-full object-cover"
           />
           <div class="flex flex-col gap-2 w-full">
             <textarea
@@ -251,7 +251,7 @@ function handleClickCreatePost() {
             <Image
               :src="quotingPost.profilePicture"
               alt="user"
-              class="h-[20px] w-[20px] rounded-full"
+              class="h-[20px] w-[20px] rounded-full object-cover"
             />
             <div class="flex items-end gap-1 translate-y-[-3px]">
               <span class="font-bold text-sm truncate">{{
