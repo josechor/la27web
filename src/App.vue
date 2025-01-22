@@ -61,7 +61,7 @@ onMounted(async () => {
     <Sidebar v-if="userStore.sessionToken" />
     <SidebarMobile v-if="userStore.sessionToken" />
     <main class="min-h-screen min-w-screen" :class="[pathIsLogin ? 'flex items-center justify-center' : '']">
-      <RouterView />
+      <RouterView class="mb-14"/>
       <Post v-if="userStore.loggedUser && modalPost" v-model="modalPost" />
       <ImageModal
         v-if="multimediaStore.isOpenModal"

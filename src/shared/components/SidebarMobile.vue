@@ -56,7 +56,7 @@ const onScroll = () => {
     if (direction.value === "up") {
       lastChange.value = window.scrollY;
     }
-    if (window.scrollY - lastChange.value > 400) {
+    if (window.scrollY - lastChange.value > 100) {
       //@ts-ignore
       sidebarMobileComponent.style.bottom = "-100px";
       //@ts-ignore
@@ -67,7 +67,7 @@ const onScroll = () => {
     if (direction.value === "down") {
       lastChange.value = window.scrollY;
     }
-    if (window.scrollY - lastChange.value < 400) {
+    if (window.scrollY - lastChange.value < 100) {
       //@ts-ignore
       sidebarMobileComponent.style.bottom = "0";
       //@ts-ignore
