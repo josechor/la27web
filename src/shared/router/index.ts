@@ -8,12 +8,14 @@ import Sectas from "../../sectas/page/Sectas.vue";
 import SectaDetails from "../../sectaDetails/page/SectaDetails.vue";
 import { useTuipsStore } from "../stores/tuips/tuipsStore";
 import { useEditProfileStore } from "../../user/stores/editProfileStore";
+import Search from "../../search/page/Search.vue";
 
 const routes = [
   { path: "/", component: HomeView, meta: { requiresAuth: true } },
   { path: "/profile/:username", component: UserProfile, meta: { requiresAuth: true } },
   { path: "/sectas", component: Sectas, meta: { requiresAuth: true } },
   { path: "/sectas/:sectaId", component: SectaDetails, meta: { requiresAuth: true } },
+  { path: "/search", component: Search, meta: { requiresAuth: true } },
   { path: "/login", component: Loggin, meta: { notLogged: true } },
   { path: "/register", component: Register, meta: { notLogged: true } },
   { path: "/:pathMatch(.*)*", redirect: "/" },

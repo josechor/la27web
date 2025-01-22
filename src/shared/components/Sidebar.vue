@@ -68,6 +68,7 @@ function redirect(route: string) {
           :width="32"
           :height="32"
         />
+
         <span
           :class="
             $router.currentRoute.value.path === item.router ? 'font-bold' : ''
@@ -91,7 +92,9 @@ function redirect(route: string) {
           alt="user"
         />
         <div class="flex flex-col gap-0 truncate w-full">
-          <span class="font-bold text-sm truncate w-full">{{ loggedUser?.demonName }}</span
+          <span class="font-bold text-sm truncate w-full">{{
+            loggedUser?.demonName
+          }}</span
           ><span class="text-xs">@{{ loggedUser?.userName }}</span>
         </div>
       </div>
