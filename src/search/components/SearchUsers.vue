@@ -38,10 +38,12 @@ async function handleClickFollow() {
     class="p-2 flex flex-row justify-between items-center gap-5 cursor-pointer"
   >
     <div class="flex flex-row gap-3">
-      <Image
-        :src="userModel.profilePicture"
-        class="rounded-full w-10 h-10 object-cover"
-      />
+      <div class="w-10 h-10 min-w-10 min-h-10">
+        <Image
+          :src="userModel.profilePicture"
+          class="rounded-full w-full h-full object-cover"
+        />
+      </div>
       <div class="flex flex-col gap-1">
         <div class="flex flex-col">
           <span class="font-bold">{{ userModel.demonName }}</span>
