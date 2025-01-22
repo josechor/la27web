@@ -35,7 +35,7 @@ async function handleClickFollow() {
 <template>
   <div
     @click="$router.push(`/profile/${userModel.userName}`)"
-    class="p-2 flex flex-row justify-between items-center gap-5 cursor-pointer"
+    class="p-2 flex flex-row justify-between items-start gap-5 cursor-pointer"
   >
     <div class="flex flex-row gap-3">
       <div class="w-10 h-10 min-w-10 min-h-10">
@@ -54,11 +54,20 @@ async function handleClickFollow() {
         <span>{{ userModel.description }}</span>
       </div>
     </div>
-    <div class="lg:mr-6">
+    <div class="lg:mr-6 mt-1 hidden lg:block">
       <Button
         v-if="loggedUser?.userName !== userModel.userName"
         @click.stop="handleClickFollow"
         :size="ButtonSize.large"
+        :text="userModel.isFollowing ? 'Dejar seguir' : 'Seguir'"
+        class="text-nowrap"
+      />
+    </div>
+    <div class="lg:mr-6 mt-1 block lg:hidden">
+      <Button
+        v-if="loggedUser?.userName !== userModel.userName"
+        @click.stop="handleClickFollow"
+        :size="ButtonSize.small"
         :text="userModel.isFollowing ? 'Dejar seguir' : 'Seguir'"
         class="text-nowrap"
       />
