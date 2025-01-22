@@ -35,7 +35,7 @@ async function handleClickFollow() {
 <template>
   <div
     @click="$router.push(`/profile/${userModel.userName}`)"
-    class="p-2 flex flex-col justify-between items-start gap-5 cursor-pointer"
+    class="p-2 flex flex-col justify-between items-start cursor-pointer"
   >
     <div
       class="p-2 flex flex-row justify-between items-start gap-5 cursor-pointer w-full"
