@@ -11,6 +11,8 @@ import { ISectasFollowed } from "../../sectas/types/types";
 import TuipMultimedia from "./Tuip/TuipMultimedia.vue";
 import router from "../router";
 import Icon from "../atoms/Icon.vue";
+import Image from "../atoms/Image.vue";
+import { useUserStore } from "../stores/user/userStore";
 
 const emits = defineEmits(["update:modelValue"]);
 
@@ -26,6 +28,9 @@ const userFetchApi = new UserFetchApi();
 
 const tuipsStore = useTuipsStore();
 const { quotingPost, responsePost } = storeToRefs(tuipsStore);
+
+const userStore = useUserStore();
+const { loggedUser } = storeToRefs(userStore);
 
 const sectasOptions = ref<{ label: string; value: string }[]>([]);
 
@@ -161,8 +166,8 @@ function handleClickCreatePost() {
       X
     </div>
     <section v-if="responsePost" class="flex gap-4 w-full mb-1 relative">
-      <img
-        src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+      <Image
+        :src="responsePost.profilePicture"
         alt="user"
         class="h-[40px] w-[40px] rounded-full z-10"
       />
@@ -198,8 +203,8 @@ function handleClickCreatePost() {
     <section class="flex gap-4 justify-around w-full">
       <div class="w-full flex gap-2 flex-col">
         <div class="flex flex-row gap-2">
-          <img
-            src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+          <Image
+            :src="loggedUser?.profilePicture ?? null"
             alt="user"
             class="h-[40px] w-[40px] rounded-full"
           />
@@ -243,8 +248,8 @@ function handleClickCreatePost() {
           class="px-2 py-3 border rounded-lg border-background-colors-quaternary z-10"
         >
           <header class="flex flex-row gap-1">
-            <img
-              src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+            <Image
+              :src="quotingPost.profilePicture"
               alt="user"
               class="h-[20px] w-[20px] rounded-full"
             />
