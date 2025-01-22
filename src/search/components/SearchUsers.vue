@@ -54,7 +54,7 @@ async function handleClickFollow() {
         <span>{{ userModel.description }}</span>
       </div>
     </div>
-    <div class="mr-2 lg:mr-6">
+    <div class="lg:mr-6">
       <Button
         v-if="loggedUser?.userName !== userModel.userName"
         @click.stop="handleClickFollow"
