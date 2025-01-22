@@ -104,14 +104,21 @@ function getDate(date: string) {
         >
           <header class="flex flex-row gap-1 items-center">
             <Image
+              @click="router.push('/profile/' + quoting.userName)"
               :src="quoting.profilePicture"
               errorsrc="default-image.webp"
               class="h-[20px] w-[20px] rounded-full object-cover"
               role="button"
             />
             <div class="flex items-end gap-1 translate-y-[-2px]">
-              <span class="font-bold text-sm">{{ quoting.demonName }}</span>
-              <span class="font-light text-text-color-secondary text-xs"
+              <span
+                @click="router.push('/profile/' + quoting.userName)"
+                class="font-bold text-sm"
+                >{{ quoting.demonName }}</span
+              >
+              <span
+                @click="router.push('/profile/' + quoting.userName)"
+                class="font-light text-text-color-secondary text-xs"
                 >@{{ quoting.userName }} ¤
                 {{ getDate(quoting.tuipCreatedAt) }}</span
               >
