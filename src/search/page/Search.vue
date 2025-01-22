@@ -18,7 +18,7 @@ onMounted(async () => {
     >
       <SearchHeader v-if="false" />
       <div v-if="false" class="h-[1px] w-full bg-background-colors-secondary" />
-      <div class="p-5 flex flex-col gap-4">
+      <div class="p-1 lg:p-5 flex flex-col gap-4">
         <SearchUsers v-for="user in users" :search-user="user" />
       </div>
     </section>

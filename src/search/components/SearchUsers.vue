@@ -58,7 +58,7 @@ async function handleClickFollow() {
         @click.stop="handleClickFollow"
         :size="ButtonSize.large"
         :text="userModel.isFollowing ? 'Dejar seguir' : 'Seguir'"
-        class=""
+        class="text-nowrap"
       />
     </div>
   </div>
