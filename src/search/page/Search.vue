@@ -8,6 +8,7 @@ const fetchSearch = new FetchSearchApi();
 
 const users: Ref<ISearchUsers[]> = ref([]);
 onMounted(async () => {
+  window.scrollTo(0, 0);
   users.value = await fetchSearch.getAllUsers();
 });
 </script>

@@ -37,6 +37,7 @@ const currentTab = ref("tuips");
 const loading = ref(false);
 
 onMounted(() => {
+  window.scrollTo(0, 0);
   startProfile();
 });
 

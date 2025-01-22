@@ -26,6 +26,7 @@ const loadingNewTuips = ref(false);
 onMounted(async () => {
   tuips.value = await tuipsFetchApi.getTuips(page, limit);
   window.addEventListener("scroll", onScroll);
+  window.scrollTo(0, 0);
 });
 
 onUnmounted(() => {
