@@ -22,7 +22,7 @@ async function login() {
   <div
     class="border border-background-colors-tertiary bg-background-colors-secondary p-8 rounded-md min-w-[300ppx] w-[350px]"
   >
-    <h1 class="mb-8 text-xl2 font-bold">Loggin</h1>
+    <h1 class="mb-8 text-xl2 font-bold">Login</h1>
     <div class="flex flex-col gap-4">
       <div class="flex flex-col mb-1 justify-start items-start gap-1">
         <label for="email" class="pl-2">Email</label>
@@ -62,7 +62,7 @@ async function login() {
           :title="!email || !password ? 'Completa los campos' : ''" 
           class="bg-background-colors-tertiary px-4 py-2 rounded-2xl w-fit text-lg disabled:bg-opacity-20 disabled:text-text-color-tertiary"
         >
-          Loggin
+          Login
         </button>
       </div>
     </div>
