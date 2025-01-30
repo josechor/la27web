@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-const domain = window.location.href.includes('192.168.1.136') ? import.meta.env.VITE_API_URL : import.meta.env.VITE_API_URL_PROD;
+const domain = window.location.href.includes('192.168.1') ? import.meta.env.VITE_API_URL : import.meta.env.VITE_API_URL_PROD;
 
 const props = defineProps({
   src: {

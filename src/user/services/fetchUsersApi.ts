@@ -2,7 +2,7 @@ import { apiPatch } from "../../shared/services/api";
 import { useUserStore } from "../../shared/stores/user/userStore";
 
 export class FetchUsersApi {
-    domain = window.location.href.includes('192.168.1.136') ? import.meta.env.VITE_API_URL : import.meta.env.VITE_API_URL_PROD;
+    domain = window.location.href.includes('192.168.1') ? import.meta.env.VITE_API_URL : import.meta.env.VITE_API_URL_PROD;
 
     async updateProfilePicture(file: File): Promise<void> {
         const userStore = useUserStore();

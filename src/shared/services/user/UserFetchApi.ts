@@ -4,7 +4,7 @@ import { apiDelete, apiGet, apiPost } from "../api";
 import { UserApi } from "./userApi";
 
 export class UserFetchApi implements UserApi {
-  domain = window.location.href.includes('192.168.1.136') ? import.meta.env.VITE_API_URL : import.meta.env.VITE_API_URL_PROD;
+  domain = window.location.href.includes('192.168.1') ? import.meta.env.VITE_API_URL : import.meta.env.VITE_API_URL_PROD;
   async createUser(user: CreateUser): Promise<void> {
     await fetch(this.domain + "/api/users", {
       method: "POST",

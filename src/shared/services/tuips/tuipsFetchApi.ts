@@ -4,7 +4,7 @@ import { apiDelete, apiGet, apiPost } from "../api";
 import { TuipsApi } from "./tuipsApi";
 
 export class TuipsFetchApi implements TuipsApi {
-  domain = window.location.href.includes('192.168.1.136') ? import.meta.env.VITE_API_URL : import.meta.env.VITE_API_URL_PROD;
+  domain = window.location.href.includes('192.168.1') ? import.meta.env.VITE_API_URL : import.meta.env.VITE_API_URL_PROD;
   async getTuipById(tuipId: number): Promise<TuipInterface> {
     const tuip = await apiGet<TuipInterface>(`/api/tuips/${tuipId}`);
     return tuip;

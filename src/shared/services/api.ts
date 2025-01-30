@@ -2,7 +2,7 @@ import { storeToRefs } from "pinia";
 import { useUserStore } from "../stores/user/userStore";
 import router from "../router";
 
-const domain = window.location.href.includes('192.168.1.136') ? import.meta.env.VITE_API_URL : import.meta.env.VITE_API_URL_PROD;
+const domain = window.location.href.includes('192.168.1') ? import.meta.env.VITE_API_URL : import.meta.env.VITE_API_URL_PROD;
 
 export async function apiGet<T>(
   path: string,
