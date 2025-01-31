@@ -9,7 +9,7 @@ body {
   min-height: 100vh;
   box-sizing: border-box;
   transition: background-color 0.1s ease, color 0.3s ease;
-  font-family: "Noto Sans", serif;
+  font-family: system-ui, "Noto Sans", serif;
   @apply text-text-color-primary bg-background-colors-primary text-base;
 }
 
