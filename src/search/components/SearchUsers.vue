@@ -65,9 +65,9 @@ async function handleClickFollow() {
         <Button
           v-if="loggedUser?.userName !== userModel.userName"
           @click.stop="handleClickFollow"
-          :size="ButtonSize.small"
+          :size="ButtonSize.medium"
           :text="userModel.isFollowing ? 'Dejar seguir' : 'Seguir'"
-          class="text-nowrap w-full"
+          class="text-nowrap w-[120px]"
         />
       </div>
     </div>
